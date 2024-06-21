@@ -1,0 +1,129 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "logincep",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.13.6",
+      "toolsId": "e15661a9-dbae-4d3e-8b67-c34c35eee5ef"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.124.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "logincep.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "logincep.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteLoginCep",
+          "pattern": ":?query:",
+          "target": [
+            "TargetLoginCep"
+          ]
+        },
+        {
+          "pattern": "BuscaCep",
+          "name": "BuscaCep",
+          "target": "TargetBuscaCep"
+        },
+        {
+          "pattern": "Register",
+           "name": "Register",
+           "target" : "TargetRegister"
+        }
+      ],
+      "targets": {
+        "TargetLoginCep": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "LoginCep",
+          "viewName": "LoginCep"
+        },
+        "TargetBuscaCep": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "BuscaCep",
+          "viewName": "BuscaCep"
+        },
+        "TargetRegister":{
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Register",
+          "viewName": "Register"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "logincep.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+<mvc:View controllerName="logincep.controller.BuscaCep"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+ 
+    <SplitApp id="SplitApp">
+        <masterPages>
+            <Page id="menuPage" title="Menu">
+                <content>
+                    <List id="menuList">
+                        <!-- Adicionando classes CSS para estilização -->
+                        <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem" selected="true"/>
+                        <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem"/>
+                    </List>
+                </content>
+            </Page>
+        </masterPages>
+ 
+        <!-- detailPages -->
+        <detailPages>
+            <Page id="pageBuscaCep" title="Busca CEP">
+                <customHeader>
+                    <Bar id="detailPageHeader">
+                        <contentMiddle>
+                            <Title id="pageTitle" text="Busca CEP" />
+                        </contentMiddle>
+                        <contentRight>
+                            <HBox id="headerBox">
+                                <Button id="userButton" type="Transparent" icon="sap-icon://person-placeholder" press="onUserPress" />
+                                <Button id="logoutButton" text="Logout" icon="sap-icon://log" press="onLogout" type="Emphasized"/>
+                                <Text id="userName" text="" />
+                            </HBox>
+                        </contentRight>
+                    </Bar>
+                </customHeader>
+                <content>
+                    <VBox id="vboxBuscaCep" visible="true">
+                        <Text id="textCep" text="Digite o CEP para buscar informações:" />
+                        <Input id="inputCep" placeholder="Digite o CEP..." />
+                        <Button id="btnBuscar" text="Buscar" press="onBuscarCep" />
+                        <VBox id="textResult" />
+                    </VBox>
+                    <VBox id="vboxHistorico" visible="false">
+                        <Table id="historicoTable" mode="SingleSelectMaster">
+                            <headerToolbar>
+                                <Toolbar id="historicoToolbar">
+                                    <Title id="historicoTitle" text="Histórico de Buscas" />
+                                    <ToolbarSpacer id ="ToolbarSpacer" />
+                                    <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" />
+                                    <Button id="btnBuscarEndereco" text="Buscar" press="onBuscarEndereco" />
+                                    <Button id="btnOrdenarCrescente" text="Ordenar Crescente" press="onOrdenarCrescente" />
+                                    <Button id="btnOrdenarDecrescente" text="Ordenar Decrescente" press="onOrdenarDecrescente" />
+                                    <Button id="btnLimpa" text="Limpa Ordenacao" press="onLimpaOrdenacao" />
+                                     <Button id="btnGerarRelatorio" text="Gerar Relatório" press="onGerarRelatorio" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="colData">
+                                    <Text id ="teest4e" text="Data" />
+                                </Column>
+                                <Column id="colCep">
+                                    <Text id ="teeste5" text="CEP Pesquisado" />
+                                </Column>
+                                <Column id="colResultado">
+                                    <Text id ="teeste7" text="Resultado" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <!-- Adicione itens dinamicamente usando um modelo de dados -->
+                                <ColumnListItem id ="teeste">
+                                    <cells>
+                                        <Text id ="teeste1" text="{historico>data}" />
+                                        <Text id ="teeste2" text="{historico>cep}" />
+                                        <Text id ="teeste3" text="{historico>resultado}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>
+                </content>
+            </Page>
+        </detailPages>
+ 
+    </SplitApp>
+ 
+</mvc:View>

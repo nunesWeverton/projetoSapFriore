@@ -1,0 +1,39 @@
+
+.menuItem {
+    font-weight: bold;
+}
+
+#pageBuscaCep{
+    background-color: red;
+}
+
+/* Estilo para o título da página */
+#pageTitle {
+    font-size: 1.5rem;
+    color: red;
+}
+
+/* Estilo para os botões na barra de cabeçalho */
+#headerBox .sapMBtn {
+    margin-right: 0.5rem;
+}
+
+/* Estilo para o campo de texto de busca */
+#inputCep {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Estilo para o botão de busca */
+#btnBuscar {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Estilo para o resultado da busca */
+#textResult {
+    margin-top: 1rem;
+}
+#vboxHistorico{
+     background-color: aqua;
+}
