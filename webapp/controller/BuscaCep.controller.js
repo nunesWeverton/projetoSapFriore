@@ -2,52 +2,20 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/m/Table",
-    "sap/m/Column",
-    "sap/m/Label",
-    "sap/m/ColumnListItem",
-    "sap/m/Text",
-    "sap/ui/core/util/File",
-    "sap/ui/core/Fragment"
-], function (Controller, MessageToast, JSONModel, Table, Column, Label, ColumnListItem, Text, FileUtil, Fragment) {
+ 
+], function(Controller, MessageToast, JSONModel, FileUtil, Fragment) {
     "use strict";
-
+ 
+    var aHistorico = [];
+ 
     return Controller.extend("logincep.controller.BuscaCep", {
-
-        onInit: function () {
-            // Limpar o histórico ao inicializar
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // Usuário logado
-                    this._loadHistorico();
-                } else {
-                    // Nenhum usuário logado, limpar histórico
-                    this._clearHistorico();
-                    this.getView().byId("inputCep").setValue("");
-                    this._clearCepTable();
-                }
-            }.bind(this));
+ 
+        // Função para inicializar o controle
+        onInit: function() {
+           
         },
-
-
-        _clearCepTable: function () {
-            var oView = this.getView();
-            var oTable = oView.byId("textResult");
-            if (oTable) {
-                oTable.removeAllItems();
-            }
-        },
-
-        _clearHistorico: function () {
-            var oView = this.getView();
-            var oModel = new JSONModel({ historico: [] });
-            oView.setModel(oModel, "historico");
-
-            var oTable = oView.byId("historicoTable");
-            oTable.destroyItems();
-        },
-
-
+ 
+        // Carrega o histórico do Firestore
         _loadHistorico: function() {
             var oView = this.getView();
             var db = firebase.firestore();
@@ -66,11 +34,11 @@ sap.ui.define([
                     oView.setModel(oModel, "historico");
        
                     var oTable = oView.byId("historicoTable");
-                    var oTemplate = new ColumnListItem({
+                    var oTemplate = new sap.m.ColumnListItem({
                         cells: [
-                            new Text({ text: "{historico>data}" }),
-                            new Text({ text: "{historico>cep}" }),
-                            new Text({ text: "{historico>resultado}" })
+                            new sap.m.Text({ text: "{historico>data}" }),
+                            new sap.m.Text({ text: "{historico>cep}" }),
+                            new sap.m.Text({ text: "{historico>resultado}" })
                         ]
                     });
        
@@ -85,6 +53,7 @@ sap.ui.define([
                 });
         },
  
+        // Função para buscar CEP via API externa
         onBuscarCep: function() {
             var oView = this.getView();
             var sCep = oView.byId("inputCep").getValue();
@@ -128,49 +97,21 @@ sap.ui.define([
                 }
             });
         },
-
-        onBuscarEndereco: function() {
-            var oView = this.getView();
-            var sCep = oView.byId("inputEndereco").getValue();
-
-            if (sCep === "") {
-                MessageToast.show("Por favor, insira um CEP.");
-                this._loadHistorico();
-                return;
-            }
-
-            sCep = sCep.replace(/\D/g, '');
-
-            if (sCep.length !== 8) {
-                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
-                this._loadHistorico();
-                return;
-            }
-
-            var oHistoricoModel = oView.getModel("historico");
-            var aHistorico = oHistoricoModel.getProperty("/historico");
-
-            var aFilteredHistorico = aHistorico.filter(function(item) {
-                return item.cep === sCep;
-            });
-
-            oHistoricoModel.setProperty("/historico", aFilteredHistorico);
-        },
-
        
+        // Função para exibir resultado na tabela de detalhes
         exibirResultadoNaTabela: function(data) {
             var oView = this.getView();
-            var oTable = new Table({
+            var oTable = new sap.m.Table({
                 columns: [
-                    new Column({ header: new Label({ text: "Campo" }) }),
-                    new Column({ header: new Label({ text: "Valor" }) })
+                    new sap.m.Column({ header: new sap.m.Label({ text: "Campo" }) }),
+                    new sap.m.Column({ header: new sap.m.Label({ text: "Valor" }) })
                 ]
             });
        
-            var oTemplate = new ColumnListItem({
+            var oTemplate = new sap.m.ColumnListItem({
                 cells: [
-                    new Text({ text: "{campo}" }),
-                    new Text({ text: "{valor}" })
+                    new sap.m.Text({ text: "{campo}" }),
+                    new sap.m.Text({ text: "{valor}" })
                 ]
             });
        
@@ -190,11 +131,13 @@ sap.ui.define([
             oView.byId("textResult").addItem(oTable);
         },
  
+        // Função para salvar busca no Firestore (Firebase)
         salvarNoFirestore: function(data) {
             var oView = this.getView();
             var user = firebase.auth().currentUser;
             var db = firebase.firestore();
        
+            // Obter data e hora local
             var dataHoraLocal = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
        
             db.collection("buscaCep").add({
@@ -206,6 +149,7 @@ sap.ui.define([
                 console.log("Busca salva com sucesso no Firestore!");
                 MessageToast.show("Busca salva com sucesso!");
        
+                // Atualizar o histórico na view
                 var oHistoricoModel = oView.getModel("historico");
                 var aHistorico = (oHistoricoModel && oHistoricoModel.getProperty("/historico")) || [];
                 aHistorico.unshift({
@@ -225,86 +169,105 @@ sap.ui.define([
                 MessageToast.show("Erro ao salvar a busca no Firestore.");
             });
         },
-        onBack: function () {
+ 
+        // Função para voltar à tela de login
+        onBack: function() {
             this.getOwnerComponent().getRouter().navTo("LoginCep");
         },
-
-        onUserPress: function () {
+ 
+        // Função para lidar com pressionamento do botão de usuário
+        onUserPress: function() {
             MessageToast.show("Botão do usuário pressionado");
         },
-
-        onMenuButtonPress: function () {
-            var oSplitApp = this.byId("SplitApp");
-            oSplitApp.toggleMasterPage();
-        },
-
-        onLogout: function () {
-            firebase.auth().signOut().then(() => {
-                MessageToast.show("Logout successful!");
-                // Limpar o token de autenticação ou qualquer dado de autenticação armazenado
-                localStorage.removeItem('authToken');
-                sessionStorage.clear();
-
-                var oView = this.getView();
-                var oModel = new JSONModel({ historico: [] });
-                oView.setModel(oModel, "historico");
-
-                var oTable = oView.byId("historicoTable");
-                oTable.destroyItems();
-
-                this.getOwnerComponent().getRouter().navTo("RouteLoginCep", {}, true);
-                //this._clearHistorico();
-                // Redirecionar para a tela de login
-                //this.getOwnerComponent().getRouter().navTo("LoginCep", {}, true);
-            }).catch((error) => {
-                MessageToast.show(error.message);
-            });
-
-        },
-
-        onMenuSelect: function (oEvent) {
+ 
+        // Função para lidar com a seleção de item de menu
+        onMenuSelect: function(oEvent) {
             var sItemId = oEvent.getSource().getId();
             var oPage = this.byId("pageBuscaCep");
-
+ 
             if (sItemId === "container-logincep---BuscaCep--menuItemBuscaCep") {
                 oPage.setTitle("Busca CEP");
                 this.byId("vboxBuscaCep").setVisible(true);
                 this.byId("vboxHistorico").setVisible(false);
-            } else if (sItemId === "container-logincep---BuscaCep--menuItemHistorico") {
+            } else if (sItemId === "container-logincep---BuscaCep--menuItemHistorico"){
                 oPage.setTitle("Histórico");
                 this.byId("vboxBuscaCep").setVisible(false);
                 this.byId("vboxHistorico").setVisible(true);
                 this._loadHistorico();
             }
-
+ 
             var oSplitApp = this.byId("SplitApp");
             oSplitApp.toDetail(this.createId("pageBuscaCep"));
         },
+ 
+        // Função para lidar com o logout do usuário
+        onLogout: function () {
+            firebase.auth().signOut().then(() => {
+                MessageToast.show("Logout successful!");
+                var oPage = this.byId("pageBuscaCep");
+                oPage.setTitle("Busca CEP");
+                this.byId("vboxBuscaCep").setVisible(true);
+                this.byId("vboxHistorico").setVisible(false);
+                this.getOwnerComponent().getRouter().navTo("LoginCep");
+            }).catch((error) => {
+                MessageToast.show(error.message);
+            });
+        },
+ 
+        onBuscarEndereco: function() {
+            var oView = this.getView();
+            var sCep = oView.byId("inputEndereco").getValue();
+ 
+            if (sCep === "") {
+                MessageToast.show("Por favor, insira um CEP.");
+                this._loadHistorico();
+                return;
+            }
+ 
+            sCep = sCep.replace(/\D/g, '');
+ 
+            if (sCep.length !== 8) {
+                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
+                this._loadHistorico();
+                return;
+            }
+ 
+            var oHistoricoModel = oView.getModel("historico");
+            var aHistorico = oHistoricoModel.getProperty("/historico");
+ 
+            var aFilteredHistorico = aHistorico.filter(function(item) {
+                return item.cep === sCep;
+            });
+ 
+            oHistoricoModel.setProperty("/historico", aFilteredHistorico);
+        },
+ 
         onOrdenarCrescente: function() {
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
         
             aHistorico.sort(function(a, b) {
-                var cepA = parseInt(a.cep.replace(/\D/g, ''), 10); // Remover não dígitos e converter para inteiro
-                var cepB = parseInt(b.cep.replace(/\D/g, ''), 10);
+                var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
+                var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
         
-                return cepA - cepB;
+                return dataA - dataB;
             });
         
             oHistoricoModel.setProperty("/historico", aHistorico);
         },
-
+        
+ 
         onOrdenarDecrescente: function() {
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
         
             aHistorico.sort(function(a, b) {
-                var cepA = parseInt(a.cep.replace(/\D/g, ''), 10); // Remover não dígitos e converter para inteiro
-                var cepB = parseInt(b.cep.replace(/\D/g, ''), 10);
+                var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
+                var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
         
-                return cepB - cepA;
+                return dataB - dataA;
             });
         
             oHistoricoModel.setProperty("/historico", aHistorico);
@@ -312,29 +275,72 @@ sap.ui.define([
         onLimpaOrdenacao : function(){
             this._loadHistorico();
         },
-
-         onGerarRelatorio: function() {
-            var oView = this.getView();
-            var oHistoricoModel = oView.getModel("historico");
-            var aHistorico = oHistoricoModel.getProperty("/historico");
  
-            if (!aHistorico || aHistorico.length === 0) {
-                MessageToast.show("Não há dados para gerar relatório.");
+        onGerarRelatorio: function() {
+            var oView = this.getView();
+            var oHistoricoTable = oView.byId("historicoTable");
+       
+            if (!oHistoricoTable) {
+                MessageToast.show("Erro ao acessar a tabela de histórico.");
                 return;
             }
- 
-            var sContent = "Histórico de Buscas\n\n";
-            aHistorico.forEach(function(item) {
-                sContent += "Data: " + item.data + "\n";
-                sContent += "CEP: " + item.cep + "\n";
-                sContent += "Resultado: " + item.resultado + "\n\n";
+       
+            var bTableVisible = oHistoricoTable.getVisible();
+            oHistoricoTable.setVisible(true);
+       
+            // Pega a data e hora atual
+            var oDate = new Date();
+            var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
+       
+            var sTableContent = `
+                <header>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP Logo">
+                    <h2>Histórico de Buscas</h2>
+                    <div class="datetime">Emitido em: ${sDateTime}</div>
+                </header>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>`;
+       
+            oHistoricoTable.getColumns().forEach(function(oColumn) {
+                sTableContent += "<th>" + oColumn.getHeader().getText() + "</th>";
             });
- 
-            var sFileName = "historico_buscas.txt";
-            var blob = new Blob([sContent], { type: "text/plain;charset=utf-8" });
- 
-            // Utilizando a API File de UI5 para download do arquivo
-            FileUtil.save(blob, sFileName);
+            sTableContent += `
+                            </tr>
+                        </thead>
+                        <tbody>`;
+       
+            oHistoricoTable.getItems().forEach(function(oItem) {
+                sTableContent += "<tr>";
+                oItem.getCells().forEach(function(oCell) {
+                    sTableContent += "<td>" + oCell.getText() + "</td>";
+                });
+                sTableContent += "</tr>";
+            });
+            sTableContent += `
+                        </tbody>
+                    </table>
+                </div>`;
+       
+            var oPopupWin = window.open('', '_blank', 'width=800,height=750');
+            oPopupWin.document.open();
+            oPopupWin.document.write(`
+                <html>
+                    <head>
+                        <title>Relatório de Histórico de Buscas</title>
+                        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
+                    </head>
+                    <body>
+                        ${sTableContent}
+                    </body>
+                </html>`);
+            oPopupWin.document.close();
+       
+            setTimeout(function() {
+                oHistoricoTable.setVisible(bTableVisible);
+            }, 1000);
         }
+ 
     });
 });
