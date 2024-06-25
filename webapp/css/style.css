@@ -1,8 +1,9 @@
 /* Estilo para a lista de menu */
 .menuItem {
     font-weight: bold;
+    background-color: #e1e1e1;
+    width: 100rem;
 }
-
 /* Estilo para o título da página */
 #pageTitle {
     font-size: 1.5rem;
@@ -26,6 +27,13 @@
     width: 100%;
     margin-bottom: 1rem;
 }
+.flex1{
+    width: 100%;
+    background-color: white;
+
+}
+
+
 
 /* Estilo para o resultado da busca */
 #textResult {
@@ -35,4 +43,113 @@
 /* Estilo para o histórico de buscas */
 #vboxHistorico {
     background-color: aqua;
+}
+.flexBoxTLG {
+    background-color: #e1e1e1;
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px;
+    align-items: center;    
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+
+    background-image: url('https://media.licdn.com/dms/image/D4D0BAQGxkdywTYi9QA/company-logo_200_200/0/1701702793911/ax4b_servi_os_de_informatica_ltda_logo?e=2147483647&v=beta&t=RqNwu7lEPDCiRmyJ3y46eaKIMmuoZ4lfmPr8-kG2Y_4');
+    background-size:  200px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    image-rendering: auto;           
+
+
+}
+
+/* Estilo personalizado para VBox */
+.myVBox1 {
+/* Cor de fundo do VBox */
+    background-color: white;
+    padding: 20px; 
+    border-radius: 25px;    
+    height: 500px;
+    width: 400px;
+    align-items: center;
+    border: 2px solid #e1e1e1;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.myVboxBody{
+    flex-direction: column; 
+    align-content: space-around;
+
+    justify-content: space-between;
+    width: 300px;
+    height: 300px;
+
+}
+
+.buttonsLogin {
+    width: 200px;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+
+.FlexForm {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: column; 
+    align-content: space-between;
+}
+
+.buttonsForm {
+    align-items: center;
+    flex-direction: column;
+    width: 100% ; 
+    height: 100%;
+   
+}
+
+.button{
+    width: 8rem;
+    margin: 8px;
+
+}
+
+.FlextextLogin { 
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.icon{
+    width: 5rem;
+    height: 100%;
+
+}
+
+
+
+
+.myInput{
+
+    height: 3rem;
+
+
+}
+
+.myButton {
+    background-color: #007cc0; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Cantos arredondados */
+    padding: 10px 20px; /* Espaçamento interno */
+    margin: 5px; /* Espaçamento externo */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+.myButton:hover {
+    background-color: #005a8b; /* Cor de fundo do botão ao passar o mouse */
 }

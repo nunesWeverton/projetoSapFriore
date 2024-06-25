@@ -1,22 +1,37 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="logincep.controller.LoginCep" displayBlock="true">
-    <Page id="page" title="{i18n>title}">
-        <content>
-            <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
-                <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
-                    <Button id="_IDGenButton3" icon="sap-icon://customer"/>
-                    <Text id="_IDGenText1" text="Login" class="HeaderLabel sapUiSmallMargin"/>
-                    <HBox id="_IDGenHbox1">
-                        <Label id="_IDLabel1" text="User Name" width="100px"/>
-                        <Input id="_IDGenInput1" width="200px" showClearIcon="true"/>
-                    </HBox>
-                    <HBox id="_IDHbox2">
-                        <Label id="_IDLabel2" text="Passoword" width="100px"/>
-                        <Input id="_IDGenInput2" width="200px" type="Password" showValueHelp="true" showClearIcon="false"/>
-                    </HBox>
-                    <FlexBox id="IDFlexBox2" justifyContent="Center">
-                        <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class="sapUiSmallMargin"/>
-                        <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="sapUiSmallMargin"/>
+
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" controllerName="logincep.controller.LoginCep" 
+    displayBlock="false" >
+    <Page id="page" >
+        <content >
+            <FlexBox class= "flexBoxTLG" id="_IDGenFlexBox1"  >
+                <VBox class="myVBox1" id="_IDGenVbox1" >
+
+
+                    
+                    <VBox id="body" class= "myVboxBody">
+                    
+
+                    <FlexBox id="1" class= "FlextextLogin" >   
+                        <Button id="_IDGenButton3" icon="sap-icon://customer" class= "icon"  />
                     </FlexBox>
+
+                    <FlexBox id="buttonsID" class= "buttonsForm">
+
+
+                            <Input id="_IDGenInput1" showClearIcon="true" placeholder="Digite deu email" width="18rem" class="myInput"/>
+                            <Input  id="_IDGenInput2"  type="Password" showValueHelp="true" showClearIcon="false" placeholder="Digite sua senha" width="18rem"/>
+
+                    </FlexBox>
+
+                    <FlexBox id="IDFlexBox2" class= "buttonsLogin">
+
+                        <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class= "button" />
+                        <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class= "button"/>
+
+                    </FlexBox>
+
+                    </VBox>
                 </VBox>
             </FlexBox>
         </content>

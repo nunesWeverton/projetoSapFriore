@@ -7,11 +7,13 @@
         <masterPages>
             <Page id="menuPage" title="Menu">
                 <content>
+                    <FlexBox id="flex1" class= "flex1">
                     <List id="menuList">
                         <!-- Adicionando classes CSS para estilização -->
                         <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem" selected="true"/>
                         <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem"/>
                     </List>
+                    </FlexBox>
                 </content>
             </Page>
         </masterPages>

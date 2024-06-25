@@ -8,8 +8,8 @@
                 <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
                     <Button id="_IDGenButton3" icon="sap-icon://customer"/>
                     <Text id="_IDGenText1" text="Registrar uma nova conta" class="HeaderLabel sapUiSmallMargin"/>
-                    <HBox id="_IDGenHboxFirstName">
-                        <Label id="_IDLabelFirstName" text="Nome" width="100px"/>
+                    <HBox id="_IDGenHboxFirstName" >
+                        <Label id="_IDLabelFirstName" text="Nome" width="100px" />
                         <Input id="registerFirstName" placeholder="Digite seu nome" width="200px" showClearIcon="true"/>
                     </HBox>
                     <HBox id="_IDGenHboxLastName">
