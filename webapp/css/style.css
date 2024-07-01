@@ -1,9 +1,15 @@
 /* Estilo para a lista de menu */
 .menuItem {
-    font-weight: bold;
-    background-color: #e1e1e1;
+    background-color: white;
     width: 100rem;
-}
+    font-size: 16px; /* Tamanho da fonte */
+    color: red !important;
+    font-weight: bold !important;
+    font: red!important;
+
+} 
+
+
 /* Estilo para o título da página */
 #pageTitle {
     font-size: 1.5rem;
@@ -19,6 +25,7 @@
 /* Estilo para o campo de texto de busca */
 #inputCep {
     width: 100%;
+
     margin-bottom: 1rem;
 }
 
@@ -29,7 +36,8 @@
 }
 .flex1{
     width: 100%;
-    background-color: white;
+    height: 100%;
+    background-color: #F0F8FF;
 
 }
 
@@ -45,7 +53,7 @@
     background-color: aqua;
 }
 .flexBoxTLG {
-    background-color: #e1e1e1;
+    background-color: #71b7f4;
     padding: 20px; /* Espaçamento interno */
     border-radius: 10px;
     align-items: center;    
@@ -53,46 +61,69 @@
     height: 100%;
     flex-direction: column;
 
-    background-image: url('https://media.licdn.com/dms/image/D4D0BAQGxkdywTYi9QA/company-logo_200_200/0/1701702793911/ax4b_servi_os_de_informatica_ltda_logo?e=2147483647&v=beta&t=RqNwu7lEPDCiRmyJ3y46eaKIMmuoZ4lfmPr8-kG2Y_4');
-    background-size:  200px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    image-rendering: auto;           
+       
 
 
 }
 
 /* Estilo personalizado para VBox */
-.myVBox1 {
+.myHBox1 {
 /* Cor de fundo do VBox */
     background-color: white;
     padding: 20px; 
-    border-radius: 25px;    
-    height: 500px;
-    width: 400px;
+    border-radius: 10px;    
+    height: 600px;
+    width: 800px;
     align-items: center;
     border: 2px solid #e1e1e1;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 }
+.myHBox2 {
+    /* Cor de fundo do VBox */
+        background-color: white;
+        padding: 20px; 
+        border-radius: 10px;    
+        height: 500px;
+        width: 600px;
+        align-items: center;
+        border: 2px solid #e1e1e1;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    }
+.image{
+    width: 30rem;
+    height: 30rem;
+    background-color: white;
+    image-rendering: auto;     
+    background-image: url('https://http2.mlstatic.com/D_NQ_NP_614856-MLB73684575745_122023-O.webp'); /* Caminho para a imagem */
+    background-size: 80%; /* Ajusta a imagem para cobrir todo o contêiner */
+    background-position: center; 
+    background-repeat: no-repeat;
+}
 
 .myVboxBody{
-    flex-direction: column; 
+    align-items: flex-end;
     align-content: space-around;
-
-    justify-content: space-between;
-    width: 300px;
-    height: 300px;
+    flex-direction: column; 
+    background-color: white;
+    border-radius: 10px; 
+    width: 60%;
+    height: 80%;
+    border: 2px solid #e1e1e1;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 }
 
 .buttonsLogin {
-    width: 200px;
-    justify-content: space-between;
+    width: 100%;
+    height: 100%;
     align-items: center;
-
-
+    justify-content: center;
+    gap: 2rem;
 }
 
 
@@ -109,12 +140,21 @@
     flex-direction: column;
     width: 100% ; 
     height: 100%;
+    gap: 3rem;
+   
+}
+
+.buttonsForm2 {
+    align-items: center;
+    flex-direction: column;
+    width: 100% ; 
+    height: 100%;
+    gap: 2rem;
    
 }
 
 .button{
     width: 8rem;
-    margin: 8px;
 
 }
 
@@ -123,6 +163,8 @@
     height: 100%;
     justify-content: center;
     align-items: center;
+    
+
 }
 .icon{
     width: 5rem;
@@ -134,8 +176,8 @@
 
 
 .myInput{
-
-    height: 3rem;
+    width: 35rem;
+    height: 8rem;
 
 
 }
@@ -153,3 +195,259 @@
 .myButton:hover {
     background-color: #005a8b; /* Cor de fundo do botão ao passar o mouse */
 }
+
+
+.FlexBoxSearch{
+    
+    background-color: #0064d9 ;
+    width: 95rem;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 3px solid #e1e1e1;
+    margin-top: 2rem;
+}
+.textForHead{
+    font-size: 18px; /* Tamanho da fonte */
+    color: white;
+}
+.text{
+    font-size: 16px; /* Tamanho da fonte */
+    color: black;
+}
+.text2{
+    font-size: 28px; /* Tamanho da fonte */
+    color: black;
+}
+.box{
+        height: 5rem;
+        width: 30rem;
+        align-items: center;
+        justify-content: center;
+        margin-left: 3rem;
+        gap: 10px;
+    }
+
+.colorText{
+    font-size: 18px; /* Tamanho da fonte */
+color: black;
+}
+.colorText2{
+    font-size: 15px; /* Tamanho da fonte */
+    color: black;
+ }
+
+.box2{
+    gap: 2rem;
+
+}
+.headerToolbar{
+    background-color: white;
+
+}
+
+/* Estilos personalizados para a página SAPUI5 */
+
+/* Estilo para o FlexBox no menu */
+
+
+/* Estilo para itens do menu */
+.menuItem {
+    font-size: 16px;
+    color: #333;
+}
+
+.menuItem.sapMSLISelected {
+    background-color: #d1e0e0 !important;
+}
+
+/* Estilo para o VBox que contém a busca de CEP */
+.VboxSearch {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: #F0F8FF;
+}
+
+/* Estilo para o FlexBox que contém os campos de busca */
+
+/* Estilo para o texto de instrução da busca de CEP */
+.text3 {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Estilo para o HBox que contém o campo de CEP e o botão */
+.box {
+    margin-top: 10px;
+}
+
+/* Estilo para a tabela de histórico */
+.headerToolbar {
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+/* Estilo para o cabeçalho do Toolbar */
+#historicoToolbar {
+    background-color: #e0e0e0;
+    padding: 10px;
+}
+
+/* Estilo para o título da Toolbar */
+#historicoTitle {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo para o botão de logout */
+#logoutButton {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+/* Estilo para o título da página */
+#pageTitle {
+    color: #007bff;
+    font-size: 24px;
+}
+
+/* CSS para estilizar a tabela */
+.resultTable {
+    width: 95rem;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.resultTable th, .resultTable td {
+    border: 2px solid #007cc0; /* Cor da borda */
+    padding: 15px; /* Espaçamento interno */
+    text-align: left;
+
+}
+
+.resultTable th {
+    background-color: #007cc0; /* Cor de fundo do cabeçalho */
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+    font-weight: bold;
+}
+
+.resultTable tbody tr:nth-child(even) {
+    background-color: #F0F8FF; /* Cor de fundo para linhas pares */
+}
+
+/* Estilo para a tabela */
+.myCustomTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para a barra de ferramentas */
+.myCustomToolbar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px;
+    border-bottom: 2px solid #388E3C;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para o título */
+.myCustomTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-right: auto;
+}
+
+/* Estilo para o input */
+.myCustomInput {
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Estilo para os botões */
+.myCustomButton {
+    margin-right: 5px;
+    background-color: #ffffff;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.myCustomButton:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Estilo para as colunas */
+.myCustomColumn {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo para os cabeçalhos das colunas */
+.myCustomColumnHeader {
+    font-weight: bold;
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo para os itens da lista */
+.myCustomListItem {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.myCustomListItem:hover {
+    background-color: #f1f1f1;
+}
+
+.myCustomListItem:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilo para o texto nas células */
+.myCustomText {
+    color: #333;
+    font-size: 14px;
+}
+
+/* Estilos adicionais para os dados */
+.myCustomTextData { /* Laranja */
+    font-weight: bold;
+}
+
+.myCustomTextCep {
+    
+}
+
+.myCustomTextResultado {
+
+}
+
+/* Ajuste de espaçamento para itens da lista */
+.myCustomListItem > .sapMText {
+    margin-right: 10px;
+    background-color: white;
+}
+
