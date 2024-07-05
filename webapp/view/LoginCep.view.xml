@@ -1,0 +1,30 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="sap.btp.logincep.controller.LoginCep" displayBlock="true">
+    <Page id="page" title="Login Busca Cep">
+        <content >
+            <FlexBox class= "flexBoxTLG" id="_IDGenFlexBox1"  >
+                <HBox class="myHBox1" id="_IDGenVbox1" > 
+                    <VBox id="image" class="image"/>  
+                    <VBox id="body" class= "myVboxBody">
+                        <FlexBox id="1" class= "FlextextLogin" >   
+                            <Text id="_IDGenText1" text="Login" class="text2"/>
+                        </FlexBox>
+                        <FlexBox id="buttonsID" class= "buttonsForm">
+                            <VBox id="3">
+                                <Text id="textEmail" text="Email" class="colorText" />
+                                <Input id="_IDGenInput1" showClearIcon="true" placeholder="Digite deu email" width="18rem" />
+                            </VBox>
+                            <VBox id="4" >
+                                <Text id="textSenha" text="Senha" class="colorText" />
+                                <Input  id="_IDGenInput2"  type="Password" showValueHelp="true" showClearIcon="false" placeholder="Digite sua senha" width="18rem"/>
+                            </VBox>
+                        </FlexBox>
+                        <FlexBox id="IDFlexBox2" class= "buttonsLogin">
+                            <Button id="_IDGenButton1" text="Entrar" type="Accept" press="OnLogin" class="button" />
+                            <Button id="_IDGenButton2" text="Cadastre-se" type="Reject" press="onRegister" class="button"/>
+                        </FlexBox>
+                    </VBox>
+                </HBox>
+            </FlexBox>
+        </content>
+    </Page>
+</mvc:View>
