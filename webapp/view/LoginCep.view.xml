@@ -1,7 +1,63 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="logincep.controller.LoginCep" displayBlock="true">
-    <Page id="page" title="{i18n>title}">
-        <content>
-            <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" controllerName="logincep.controller.LoginCep" displayBlock="true">
+    <FlexBox
+        width="100%"
+        height="100%"
+        alignItems="Center"
+        justifyContent="Center"
+        >
+        
+        <l:VerticalLayout
+            id="_IDGenVerticalLayout1"
+            class="centerDiv sapUiContentPadding"
+            width="100%"
+        >
+            <l:content>
+                <Label text="UserName" labelFor="InputDisabled"/>
+                <Input
+                    id="_IDGenInput1"
+                    class="sapUiSmallMarginBottom"
+                    type="Text"
+                    placeholder="UserName"
+                    enabled="true"
+                    editable="true"
+                />
+                <Label text="Password" labelFor="InputEdit"/>
+                <Input
+                    id="_IDGenInput2"
+                    class="sapUiSmallMarginBottom"
+                    type="Password"
+                    
+                    placeholder="Enter password"
+                    enabled="true"
+                    editable="true"
+                />
+
+                <FlexBox id="IDFlexBox2" justifyContent="Center">
+                    <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class="buttonCss sapUiSmallMargin"/>
+                    <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="buttonCss sapUiSmallMargin"/>
+                </FlexBox>
+            </l:content>
+        </l:VerticalLayout>
+    </FlexBox>
+
+    
+    <!-- <Page id="page" title="{i18n>title}">
+        <content> -->
+            <!-- <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
+                <Label id="_IDGenLabel1" text="Product" labelFor="productInput" />
+                <Input
+                    id="productInput"
+                    placeholder="Enter product"
+                    showSuggestion="true"
+                    showValueHelp="true"
+                    valueHelpRequest=".onValueHelpRequest"
+                    suggestionItems="{/ProductCollection}">
+                    <suggestionItems>
+                        <core:Item id="_IDGenItem1" text="{Name}" />
+                    </suggestionItems>
+                </Input>
+            </l:VerticalLayout> -->
+            <!-- <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
                 <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
                     <Button id="_IDGenButton3" icon="sap-icon://customer"/>
                     <Text id="_IDGenText1" text="Login" class="HeaderLabel sapUiSmallMargin"/>
@@ -10,7 +66,7 @@
                         <Input id="_IDGenInput1" width="200px" showClearIcon="true"/>
                     </HBox>
                     <HBox id="_IDHbox2">
-                        <Label id="_IDLabel2" text="Passoword" width="100px"/>
+                        <Label id="_IDLabel2" text="Password" width="100px"/>
                         <Input id="_IDGenInput2" width="200px" type="Password" showValueHelp="true" showClearIcon="false"/>
                     </HBox>
                     <FlexBox id="IDFlexBox2" justifyContent="Center">
@@ -18,7 +74,7 @@
                         <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="sapUiSmallMargin"/>
                     </FlexBox>
                 </VBox>
-            </FlexBox>
-        </content>
-    </Page>
+            </FlexBox>  -->
+      <!-- </content>
+    </Page> -->
 </mvc:View>

@@ -44,7 +44,8 @@
         "sap.ui.comp": {},
         "sap.ui.generic.app": {},
         "sap.ui.table": {},
-        "sap.ushell": {}
+        "sap.ushell": {},
+        "sap.ui.layout": {}
       }
     },
     "contentDensities": {
@@ -91,8 +92,8 @@
         },
         {
           "pattern": "Register",
-           "name": "Register",
-           "target" : "TargetRegister"
+          "name": "Register",
+          "target": "TargetRegister"
         }
       ],
       "targets": {
@@ -110,7 +111,7 @@
           "viewId": "BuscaCep",
           "viewName": "BuscaCep"
         },
-        "TargetRegister":{
+        "TargetRegister": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
