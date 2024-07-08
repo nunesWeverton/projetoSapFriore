@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "logincep",
+    "id": "sap.btp.logincep",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -12,8 +12,21 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
-      "version": "1.13.6",
-      "toolsId": "e15661a9-dbae-4d3e-8b67-c34c35eee5ef"
+      "version": "1.14.0",
+      "toolsId": "9bf96641-74c7-48c7-941e-6e7a66230dcf"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "customer-show": {
+          "semanticObject": "customer",
+          "action": "show",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
@@ -35,7 +48,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.124.1",
+      "minUI5Version": "1.125.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -55,7 +68,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "logincep.i18n.i18n"
+          "bundleName": "sap.btp.logincep.i18n.i18n"
         }
       }
     },
@@ -71,14 +84,14 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "logincep.view",
+        "viewPath": "sap.btp.logincep.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
       },
       "routes": [
         {
-          "name": "LoginCep",
+          "name": "RouteLoginCep",
           "pattern": ":?query:",
           "target": [
             "TargetLoginCep"
@@ -120,10 +133,14 @@
       }
     },
     "rootView": {
-      "viewName": "logincep.view.App",
+      "viewName": "sap.btp.logincep.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "sapbtplogincep"
   }
 }

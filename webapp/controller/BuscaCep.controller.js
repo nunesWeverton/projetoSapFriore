@@ -132,7 +132,7 @@ sap.ui.define([
         
             tableHtml += '</tbody></table>';
         
-            var textResultDiv = document.getElementById("container-logincep---BuscaCep--textResult");
+            var textResultDiv = document.getElementById("container-sap.btp.logincep---BuscaCep--textResult");
             textResultDiv.innerHTML = tableHtml;
         },
  
@@ -193,13 +193,15 @@ sap.ui.define([
         onLogout: function () {
             // Task: Usar o endpoit que faz o logout
             firebase.auth().signOut().then(() => {
+                localStorage.clear();
                 MessageToast.show("Logout successful!");
                 var oPage = this.byId("pageBuscaCep");
                 oPage.setTitle("Busca CEP");
                 this.byId("vboxBuscaCep").setVisible(true);
                 this.byId("vboxHistorico").setVisible(false);
-                localStorage.clear();
-                this.getOwnerComponent().getRouter().navTo("LoginCep");
+                document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
+                this.byId("inputCep").setValue("");
+                this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
             }).catch((error) => {
                 MessageToast.show(error.message);
             });

@@ -8,67 +8,78 @@
             <Page id="menuPage" title="Menu">
                 <content>
                     <List id="menuList">
-                        <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem"/>
-                        <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem"/>
+                        <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem" />
+                        <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem" />
                     </List>
                 </content>
             </Page>
         </masterPages>
- 
+
         <detailPages>
-            <Page id="pageBuscaCep" title="Busca CEP">
+            <Page id="pageBuscaCep" title="Busca CEP" class = "titleBuscaCep">
                 <customHeader>
                     <Bar id="detailPageHeader">
                         <contentMiddle>
-                            <Title  class = "pageTitle" id="pageTitle" text="Busca CEP" />
+                            <Title class="pageTitle" id="pageTitle" text="Busca CEP" />
                         </contentMiddle>
                         <contentRight>
                             <HBox id="headerBox">
                                 <Button id="userButton" type="Transparent" icon="sap-icon://person-placeholder" press="onUserPress" />
-                                <Button id="logoutButton" text="Logout" icon="sap-icon://log" press="onLogout" type="Emphasized"/>
+                                <Button id="logoutButton" text="Logout" icon="sap-icon://log" press="onLogout" type="Emphasized" />
                                 <Text id="userNameText" text="" />
                             </HBox>
                         </contentRight>
                     </Bar>
                 </customHeader>
                 <content>
-                    <VBox id="vboxBuscaCep" visible="true">
-                        <Text id="textCep" text="Digite o CEP para buscar informações:" />
+                    <VBox id="vboxBuscaCep" visible="true" class = "VboxSearch">
+                      <FlexBox id="search" class="FlexBoxSearch">
+                        <Text id="textCep" text="Digite o CEP para buscar informações :" class = "textForHead" />
                         <Input id="inputCep" placeholder="Digite o CEP..." />
-                        <Button id="btnBuscar" text="Buscar" press="onBuscarCep" />
-                        <VBox id="textResult" />
+                        <Button id="btnBuscar" text="Buscar" press="onBuscarCep" class ="btnBuscaCep"/>
+                      </FlexBox>
+                      <VBox id="textResult" visible= "true"/>
                     </VBox>
-                    <VBox class = "vboxHistorico" id="vboxHistorico" visible="false">
-                        <Table id="historicoTable" mode="SingleSelectMaster">
+                    <VBox class="vboxHistorico" id="vboxHistorico" visible="false">
+                        <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
                             <headerToolbar>
-                                <Toolbar id="historicoToolbar">
+                                <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                                     <Title id="historicoTitle" text="Histórico de Buscas" />
                                     <ToolbarSpacer id="ToolbarSpacer" />
-                                    <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" />
-                                    <Button id="btnBuscarEndereco" text="Buscar" press="onBuscarEndereco" />
-                                    <Button id="btnOrdenarCrescente" text="Ordenar Crescente" press="onOrdenarCrescente" />
-                                    <Button id="btnOrdenarDecrescente" text="Ordenar Decrescente" press="onOrdenarDecrescente" />
-                                    <Button id="btnLimpaOrdenacao" text="Limpar Ordenação" press="onLimpaOrdenacao" />
-                                    <Button id="btnGerarRelatorio" text="Gerar Relatório" press="onGerarRelatorio" />
+                                    <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem"  class="myCustomInput" />
+                                    <Button id="btnBuscarEndereco" text="Buscar" press="onBuscarEndereco" class="myCustomButton" />
+                                    <Button id="btnOrdenarCrescente" text="Ordenar Crescente" press="onOrdenarCrescente" class="myCustomButton" />
+                                    <Button id="btnOrdenarDecrescente" text="Ordenar Decrescente" press="onOrdenarDecrescente" class="myCustomButton"  />
+                                    <Button id="btnLimpaOrdenacao" text="Limpar Ordenação" press="onLimpaOrdenacao" class="myCustomButton" />
+                                    <Button id="btnGerarRelatorio" text="Gerar Relatório" press="onGerarRelatorio"  class="myCustomButton gerarRelatorio" />
                                 </Toolbar>
                             </headerToolbar>
                             <columns>
-                                <Column id="colData">
-                                    <Text id="colDataText" text="Data" />
+                                <Column id="colData" class="myCustomColumn" >
+                                    <Text id="colDataText" text="Data" class="myCustomColumnHeader" />
                                 </Column>
                                 <Column id="colCep">
-                                    <Text id="colCepText" text="CEP Pesquisado" />
+                                    <Text id="colCepText" text="CEP Pesquisado" class="myCustomColumnHeader" />
                                 </Column>
-                                <Column id="colResultado">
-                                    <Text id="colResultadoText" text="Resultado" />
+                                <Column id="colResultado" class="myCustomColumn" >
+                                    <Text id="colResultadoText" text="Resultado" class="myCustomColumnHeader" />
                                 </Column>
+                                <Column id="colDescricao" class="myCustomColumn">
+                                    <Text id="colDescricaoText" text="Descrição" class="myCustomColumnHeader" />
+                                </Column>
+                                
                             </columns>
                             <items>
-                                <ColumnListItem id="historicoItem">
+                                <ColumnListItem id="teste" type="Active" class="myCustomListItem">
                                     <cells>
-                                        <Text id="historicoDataText" text="{historico>data}" />
-                                        <Text id="historicoCepText" text="{historico>cep}" />
-                                        <Text id="historicoResultadoText" text="{historico>resultado}" />
+                                        <Text id="historicoDataText" text="{historico>data}" class="myCustomText myCustomTextData" />
+                                        <Text id="historicoCepText" text="{historico>cep}" class="myCustomText myCustomTextCep"  />
+                                        <Text id="historicoResultadoText" text="{historico>resultado}" class="myCustomText myCustomTextResultado" />
+                                        <Text id="historicoDescricaoText" text="{historico>descricao}" class="myCustomText myCustomTextResultado" />
+                                        <HBox id="hbox">
+                                            <Button id="button" text="Editar" press="onEditarDescricao" />
+                                            <Button id="button1" text="Excluir" press="onExcluirHistorico" />
+                                        </HBox>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -77,7 +88,5 @@
                 </content>
             </Page>
         </detailPages>
- 
     </SplitApp>
- 
 </mvc:View>

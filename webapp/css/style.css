@@ -1,7 +1,27 @@
+body{
+    background-color: red;
+}
+
+
+
+
+
+/*
+parte da tela de login */
+
+
+
 /* Estilo para a lista de menu */
 .menuItem {
-    font-weight: bold;
-}
+    background-color: white;
+    width: 100rem;
+    font-size: 16px; /* Tamanho da fonte */
+    color: red !important;
+    font-weight: bold !important;
+    font: red!important;
+
+} 
+
 
 /* Estilo para o título da página */
 #pageTitle {
@@ -26,6 +46,14 @@
     width: 100%;
     margin-bottom: 1rem;
 }
+.flex1{
+    width: 100%;
+    height: 100%;
+    background-color: #F0F8FF;
+
+}
+
+
 
 /* Estilo para o resultado da busca */
 #textResult {
@@ -35,4 +63,532 @@
 /* Estilo para o histórico de buscas */
 #vboxHistorico {
     background-color: aqua;
+}
+.flexBoxTLG {
+    background-color: #71b7f4;
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px;
+    align-items: center;    
+    justify-content: center;
+    height: 100%;
+    flex-direction: column; 
+
+
+}
+
+/* Estilo personalizado para VBox */
+.myHBox1 {
+/* Cor de fundo do VBox */
+    background-color: white;
+    padding: 20px; 
+    border-radius: 10px;    
+    height: 600px;
+    width: 800px;
+    align-items: center;
+    border: 2px solid #e1e1e1;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+.myHBox2 {
+    /* Cor de fundo do VBox */
+        background-color: white;
+        padding: 20px; 
+        border-radius: 10px;    
+        height: 500px;
+        width: 600px;
+        align-items: center;
+        border: 2px solid #e1e1e1;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    }
+.image{
+    width: 30rem;
+    height: 30rem;
+    background-color: white;
+    image-rendering: auto;     
+    background-image: url('https://http2.mlstatic.com/D_NQ_NP_614856-MLB73684575745_122023-O.webp'); /* Caminho para a imagem */
+    background-size: 80%; /* Ajusta a imagem para cobrir todo o contêiner */
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.myVboxBody{
+    align-items: flex-end;
+    align-content: space-around;
+    flex-direction: column; 
+    background-color: white;
+    border-radius: 10px; 
+    width: 60%;
+    height: 80%;
+    border: 2px solid #e1e1e1;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.buttonsLogin {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+
+.FlexForm {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: column; 
+    align-content: space-between;
+}
+
+.buttonsForm {
+    align-items: center;
+    flex-direction: column;
+    width: 100% ; 
+    height: 100%;
+    gap: 3rem;
+   
+}
+
+.buttonsForm2 {
+    align-items: center;
+    flex-direction: column;
+    width: 100% ; 
+    height: 100%;
+    gap: 2rem;
+}
+
+.button{
+    width: 8rem;
+
+}
+
+.FlextextLogin { 
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.icon{
+    width: 5rem;
+    height: 100%;
+}
+
+
+.myInput{
+    width: 35rem;
+    height: 8rem;
+
+
+}
+
+.myButton {
+    background-color: #007cc0; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Cantos arredondados */
+    padding: 10px 20px; /* Espaçamento interno */
+    margin: 5px; /* Espaçamento externo */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+.myButton:hover {
+    background-color: #005a8b; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.titleBuscaCep{
+      font-family: Arial, Helvetica, sans-serif;
+}
+
+.FlexBoxSearch{
+    
+    background-color: #d5dadd ;
+    width: 94rem;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 3px solid #e1e1e1;
+    margin-top: 2rem;
+}
+.textForHead{
+    font-size: 13px; /* Tamanho da fonte */
+    color: #333;
+    margin: 8px;
+}
+.text{
+    font-size: 16px; /* Tamanho da fonte */
+    color: black;
+}
+.text2{
+    font-size: 28px; /* Tamanho da fonte */
+    color: black;
+}
+
+.btnBuscaCep{
+    margin-left: 8px;
+}
+.box{
+        height: 5rem;
+        width: 30rem;
+        align-items: center;
+        justify-content: center;
+        margin-left: 3rem;
+        gap: 10px;
+    }
+
+.colorText{
+    font-size: 18px; /* Tamanho da fonte */
+color: black;
+}
+.colorText2{
+    font-size: 15px; /* Tamanho da fonte */
+    color: black;
+ }
+
+.box2{
+    gap: 2rem;
+
+}
+.headerToolbar{
+    background-color: white;
+
+}
+
+/* Estilos personalizados para a página SAPUI5 */
+
+/* Estilo para o FlexBox no menu */
+
+
+/* Estilo para itens do menu */
+.menuItem {
+    font-size: 16px;
+    color: #333;
+}
+
+.menuItem.sapMSLISelected {
+    background-color: #d1e0e0 !important;
+}
+
+/* Estilo para o VBox que contém a busca de CEP */
+.VboxSearch {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 30px;
+    width: 80%;
+    height: 100%;
+    background-color: #F0F8FF;
+    margin-right: 8px;
+}
+
+/* Estilo para o FlexBox que contém os campos de busca */
+
+/* Estilo para o texto de instrução da busca de CEP */
+.text3 {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Estilo para o HBox que contém o campo de CEP e o botão */
+.box {
+    margin-top: 10px;
+}
+
+/* Estilo para a tabela de histórico */
+.headerToolbar {
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+/* Estilo para o cabeçalho do Toolbar */
+#historicoToolbar {
+    background-color: #e0e0e0;
+    padding: 10px;
+}
+
+/* Estilo para o título da Toolbar */
+#historicoTitle {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo para o botão de logout */
+#logoutButton {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+/* Estilo para o título da página */
+#pageTitle {
+    color: #007bff;
+    font-size: 24px;
+}
+
+/* CSS para estilizar a tabela */
+.resultTable {
+    width: 90rem;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.resultTable th, .resultTable td {
+    border: 2px solid #007cc0; /* Cor da borda */
+    padding: 15px; /* Espaçamento interno */
+    text-align: left;
+
+}
+
+.resultTable th {
+    background-color: #007cc0; /* Cor de fundo do cabeçalho */
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+    font-weight: bold;
+}
+
+.resultTable tbody tr:nth-child(even) {
+    background-color: #F0F8FF; /* Cor de fundo para linhas pares */
+}
+
+/* Estilo para a tabela */
+.myCustomTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para a barra de ferramentas */
+.myCustomToolbar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px;
+    border-bottom: 2px solid #388E3C;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para o título */
+.myCustomTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-right: auto;
+}
+
+/* Estilo para o input */
+.myCustomInput {
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Estilo para os botões */
+.myCustomButton {
+    margin-right: 5px;
+    background-color: #ffffff;
+    color: #4CAF50;
+    border: 1px solid #45cdf7;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.myCustomButton:hover {
+    background-color: #4fcdf3;
+    color: white;
+}
+
+/* Estilo para as colunas */
+.myCustomColumn {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo para os cabeçalhos das colunas */
+.myCustomColumnHeader {
+    font-weight: bold;
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo para os itens da lista */
+.myCustomListItem {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.myCustomListItem:hover {
+    background-color: #f1f1f1;
+}
+
+.myCustomListItem:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilo para o texto nas células */
+.myCustomText {
+    color: #333;
+    font-size: 14px;
+}
+
+/* Estilos adicionais para os dados */
+.myCustomTextData { /* Laranja */
+    font-weight: bold;
+}
+
+.gerarRelatorio{
+     color: white;
+}
+
+.myCustomTextCep {
+    
+}
+
+.myCustomTextResultado {
+
+}
+
+/* Ajuste de espaçamento para itens da lista */
+.myCustomListItem > .sapMText {
+    margin-right: 10px;
+    background-color: white;
+}
+
+
+
+
+
+/* fim da parte da tela de login
+
+/* Estilos para o diálogo */
+.customDialog {
+    background-color: #f2f2f2; /* Cor de fundo do diálogo */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2px;
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden; /* Impede que a caixa do diálogo cresça com seu conteúdo */
+}
+
+/* Estilos para o título do diálogo */
+.customDialog h2 {
+    margin-top: 0;
+}
+
+/* Estilos para o textarea */
+.customTextArea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.customTextArea1 {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    padding: 2px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+/* Estilos para os botões */
+.customSaveButton {
+    color:#fff ;
+    border: 1px solid #007bff;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 20%;
+}
+
+
+.customCancelButton {
+    background-color: #dc3545; /* Vermelho */
+    color:#fff;
+    border: 1px solid #dc3545;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 20%;
+}
+
+/* .customCancelButton1 { 
+    background-color: #dc3545;
+    color:#fff;
+    border: 1px solid #dc3545;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 10px;
+} */
+
+.customPopover {
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+/* Adicione padding ao conteúdo do Popover */
+.customPopoverContent {
+    padding: 16px;
+    color:#fff
+}
+
+.buttonMargin{
+        /* margin-left: 10px; */
+}
+
+.sapUiTinyMarginTop{
+    color:black;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.buttonDetalhesHistorico{
+    margin: 3px;
+}
+
+.customPopover {
+    border: 2px solid #000; /* Altere a cor e a espessura da borda conforme necessário */
+    padding: 10px; /* Opcional: Adicione padding para espaçamento interno */
+    border-radius: 5px; /* Opcional: Adicione bordas arredondadas */
+}
+
+
+.desejaExcluir{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonSim{
+     color: red;
 }

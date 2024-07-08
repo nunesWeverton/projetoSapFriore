@@ -39,8 +39,13 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
+<<<<<<< HEAD
 									"title": "LoginCep",
 									"targetURL": "#logincep-display"
+=======
+									"title": "Busca Cep",
+									"targetURL": "#sapbtplogincep-display"
+>>>>>>> dddca6cf065ca304ed76bec5ecf71942ba0d40eb
 								}
 							}]
 						}]
@@ -51,18 +56,31 @@ sap.ui.define([
 				"adapter": {
 					"config": {
 						"inbounds": {
+<<<<<<< HEAD
 							"logincep-display": {
 								"semanticObject": "logincep",
 								"action": "display",
 								"description": "An SAP Fiori application.",
 								"title": "LoginCep",
+=======
+							"sapbtplogincep-display": {
+								"semanticObject": "sapbtplogincep",
+								"action": "display",
+								"description": "An SAP Fiori application.",
+								"title": "Busca Cep",
+>>>>>>> dddca6cf065ca304ed76bec5ecf71942ba0d40eb
 								"signature": {
 									"parameters": {}
 								},
 								"resolutionResult": {
 									"applicationType": "SAPUI5",
+<<<<<<< HEAD
 									"additionalInformation": "SAPUI5.Component=logincep",
 									"url": sap.ui.require.toUrl("logincep")
+=======
+									"additionalInformation": "SAPUI5.Component=sap.btp.logincep",
+									"url": sap.ui.require.toUrl("sap/btp/logincep")
+>>>>>>> dddca6cf065ca304ed76bec5ecf71942ba0d40eb
 								}
 							}
 						}

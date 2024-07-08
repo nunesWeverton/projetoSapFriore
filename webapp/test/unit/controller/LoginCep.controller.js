@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"login-cep/controller/LoginCep.controller"
+	"sapbtp/logincep/controller/LoginCep.controller"
 ], function (Controller) {
 	"use strict";
 

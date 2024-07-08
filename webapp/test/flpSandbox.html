@@ -44,10 +44,10 @@
                 }
             },
             applications: {
-                "logincep-display": {
-                    title: "LoginCep",
+                "sapbtplogincep-display": {
+                    title: "Busca Cep",
                     description: "An SAP Fiori application.",
-                    additionalInformation: "SAPUI5.Component=logincep",
+                    additionalInformation: "SAPUI5.Component=sap.btp.logincep",
                     applicationType: "URL",
                     url: "../"
                 }
@@ -65,8 +65,14 @@
         data-sap-ui-theme="sap_horizon"
         data-sap-ui-compatVersion="edge"
         data-sap-ui-language="en"
+<<<<<<< HEAD
         data-sap-ui-resourceroots='{"logincep": "../"}'
         data-sap-ui-frameOptions="allow">
+=======
+        data-sap-ui-resourceroots='{"sap.btp.logincep": "../"}'
+        data-sap-ui-frameOptions="allow"
+        data-sap-ui-flexibilityServices='[{"connector": "LocalStorageConnector"}]'>
+>>>>>>> dddca6cf065ca304ed76bec5ecf71942ba0d40eb
     </script>
     <script id="locate-reuse-libs" src="./locate-reuse-libs.js" data-sap-ui-manifest-uri="../manifest.json">
     </script>

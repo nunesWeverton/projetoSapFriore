@@ -5,7 +5,7 @@ sap.ui.define([
     "use strict";
     var sUrl = 'https://api-btp.azurewebsites.net/api';
 
-    return Controller.extend("logincep.controller.Register", {
+    return Controller.extend("sap.btp.logincep.controller.Register", {
         onInit: function () {
         
         },

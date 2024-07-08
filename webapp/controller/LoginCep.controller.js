@@ -6,7 +6,7 @@ function (Controller, MessageToast) {
     "use strict";
     var sUrl = 'https://api-btp.azurewebsites.net/api';
 
-    return Controller.extend("logincep.controller.LoginCep", {
+    return Controller.extend("sap.btp.logincep.controller.LoginCep", {
 
         OnLogin: function () {
             var oView = this.getView();

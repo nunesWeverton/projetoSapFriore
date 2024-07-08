@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"login-cep/test/unit/AllTests"
+		"sapbtp/logincep/test/unit/AllTests"
 	], function () {
 		QUnit.start();
 	});

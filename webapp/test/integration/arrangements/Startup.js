@@ -14,7 +14,7 @@ sap.ui.define([
 			// start the app UI component
 			this.iStartMyUIComponent({
 				componentConfig: {
-					name: "logincep",
+					name: "sap.btp.logincep",
 					async: true
 				},
 				hash: oOptions.hash,
