@@ -175,11 +175,11 @@ sap.ui.define([
             var sItemId = oEvent.getSource().getId();
             var oPage = this.byId("pageBuscaCep");
  
-            if (sItemId === "container-logincep---BuscaCep--menuItemBuscaCep") {
+            if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemBuscaCep") {
                 oPage.setTitle("Busca CEP");
                 this.byId("vboxBuscaCep").setVisible(true);
                 this.byId("vboxHistorico").setVisible(false);
-            } else if (sItemId === "container-logincep---BuscaCep--menuItemHistorico"){
+            } else if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemHistorico"){
                 oPage.setTitle("Histórico");
                 this.byId("vboxBuscaCep").setVisible(false);
                 this.byId("vboxHistorico").setVisible(true);
