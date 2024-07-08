@@ -3,28 +3,11 @@ sap.ui.define([
     "sap/m/MessageToast"
 ], function (Controller, MessageToast) {
     "use strict";
+    var sUrl = 'https://api-btp.azurewebsites.net/api';
 
-    return Controller.extend("sap.btp.logincep.controller.Register", {
+    return Controller.extend("logincep.controller.Register", {
         onInit: function () {
-            const firebaseConfig = {
-                apiKey: "AIzaSyB6boGZ2If59Hf26nkP_avdoL719q8hfMc",
-                authDomain: "teste-ax-sap.firebaseapp.com",
-                projectId: "teste-ax-sap",
-                storageBucket: "teste-ax-sap.appspot.com",
-                messagingSenderId: "948945281434",
-                appId: "1:948945281434:web:276a62fd256fcdf2679a23",
-                measurementId: "G-PLGST4XQ2F"
-            };
-
-            // Inicializa o Firebase apenas uma vez
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            } else {
-                firebase.app(); // Use a aplicação existente
-            }
-
-            // Inicializa o Firestore
-            this.db = firebase.firestore();
+        
         },
 
         onCadastrar: function () {
@@ -38,31 +21,28 @@ sap.ui.define([
                 MessageToast.show("Por favor, preencha todos os campos.");
                 return;
             }
-
-            firebase.auth().createUserWithEmailAndPassword(sEmail, sPassword)
-                .then((userCredential) => {
-                    var user = userCredential.user;
-
-                    // Armazenar informações adicionais no Firestore
-                    return this.db.collection('users').doc(user.uid).set({
-                        firstName: sFirstName,
-                        lastName: sLastName,
-                        email: sEmail,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                })
-                .then(() => {
+            $.ajax({
+                url: sUrl + '/user',
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    email: sEmail,
+                    firstName: sFirstName,
+                    lastName: sLastName,
+                    password: sPassword
+                }),
+                success: (data) => {
                     MessageToast.show("Cadastro realizado com sucesso!");
-                    this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
-                })
-                .catch((error) => {
-                    var errorMessage = error.message;
-                    MessageToast.show("Falha no cadastro: " + errorMessage);
-                });
+                    this.getOwnerComponent().getRouter().navTo("LoginCep");
+                },
+                error: () => {
+                    MessageToast.show("Erro ao tentar fazer registro.");
+                }
+            })
         },
 
         onGoToLogin: function() {
-            this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
+            this.getOwnerComponent().getRouter().navTo("LoginCep");
         }
     });
 });
