@@ -61,7 +61,8 @@ sap.ui.define([
                 cells: [
                     new sap.m.Text({ text: "{historico>data}" }),
                     new sap.m.Text({ text: "{historico>cep}" }),
-                    new sap.m.Text({ text: "{historico>resultado}" })
+                    new sap.m.Text({ text: "{historico>resultado}" }),
+                    new sap.m.Text({ text : "{historico>descricao}"})
                 ]
             });
 
@@ -192,6 +193,38 @@ sap.ui.define([
             oDialog.open();
         },
 
+
+        _salvarDescricao: function (sId, sDescricao, oSelectedItem) {
+
+            $.ajax({
+                url: sUrl + "/buscaCep",
+                method: "PUT",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    id : sId,
+                    descricao : sDescricao,
+                    userId : localStorage.getItem("localId")
+                }),
+                success: () => {
+                    
+                    //var oContext = oSelectedItem.getBindingContext("historico");
+                    //oContext.getModel().setProperty(oContext.getPath() + "/descricao", sDescricao);
+                    this._loadHistorico();
+                    MessageToast.show("descrição adicionada");
+                },
+                error: () => {
+                    MessageToast.show("Erro ao salvar descrição.");
+                }
+
+
+            });
+
+             
+        },  
+
         
         
         _excluirHistorico: function (sId) {
@@ -223,6 +256,43 @@ sap.ui.define([
                 ]
             }).addStyleClass("desejaExcluir");
 
+            oDialog.open();
+        },
+
+        _openDescricaoDialog: function (oItemData, oSelectedItem) {
+            var oDialog = new Dialog({
+                title: "Adicionar Descrição",
+                draggable: true,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new TextArea("descricaoTextArea", {
+                        value: oItemData.descricao || "",
+                        width: "100%", // Definindo largura do TextArea como 70% do diálogo
+                        placeholder: "Adicionar descrição...",
+                    }).addStyleClass("customTextArea")
+                ],
+                beginButton: new Button({
+                    text: "Salvar",
+                    type: ButtonType.Transparent, // Define o tipo de botão como transparente para remover o estilo padrão
+                    press: function () {
+                        var sDescricao = sap.ui.getCore().byId("descricaoTextArea").getValue();
+                        this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
+                        oDialog.close();
+                        oDialog.destroy();
+                    }.bind(this)
+                }).addStyleClass("customSaveButton"), // Adiciona classe de estilo para personalização
+        
+                endButton: new Button({
+                    text: "Cancelar",
+                    //type: ButtonType.Transparent, // Define o tipo de botão como transparente para remover o estilo padrão
+                    press: function () {
+                        oDialog.close();
+                        oDialog.destroy();
+                    }
+                }).addStyleClass("customCancelButton") // Adiciona classe de estilo para personalização
+            });
+        
+            oDialog.addStyleClass("customDialog"); // Adiciona classe de estilo para personalização adicional do diálogo
             oDialog.open();
         },
         
