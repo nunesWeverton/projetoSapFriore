@@ -9,9 +9,6 @@
     "sapui5"
   ],
   "main": "webapp/index.html",
-  "dependencies": {
-    "firebase": "^8.10.0"
-  },
   "devDependencies": {
     "@sap/ui5-builder-webide-extension": "^1.1.9",
     "@sap/ux-ui5-tooling": "1",
