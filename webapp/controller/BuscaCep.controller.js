@@ -413,7 +413,7 @@ sap.ui.define([
         
  
         onBack: function() {
-            this.getOwnerComponent().getRouter().navTo("LoginCep");
+            this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
         },
  
         onUserPress: function() {

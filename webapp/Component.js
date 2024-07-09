@@ -22,15 +22,18 @@ sap.ui.define([
             // Check if user is authenticated
             var userId = localStorage.getItem("localId");
 
-            if (userId == null && sRouteName !== "LoginCep" && sRouteName !== "Register") {
-                this.getRouter().navTo("LoginCep", {}, true);
+
+            console.log(sRouteName)
+            console.log(userId)
+            if (userId === null && sRouteName !== "LoginCep" && sRouteName !== "Register") {
+                this.getRouter().navTo("RouteLoginCep", {}, true);
             }
         },
 
         // Método para configurar a rota padrão após o login
         _setInitialRoute: function() {
             var oRouter = this.getRouter();
-            oRouter.getRoute("LoginCep").attachPatternMatched(this._onLoginMatched, this);
+            oRouter.getRoute("RouteLoginCep").attachPatternMatched(this._onLoginMatched, this);
         },
 
         // Lógica para exibir o menu fixo após o login

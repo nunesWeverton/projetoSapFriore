@@ -33,7 +33,7 @@ sap.ui.define([
                 }),
                 success: (data) => {
                     MessageToast.show("Cadastro realizado com sucesso!");
-                    this.getOwnerComponent().getRouter().navTo("LoginCep");
+                    this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
                 },
                 error: () => {
                     MessageToast.show("Erro ao tentar fazer registro.");
@@ -42,7 +42,7 @@ sap.ui.define([
         },
 
         onGoToLogin: function() {
-            this.getOwnerComponent().getRouter().navTo("LoginCep");
+            this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
         }
     });
 });
