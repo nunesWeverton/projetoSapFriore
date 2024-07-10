@@ -12,8 +12,9 @@ sap.ui.define([
     "sap/m/VBox",
     "sap/m/ButtonType",
     "sap/m/TitleAlignment",
-    "sap/ui/core/HTML"
-], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML) {
+    "sap/ui/core/HTML",
+    "sap/ui/core/BusyIndicator" 
+], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
     var sUrl = 'https://api-btp.azurewebsites.net/api';
 
@@ -25,10 +26,9 @@ sap.ui.define([
         },
        
         _loadHistorico: function() {
+            BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
-
-            
-
+      
             $.ajax({
                 url: sUrl + '/buscaCep/getAllByUserId?userId=' + uId,
                 method: "GET",
@@ -38,9 +38,11 @@ sap.ui.define([
                 },
                 success: (data) => {
                     this.createHistoricTable(data);
+                    BusyIndicator.hide()
                 },
                 error: () => {
                     MessageToast.show("Erro ao buscar histórico.");
+                    BusyIndicator.hide()
                 }
             });
         },
@@ -195,7 +197,7 @@ sap.ui.define([
 
 
         _salvarDescricao: function (sId, sDescricao, oSelectedItem) {
-
+            BusyIndicator.show(0);
             $.ajax({
                 url: sUrl + "/buscaCep",
                 method: "PUT",
@@ -214,9 +216,11 @@ sap.ui.define([
                     //oContext.getModel().setProperty(oContext.getPath() + "/descricao", sDescricao);
                     this._loadHistorico();
                     MessageToast.show("descrição adicionada");
+                    BusyIndicator.hide();
                 },
                 error: () => {
                     MessageToast.show("Erro ao salvar descrição.");
+                    BusyIndicator.hide();
                 }
 
 
@@ -298,7 +302,7 @@ sap.ui.define([
         
 
         _excluirItem: function (sId) {
-
+            BusyIndicator.show(0);
             $.ajax({
                 url: sUrl + "/buscaCep?id="+ sId,
                 method: "DELETE",
@@ -309,9 +313,11 @@ sap.ui.define([
                 success: () => {
                     MessageToast.show("Item excluído com sucesso!");
                     this._loadHistorico();
+                    BusyIndicator.hide();
                 },
                 error: () => {
                     MessageToast.show("Erro ao excluir histórico.");
+                    BusyIndicator.hide();
                 }
             });
          
@@ -440,6 +446,7 @@ sap.ui.define([
         },
  
         onLogout: function () {
+            BusyIndicator.show(0);
             $.ajax({
                 url: sUrl + '/account/logout?localId='+ localStorage.getItem("localId"),
                 method: "POST",
@@ -449,12 +456,14 @@ sap.ui.define([
                     MessageToast.show("Logout feito com sucesso");
                     this.byId("vboxBuscaCep").setVisible(true);
                     this.byId("vboxHistorico").setVisible(false);
-                    document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
+                    //document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
                     this.byId("inputCep").setValue("");
+                    BusyIndicator.hide()
                     this.getOwnerComponent().getRouter().navTo("RouteLoginCep")
                 },
                 error: () => {
                     MessageToast.show("Erro ao tentar fazer logout.");
+                    BusyIndicator.hide()
                 }
             });
            
