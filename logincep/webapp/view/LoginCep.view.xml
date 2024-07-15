@@ -1,0 +1,24 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="sap.btp.logincep.controller.LoginCep" displayBlock="true">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
+                <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
+                    <Button id="_IDGenButton3" icon="sap-icon://customer"/>
+                    <Text id="_IDGenText1" text="Login" class="HeaderLabel sapUiSmallMargin"/>
+                    <HBox id="_IDGenHbox1">
+                        <Label id="_IDLabel1" text="User Name" width="100px"/>
+                        <Input id="_IDGenInput1" width="200px" showClearIcon="true"/>
+                    </HBox>
+                    <HBox id="_IDHbox2">
+                        <Label id="_IDLabel2" text="Passoword" width="100px"/>
+                        <Input id="_IDGenInput2" width="200px" type="Password" showValueHelp="true" showClearIcon="false"/>
+                    </HBox>
+                    <FlexBox id="IDFlexBox2" justifyContent="Center">
+                        <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class="sapUiSmallMargin"/>
+                        <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="sapUiSmallMargin"/>
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,94 +1,353 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/ui/model/json/JSONModel"
-], function(Controller, MessageToast, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/Popover",
+    "sap/m/Label",
+    "sap/m/Button",
+    "sap/m/Dialog",
+    "sap/m/TextArea",
+    "sap/m/PlacementType",
+    "sap/m/HBox",
+    "sap/m/VBox",
+    "sap/m/ButtonType",
+    "sap/m/TitleAlignment",
+    "sap/ui/core/HTML",
+    "sap/ui/core/BusyIndicator" 
+], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
+    var sUrl = 'https://api-btp.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
-        
+       
         onInit: function() {
-            // Inicialização do controlador
+            var oTable = this.getView().byId("historicoTable");
+            oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
         },
-
+       
         _loadHistorico: function() {
-            var oView = this.getView();
-            var db = firebase.firestore();
-            var user = firebase.auth().currentUser;
-
-            db.collection("buscaCep")
-                .where("userId", "==", user.uid)
-                .get()
-                .then((querySnapshot) => {
-                    var aHistorico = [];
-                    querySnapshot.forEach((doc) => {
-                        aHistorico.push(doc.data());
-                    });
-
-                    var oModel = new JSONModel({ historico: aHistorico });
-                    oView.setModel(oModel, "historico");
-
-                    var oTable = oView.byId("historicoTable");
-                    var oTemplate = new sap.m.ColumnListItem({
-                        cells: [
-                            new sap.m.Text({ text: "{historico>data}" }),
-                            new sap.m.Text({ text: "{historico>cep}" }),
-                            new sap.m.Text({ text: "{historico>resultado}" })
-                        ]
-                    });
-
-                    oTable.bindItems({
-                        path: "historico>/historico",
-                        template: oTemplate
-                    });
-                    oTable.attachItemPress(function(oEvent) {
-                        var oSelectedItem = oEvent.getParameter("listItem");
-                        var oContext = oSelectedItem.getBindingContext("historico");
-                        var oItemData = oContext.getObject();
-                        this.mostrarDetalhesHistorico(oItemData);
-                    }.bind(this));
-                })
-                .catch((error) => {
-                    console.error("Erro ao carregar histórico:", error);
-                    MessageToast.show("Erro ao carregar histórico.");
-                });
+            BusyIndicator.show(0);
+            var uId = localStorage.getItem('localId');
+      
+            $.ajax({
+                url: sUrl + '/buscaCep/getAllByUserId?userId=' + uId,
+                method: "GET",
+                contentType: "application/json",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                success: (data) => {
+                    this.createHistoricTable(data);
+                    BusyIndicator.hide()
+                },
+                error: () => {
+                    MessageToast.show("Erro ao buscar histórico.");
+                    BusyIndicator.hide()
+                }
+            });
         },
 
-        mostrarDetalhesHistorico: function(oItemData) {
-            var oPopover = new sap.m.Popover({
-                title: "Detalhes do Histórico",
-                contentWidth: "300px",
-                content: [
-                    new sap.m.Label({ text: "Data: " + oItemData.data }),
-                    new sap.m.Label({ text: "CEP: " + oItemData.cep }),
-                    new sap.m.Label({ text: "Resultado: " + oItemData.resultado })
+        createHistoricTable: function(data){
+            var aHistorico = [];
+            var oView = this.getView();
+
+            data.forEach((doc) => {
+                aHistorico.push(doc);
+            });
+
+            var oModel = new JSONModel({ historico: aHistorico });
+            oView.setModel(oModel, "historico");
+
+            var oTable = oView.byId("historicoTable");
+            var oTemplate = new sap.m.ColumnListItem({
+                cells: [
+                    new sap.m.Text({ text: "{historico>data}" }),
+                    new sap.m.Text({ text: "{historico>cep}" }),
+                    new sap.m.Text({ text: "{historico>resultado}" }),
+                    new sap.m.Text({ text : "{historico>descricao}"})
                 ]
             });
 
+            oTable.bindItems({
+                path: "historico>/historico",
+                template: oTemplate
+            });
+            // oTable.attachItemPress(function(oEvent) {
+            //     var oSelectedItem = oEvent.getParameter("listItem");
+            //     var oContext = oSelectedItem.getBindingContext("historico");
+            //     var oItemData = oContext.getObject();
+            //     console.log(oItemData);
+            //     this.mostrarDetalhesHistorico(oItemData, oSelectedItem);
+            // }.bind(this));
+        },
+
+
+        onHistoricoItemDblClick: function (oEvent) {
+            var oTable = this.getView().byId("historicoTable");
+            var oItem = oTable.getSelectedItem();
+            if (!oItem) {
+                return;
+            }
+            var oContext = oItem.getBindingContext("historico");
+            var oItemData = oContext.getObject();
+            this.mostrarDetalhesHistorico(oItemData, oItem);
+        },
+ 
+        mostrarDetalhesHistorico: function (oItemData, oSelectedItem) {
+            var oPopover = new Popover({
+                title: "Detalhes do Histórico",
+                contentWidth: "350px",
+                placement: PlacementType.Vertical,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new VBox({
+                        items: [
+                            new Label({ text: "Data: " + oItemData.data, design: "Bold", textAlign: "Left", width: "auto" }).addStyleClass("sapUiTinyMarginTop"),
+                            new HTML({ content: "<hr>" }),
+                            new Label({ text: "CEP: " + oItemData.cep, design: "Bold", textAlign: "Left", width: "auto" }).addStyleClass("sapUiTinyMarginTop"),
+                            new HTML({ content: "<hr>" }),
+                            new Label({ text: "Resultado: " + oItemData.resultado, design: "Bold", textAlign: "Left", width: "auto" }).addStyleClass("sapUiTinyMarginTop"),
+                            new HTML({ content: "<hr>" }),
+                            new Label({ text: "Descrição: " + (oItemData.descricao || ""), design: "Bold", textAlign: "Left", width: "auto" }).addStyleClass("sapUiTinyMarginTop"),
+                            new HTML({ content: "<hr>" }),
+                        ]
+                    }).addStyleClass("customPopoverContent"), // Adiciona padding ao conteúdo
+                    new HBox({
+                        //justifyContent: "SpaceAround",
+                        items: [
+                            new Button({
+                                text: "Editar",
+                                press: function () {
+                                    if(oItemData.descricao){
+                                        this._openEditDialog(oItemData, oSelectedItem);
+                                        
+                                    }else{
+                                        this._openDescricaoDialog(oItemData, oSelectedItem);
+                                    }
+                                    oPopover.close();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                            new Button({
+                                text: "Excluir",
+                                press: function () {
+                                    this._excluirHistorico(oItemData.id);
+                                    oPopover.close();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                            new Button({
+                                text: "Adicionar Descrição",
+                                press: function () {
+                                    if(!oItemData.descricao){
+                                        this._openDescricaoDialog(oItemData, oSelectedItem);
+                                    }
+                                    else  this._openEditDialog(oItemData, oSelectedItem);
+                                    
+                                    oPopover.close();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                            new Button({
+                                text: "Cancelar",
+                                press: function () {
+                                    oPopover.close();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                        ]
+                    }).addStyleClass("buttonMargin")
+                ],
+                modal: true, // Para fazer o Popover modal
+                backgroundColor: "#f0f0f0", // Cor de fundo do Popover
+                verticalScrolling: false // Desabilita o scroll vertical
+            }).addStyleClass("customPopover"); // Aplica a fonte Arial ao Popover
+        
             oPopover.openBy(oSelectedItem);
         },
 
+        _openEditDialog: function (oItemData, oSelectedItem) {
+            var oDialog = new Dialog({
+                title: "Editar Descrição",
+                draggable: true,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new TextArea("editDescricaoTextArea", {
+                        value: oItemData.descricao || "",
+                        width: "100%",
+                        placeholder: "Adicionar descrição...",
+                    }).addStyleClass("customTextArea1")
+                ],
+                beginButton: new Button({
+                    text: "Salvar",
+                    press: function () {
+                        var sDescricao = sap.ui.getCore().byId("editDescricaoTextArea").getValue();
+                        this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
+                        oDialog.close();
+                        oDialog.destroy();
+                    }.bind(this)
+                }).addStyleClass("customSaveButton"),
+                endButton: new Button({
+                    text: "Cancelar",
+                    press: function () {
+                        oDialog.close();
+                        oDialog.destroy();
+                    }
+                }).addStyleClass("customCancelButton")
+            })
+
+            oDialog.open();
+        },
+
+
+        _salvarDescricao: function (sId, sDescricao, oSelectedItem) {
+            BusyIndicator.show(0);
+            $.ajax({
+                url: sUrl + "/buscaCep",
+                method: "PUT",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    id : sId,
+                    descricao : sDescricao,
+                    userId : localStorage.getItem("localId")
+                }),
+                success: () => {
+                    
+                    //var oContext = oSelectedItem.getBindingContext("historico");
+                    //oContext.getModel().setProperty(oContext.getPath() + "/descricao", sDescricao);
+                    this._loadHistorico();
+                    MessageToast.show("descrição adicionada");
+                    BusyIndicator.hide();
+                },
+                error: () => {
+                    MessageToast.show("Erro ao salvar descrição.");
+                    BusyIndicator.hide();
+                }
+
+
+            });
+
+             
+        },  
+
+        
+        
+        _excluirHistorico: function (sId) {
+            var oDialog = new Dialog({
+                title: "Deseja excluir?",
+                draggable: true,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new HBox({
+                        justifyContent: "Center", // Centraliza os botões horizontalmente
+                        items: [
+                            new Button({
+                                text: "Sim",
+                                press: function () {
+                                    this._excluirItem(sId);
+                                    oDialog.close();
+                                    oDialog.destroy();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico buttonSim"),
+                            new Button({
+                                text: "Não",
+                                press: function () {
+                                    oDialog.close();
+                                    oDialog.destroy();
+                                }
+                            }).addStyleClass("buttonDetalhesHistorico")
+                        ]
+                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                ]
+            }).addStyleClass("desejaExcluir");
+
+            oDialog.open();
+        },
+
+        _openDescricaoDialog: function (oItemData, oSelectedItem) {
+            var oDialog = new Dialog({
+                title: "Adicionar Descrição",
+                draggable: true,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new TextArea("descricaoTextArea", {
+                        value: oItemData.descricao || "",
+                        width: "100%", // Definindo largura do TextArea como 70% do diálogo
+                        placeholder: "Adicionar descrição...",
+                    }).addStyleClass("customTextArea")
+                ],
+                beginButton: new Button({
+                    text: "Salvar",
+                    type: ButtonType.Transparent, // Define o tipo de botão como transparente para remover o estilo padrão
+                    press: function () {
+                        var sDescricao = sap.ui.getCore().byId("descricaoTextArea").getValue();
+                        this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
+                        oDialog.close();
+                        oDialog.destroy();
+                    }.bind(this)
+                }).addStyleClass("customSaveButton"), // Adiciona classe de estilo para personalização
+        
+                endButton: new Button({
+                    text: "Cancelar",
+                    //type: ButtonType.Transparent, // Define o tipo de botão como transparente para remover o estilo padrão
+                    press: function () {
+                        oDialog.close();
+                        oDialog.destroy();
+                    }
+                }).addStyleClass("customCancelButton") // Adiciona classe de estilo para personalização
+            });
+        
+            oDialog.addStyleClass("customDialog"); // Adiciona classe de estilo para personalização adicional do diálogo
+            oDialog.open();
+        },
+        
+
+        _excluirItem: function (sId) {
+            BusyIndicator.show(0);
+            $.ajax({
+                url: sUrl + "/buscaCep?id="+ sId,
+                method: "DELETE",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                contentType: "application/json",
+                success: () => {
+                    MessageToast.show("Item excluído com sucesso!");
+                    this._loadHistorico();
+                    BusyIndicator.hide();
+                },
+                error: () => {
+                    MessageToast.show("Erro ao excluir histórico.");
+                    BusyIndicator.hide();
+                }
+            });
+         
+        }, 
+
+ 
         onBuscarCep: function() {
             var oView = this.getView();
             var sCep = oView.byId("inputCep").getValue();
-
+ 
             if (sCep === "") {
                 MessageToast.show("Por favor, insira um CEP.");
                 return;
             }
-
+ 
             sCep = sCep.replace(/\D/g, '');
-
+ 
             if (sCep.length !== 8) {
                 MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
                 return;
             }
-
+ 
             var sUrl = "https://viacep.com.br/ws/" + sCep + "/json/";
-
+ 
             $.ajax({
                 url: sUrl,
                 method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
                 success: function(data) {
                     if (data.erro) {
                         MessageToast.show("CEP não encontrado.");
@@ -96,7 +355,7 @@ sap.ui.define([
                     } else {
                         var oModel = new JSONModel(data);
                         oView.setModel(oModel, "cep");
-
+ 
                         this.exibirResultadoNaTabela(data);
                         this.salvarNoFirestore(data);
                     }
@@ -107,181 +366,187 @@ sap.ui.define([
                 }
             });
         },
-
+ 
         exibirResultadoNaTabela: function(data) {
             var aData = [
-                { campo: "Logradouro", valor: data.logradouro },
-                { campo: "Bairro", valor: data.bairro },
-                { campo: "Cidade", valor: data.localidade },
-                { campo: "Estado", valor: data.uf }
+                { campo: "Logradouro:", valor: data.logradouro },
+                { campo: "Bairro:", valor: data.bairro },
+                { campo: "Cidade:", valor: data.localidade },
+                { campo: "Estado:", valor: data.uf }
             ];
-
+        
             var tableHtml = '<table class="resultTable">';
             tableHtml += '<thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>';
-
+        
             aData.forEach(function(item) {
                 tableHtml += '<tr><td>' + item.campo + '</td><td>' + item.valor + '</td></tr>';
             });
-
+        
             tableHtml += '</tbody></table>';
-
-            var textResultDiv = document.getElementById("container-logincep---BuscaCep--textResult");
+        
+            var textResultDiv = document.getElementById("container-sap.btp.logincep---BuscaCep--textResult");
             textResultDiv.innerHTML = tableHtml;
         },
-
+ 
         salvarNoFirestore: function(data) {
-            var oView = this.getView();
-            var user = firebase.auth().currentUser;
-            var db = firebase.firestore();
-
+            var uId = localStorage.getItem('localId'); 
             var dataHoraLocal = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-
-            db.collection("buscaCep").add({
-                data: dataHoraLocal,
-                cep: data.cep,
-                resultado: data.logradouro + ", " + data.bairro + ", " + data.localidade + ", " + data.uf,
-                userId: user.uid
-            }).then(function(docRef) {
-                console.log("Busca salva com sucesso no Firestore!");
-                MessageToast.show("Busca salva com sucesso!");
-
-                var oHistoricoModel = oView.getModel("historico");
-                var aHistorico = (oHistoricoModel && oHistoricoModel.getProperty("/historico")) || [];
-                aHistorico.unshift({
+ 
+            $.ajax({
+                url: sUrl + '/buscaCep',
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
                     data: dataHoraLocal,
                     cep: data.cep,
                     resultado: data.logradouro + ", " + data.bairro + ", " + data.localidade + ", " + data.uf,
-                });
-
-                if (oHistoricoModel) {
-                    oHistoricoModel.setProperty("/historico", aHistorico);
-                } else {
-                    oHistoricoModel = new JSONModel({ historico: aHistorico });
-                    oView.setModel(oHistoricoModel, "historico");
+                    userId: uId
+                }),
+                success: () => {
+                    MessageToast.show("Busca salva com sucesso!");
+                   
+                },
+                error: () => {
+                    MessageToast.show("Erro ao tentar fazer registro.");
                 }
-            }).catch(function(error) {
-                console.error("Erro ao salvar a busca no Firestore: ", error);
-                MessageToast.show("Erro ao salvar a busca no Firestore.");
             });
+
         },
 
+        
+ 
         onBack: function() {
-            this.getOwnerComponent().getRouter().navTo("LoginCep");
+            this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
         },
-
+ 
         onUserPress: function() {
             MessageToast.show("Botão do usuário pressionado");
         },
-
+ 
         onMenuSelect: function(oEvent) {
             var sItemId = oEvent.getSource().getId();
             var oPage = this.byId("pageBuscaCep");
-
-            if (sItemId === "container-logincep---BuscaCep--menuItemBuscaCep") {
+ 
+            if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemBuscaCep") {
                 oPage.setTitle("Busca CEP");
                 this.byId("vboxBuscaCep").setVisible(true);
                 this.byId("vboxHistorico").setVisible(false);
-            } else if (sItemId === "container-logincep---BuscaCep--menuItemHistorico"){
+            } else if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemHistorico"){
                 oPage.setTitle("Histórico");
                 this.byId("vboxBuscaCep").setVisible(false);
                 this.byId("vboxHistorico").setVisible(true);
                 this._loadHistorico();
             }
-
+ 
             var oSplitApp = this.byId("SplitApp");
             oSplitApp.toDetail(this.createId("pageBuscaCep"));
         },
-
+ 
         onLogout: function () {
-            firebase.auth().signOut().then(() => {
-                MessageToast.show("Logout successful!");
-                var oPage = this.byId("pageBuscaCep");
-                oPage.setTitle("Busca CEP");
-                this.byId("vboxBuscaCep").setVisible(true);
-                this.byId("vboxHistorico").setVisible(false);
-                this.getOwnerComponent().getRouter().navTo("LoginCep");
-            }).catch((error) => {
-                MessageToast.show(error.message);
+            BusyIndicator.show(0);
+            $.ajax({
+                url: sUrl + '/account/logout?localId='+ localStorage.getItem("localId"),
+                method: "POST",
+                contentType: "application/json",
+                success: () => {
+                    localStorage.clear()
+                    MessageToast.show("Logout feito com sucesso");
+                    this.byId("vboxBuscaCep").setVisible(true);
+                    this.byId("vboxHistorico").setVisible(false);
+                    //document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
+                    this.byId("inputCep").setValue("");
+                    BusyIndicator.hide()
+                    this.getOwnerComponent().getRouter().navTo("RouteLoginCep")
+                },
+                error: () => {
+                    MessageToast.show("Erro ao tentar fazer logout.");
+                    BusyIndicator.hide()
+                }
             });
+           
         },
-
+ 
         onBuscarEndereco: function() {
             var oView = this.getView();
             var sCep = oView.byId("inputEndereco").getValue();
-        
-            var sCepNormalizado = sCep.replace(/\D/g, '');
-        
-            if (sCepNormalizado.length !== 8) {
-                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
-                this._loadHistorico();
-                return;
-            }
-        
-            var oHistoricoModel = oView.getModel("historico");
-            var aHistorico = oHistoricoModel.getProperty("/historico");
-        
-            var aFilteredHistorico = aHistorico.filter(function(item) {
-                var sItemCepNormalizado = item.cep.replace(/\D/g, '');
-                return sItemCepNormalizado === sCepNormalizado;
-            });
-        
-            if (aFilteredHistorico.length === 0) {
-                this._loadHistorico();
-                return;
-            }
-        
-            oHistoricoModel.setProperty("/historico", aFilteredHistorico);
-        },
+       
+            var sCepNormalizado = sCep.replace(/\D/g, '').replace(/^(\d{5})(\d)/, "$1-$2");
 
+            if (sCepNormalizado.length !== 9) {
+                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
+                
+            }else{
+                 $.ajax({
+                url: sUrl + '/buscaCep/getAllByCep?cep=' + sCepNormalizado,
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                contentType: "application/json",
+                success: (data) => {
+                    var oHistoricoModel = oView.getModel("historico");
+                    oHistoricoModel.setProperty("/historico", data);
+                },
+                error: () => {
+                    MessageToast.show("Não há nenhum registro com este CEP.");
+                }
+            });
+            }      
+            
+        },
+ 
         onOrdenarCrescente: function() {
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
-        
+       
             aHistorico.sort(function(a, b) {
                 var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
                 var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-        
+       
                 return dataA - dataB;
             });
-        
+       
             oHistoricoModel.setProperty("/historico", aHistorico);
         },
-
+ 
         onOrdenarDecrescente: function() {
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
-        
+       
             aHistorico.sort(function(a, b) {
                 var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
                 var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-        
+       
                 return dataB - dataA;
             });
-        
+       
             oHistoricoModel.setProperty("/historico", aHistorico);
         },
-
+ 
         onLimpaOrdenacao: function() {
             this._loadHistorico();
         },
-
+ 
         onGerarRelatorio: function() {
             var oView = this.getView();
             var oHistoricoTable = oView.byId("historicoTable");
-
+ 
             if (!oHistoricoTable) {
                 MessageToast.show("Erro ao acessar a tabela de histórico.");
                 return;
             }
-
+ 
             var bTableVisible = oHistoricoTable.getVisible();
             oHistoricoTable.setVisible(true);
-
+ 
             var oDate = new Date();
             var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
-
+ 
             var sTableContent = `
                 <header>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP Logo">
@@ -292,7 +557,7 @@ sap.ui.define([
                     <table>
                         <thead>
                             <tr>`;
-
+ 
             oHistoricoTable.getColumns().forEach(function(oColumn) {
                 sTableContent += "<th>" + oColumn.getHeader().getText() + "</th>";
             });
@@ -300,7 +565,7 @@ sap.ui.define([
                             </tr>
                         </thead>
                         <tbody>`;
-
+ 
             oHistoricoTable.getItems().forEach(function(oItem) {
                 sTableContent += "<tr>";
                 oItem.getCells().forEach(function(oCell) {
@@ -312,7 +577,7 @@ sap.ui.define([
                         </tbody>
                     </table>
                 </div>`;
-
+ 
             var oPopupWin = window.open('', '_blank', 'width=800,height=750');
             oPopupWin.document.open();
             oPopupWin.document.write(`
@@ -326,7 +591,7 @@ sap.ui.define([
                     </body>
                 </html>`);
             oPopupWin.document.close();
-
+ 
             setTimeout(function() {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);

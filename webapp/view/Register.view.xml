@@ -1,30 +1,33 @@
-<mvc:View controllerName="logincep.controller.Register"
+<mvc:View controllerName="sap.btp.logincep.controller.Register"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     displayBlock="true">
     <Page id="RegisterPage" title="Registro">
         <content>
-            <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
-                <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
-                    <Button id="_IDGenButton3" icon="sap-icon://customer"/>
-                    <Text id="_IDGenText1" text="Registrar uma nova conta" class="HeaderLabel sapUiSmallMargin"/>
-                    <HBox id="_IDGenHboxFirstName">
-                        <Label id="_IDLabelFirstName" text="Nome" width="100px"/>
-                        <Input id="registerFirstName" placeholder="Digite seu nome" width="200px" showClearIcon="true"/>
-                    </HBox>
-                    <HBox id="_IDGenHboxLastName">
-                        <Label id="_IDLabelLastName" text="Sobrenome" width="100px"/>
-                        <Input id="registerLastName" placeholder="Digite seu sobrenome" width="200px" showClearIcon="true"/>
-                    </HBox>
-                    <HBox id="_IDGenHbox1">
-                        <Label id="_IDLabel1" text="E-mail" width="100px"/>
-                        <Input id="registerEmail" placeholder="Digite seu e-mail" width="200px" showClearIcon="true"/>
-                    </HBox>
-                    <HBox id="_IDHbox2">
-                        <Label id="_IDLabel2" text="Senha" width="100px"/>
-                        <Input id="registerPassword" placeholder="Digite sua senha" width="200px" type="Password" showValueHelp="true" showClearIcon="false"/>
-                    </HBox>
-                    <FlexBox id="IDFlexBox2" justifyContent="Center">
+            <FlexBox id="_IDGenFlexBox1"  class= "flexBoxTLG">
+                <VBox id="_IDGenVbox1"  class="myHBox2">
+                    <FlexBox id="1" class= "FlextextLogin" >   
+                        <Text id="_IDGenText1" text="Registrar uma nova conta" class="text"/>
+                    </FlexBox>
+                    <FlexBox id="buttonsID" class= "buttonsForm2">
+                        <VBox id="_IDGenHboxFirstName" >
+                            <Label id="_IDLabelFirstName" text="Nome" class="colorText2" />
+                            <Input id="registerFirstName" placeholder="Digite seu nome" width="18rem" showClearIcon="true"/>
+                        </VBox>
+                        <VBox id="_IDGenHboxLastName">
+                            <Label id="_IDLabelLastName" text="Sobrenome" class="colorText2" />
+                            <Input id="registerLastName" placeholder="Digite seu sobrenome" width="18rem" showClearIcon="true"/>
+                        </VBox>
+                        <VBox id="_IDGenHbox1">
+                            <Label id="_IDLabel1" text="E-mail" class="colorText2"/>
+                            <Input id="registerEmail" placeholder="Digite seu e-mail" width="18rem" showClearIcon="true"/>
+                        </VBox>
+                        <VBox id="_IDHbox2">
+                            <Label id="_IDLabel2" text="Senha" class="colorText2"/>
+                            <Input id="registerPassword" placeholder="Digite sua senha" width="18rem" type="Password" showValueHelp="true" showClearIcon="false"/>
+                        </VBox>
+                    </FlexBox>
+                    <FlexBox id="IDFlexBox2" justifyContent="Center" class="colorText2">
                         <Button id="registerButton" text="Cadastrar" type="Reject" press="onCadastrar" class="sapUiSmallMargin"/>
                     </FlexBox>
                     <Link id="linkGoToLogin" text="Já tem uma conta? Clique aqui para fazer login." press="onGoToLogin"/>
