@@ -37,16 +37,6 @@
     background-color: aqua;
 }
 
-.buttonCss span {
-    align-items: center !important;
-    justify-content: center !important;
-    padding-left: 1.5rem !important;
-    padding-right: 1.5rem !important;
-    height: 2.625rem !important;
-    text-align: center !important;
-    align-content: space-around !important;
-}
-
 .centerDiv {
     width: 25rem !important;
 }

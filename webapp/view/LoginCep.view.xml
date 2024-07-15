@@ -1,5 +1,9 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" controllerName="logincep.controller.LoginCep" displayBlock="true">
-    <FlexBox
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" controllerName="logincep.controller.LoginCep" displayBlock="true" >
+    <FlexBox id="_IDGenFlexBox2"
+        width="100%"
+        height="100%" 
+        class="background">
+    <FlexBox id="_IDGenFlexBox1"
         width="100%"
         height="100%"
         alignItems="Center"
@@ -8,33 +12,45 @@
         
         <l:VerticalLayout
             id="_IDGenVerticalLayout1"
-            class="centerDiv sapUiContentPadding"
+            class="sapUiContentPadding centerDiv loginModel"
             width="100%"
         >
-            <l:content>
-                <Label text="UserName" labelFor="InputDisabled"/>
-                <Input
-                    id="_IDGenInput1"
-                    class="sapUiSmallMarginBottom"
-                    type="Text"
-                    placeholder="UserName"
-                    enabled="true"
-                    editable="true"
-                />
-                <Label text="Password" labelFor="InputEdit"/>
+        <FlexBox id="_IDGenFlexBox7" class="headerLogin" >
+
+            <FlexBox id="_IDGenFlexBox8" class="boxImageAnglo">
+                <Image id="_IDGenImage1" 
+                 class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" />
+            </FlexBox>
+
+            
+        </FlexBox>
+            <l:content >
+                <FlexBox id="_IDGenFlexBox4" class="boxLogin" >
+                    <Label id="_IDGenLabel2" text="Usuário" class="labelLogin"/>
+                    <Input
+                        id="_IDGenInput1"
+                        class="inputLogin"
+                        type="Text"
+                        placeholder="Usuário"
+                        enabled="true"
+                        editable="true"
+                    />
+                </FlexBox>
+                <FlexBox id="_IDGenFlexBox5" class="boxLogin" >
+                <Label id="_IDGenLabel1" text="Senha" class="labelLogin"/>
                 <Input
                     id="_IDGenInput2"
-                    class="sapUiSmallMarginBottom"
+                    class="inputLogin"
                     type="Password"
-                    
-                    placeholder="Enter password"
+                    placeholder="Senha"
                     enabled="true"
                     editable="true"
-                />
 
-                <FlexBox id="IDFlexBox2" justifyContent="Center">
-                    <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class="buttonCss sapUiSmallMargin"/>
-                    <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="buttonCss sapUiSmallMargin"/>
+                />
+                </FlexBox>
+                <FlexBox id="IDFlexBox2" justifyContent="Center" class="boxButton">
+                    <Button id="_IDGenButton1" width="100%" text="ENTRAR" press="OnLogin" class="buttonCss buttonEntrar"/>
+                    <Button id="_IDGenButton2" width="100%" text="CADASTRE-SE" press="onRegister" class="buttonCss buttonCadastro"/>
                 </FlexBox>
             </l:content>
         </l:VerticalLayout>
@@ -77,4 +93,5 @@
             </FlexBox>  -->
       <!-- </content>
     </Page> -->
+    </FlexBox>
 </mvc:View>
