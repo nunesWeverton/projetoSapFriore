@@ -23,6 +23,7 @@ sap.ui.define([
         onInit: function() {
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
+            
         },
        
         _loadHistorico: function() {
@@ -64,9 +65,32 @@ sap.ui.define([
                     new sap.m.Text({ text: "{historico>data}" }),
                     new sap.m.Text({ text: "{historico>cep}" }),
                     new sap.m.Text({ text: "{historico>resultado}" }),
-                    new sap.m.Text({ text : "{historico>descricao}"})
+                    new sap.m.Text({ text: "{historico>descricao}" }),
+                    new HBox ({
+                        items : [
+                            new sap.m.Button({
+                                icon: "sap-icon://edit",
+                                press: function(oEvent) {
+                                    var oSelectedItem = oEvent.getSource().getParent();
+                                    var oContext = oSelectedItem.getBindingContext("historico");
+                                    var oItemData = oContext.getObject();
+                                    this._openEditDialog(oItemData, oSelectedItem);
+                                }.bind(this)
+                            }).addStyleClass("btnEdition"),
+                            new sap.m.Button({
+                                icon: "sap-icon://delete",
+                                press: function(oEvent) {
+                                    var oSelectedItem = oEvent.getSource().getParent();
+                                    var oContext = oSelectedItem.getBindingContext("historico");
+                                    var oItemData = oContext.getObject();
+                                    this._excluirHistorico(oItemData.id);
+                                }.bind(this)
+                            }).addStyleClass("btnDelete")
+                        ]
+                    }),
+                    
                 ]
-            });
+            })
 
             oTable.bindItems({
                 path: "historico>/historico",
@@ -79,6 +103,55 @@ sap.ui.define([
             //     console.log(oItemData);
             //     this.mostrarDetalhesHistorico(oItemData, oSelectedItem);
             // }.bind(this));
+
+            oTable.addStyleClass("historicoTableStyle");
+            var itemCountText = oView.byId("itemCountText");
+            var itemCount = aHistorico.length;
+            itemCountText.setText(itemCount + " Registros");
+        },
+
+        onFilter : function(){
+               
+            var oDialog = new Dialog({
+                title: "",
+                draggable: true,
+                titleAlignment : TitleAlignment.Center,
+                content: [
+                    new VBox({
+                        aligItems: "Center", // Centraliza os botões horizontalmente
+                        items: [
+                            new Button({
+                                text: "Orderna Crescente",
+                                press: function () {
+                                    this.onOrdenarCrescente();
+                                    oDialog.close();
+                                    oDialog.destroy();
+                                }.bind(this)
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                            new Button({
+                                text: "Ordena Decrescente",
+                                press: function () {
+                                    this.onOrdenarDecrescente(); // Certifique-se de que this.onOrdenarDecrescente está corretamente definida
+                                    oDialog.close();
+                                    oDialog.destroy();
+                                }.bind(this) // Garante que o "this" se refere ao seu controller
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                            
+                            new Button({
+                                text: "Limpar histórico",
+                                press: () => {
+                                    this.onLimpaOrdenacao();
+                                    oDialog.close();
+                                    oDialog.destroy();
+                                }
+                            }).addStyleClass("buttonDetalhesHistorico"),
+                        ]
+                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                ]
+            }).addStyleClass("desejaExcluir");
+
+            oDialog.open();
+               
         },
 
 
@@ -247,7 +320,7 @@ sap.ui.define([
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico buttonSim"),
+                            }).addStyleClass("buttonDetalhesHistorico buttonYes"),
                             new Button({
                                 text: "Não",
                                 press: function () {
@@ -387,7 +460,6 @@ sap.ui.define([
             var textResultDiv = document.getElementById("container-sap.btp.logincep---BuscaCep--textResult");
             textResultDiv.innerHTML = tableHtml;
         },
- 
         salvarNoFirestore: function(data) {
             var uId = localStorage.getItem('localId'); 
             var dataHoraLocal = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
@@ -425,6 +497,19 @@ sap.ui.define([
         onUserPress: function() {
             MessageToast.show("Botão do usuário pressionado");
         },
+
+        onMenuButtonPress: function(oEvent) {
+            
+            var oButton = oEvent.getSource();
+            var oMenuList = this.getView().byId("menuList");
+
+            // Torna o List visível apenas se o botão não estiver clicado
+            if (!oButton.data("clicked")) {
+                oMenuList.setVisible(true);
+            }
+            
+        },
+
  
         onMenuSelect: function(oEvent) {
             var sItemId = oEvent.getSource().getId();
@@ -489,6 +574,9 @@ sap.ui.define([
                 success: (data) => {
                     var oHistoricoModel = oView.getModel("historico");
                     oHistoricoModel.setProperty("/historico", data);
+                    var itemCountText = oView.byId("itemCountText");
+                    var itemCount = data.length;
+                    itemCountText.setText(itemCount + " Registros");
                 },
                 error: () => {
                     MessageToast.show("Não há nenhum registro com este CEP.");
@@ -535,18 +623,18 @@ sap.ui.define([
         onGerarRelatorio: function() {
             var oView = this.getView();
             var oHistoricoTable = oView.byId("historicoTable");
- 
+        
             if (!oHistoricoTable) {
                 MessageToast.show("Erro ao acessar a tabela de histórico.");
                 return;
             }
- 
+        
             var bTableVisible = oHistoricoTable.getVisible();
             oHistoricoTable.setVisible(true);
- 
+        
             var oDate = new Date();
             var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
- 
+        
             var sTableContent = `
                 <header>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP Logo">
@@ -557,27 +645,39 @@ sap.ui.define([
                     <table>
                         <thead>
                             <tr>`;
- 
+        
+            // Filtrar as colunas que você deseja incluir no relatório
             oHistoricoTable.getColumns().forEach(function(oColumn) {
-                sTableContent += "<th>" + oColumn.getHeader().getText() + "</th>";
+                var sColumnName = oColumn.getHeader().getText();
+                // Excluir a coluna "Ações" ou outras que não sejam necessárias no relatório
+                if (sColumnName !== "Ações") {
+                    sTableContent += "<th>" + sColumnName + "</th>";
+                }
             });
+        
             sTableContent += `
                             </tr>
                         </thead>
                         <tbody>`;
- 
+        
             oHistoricoTable.getItems().forEach(function(oItem) {
                 sTableContent += "<tr>";
                 oItem.getCells().forEach(function(oCell) {
-                    sTableContent += "<td>" + oCell.getText() + "</td>";
+                    if (oCell instanceof sap.m.Text) {
+                        sTableContent += "<td>" + oCell.getText() + "</td>";
+                    } else {
+                        // Trate outros tipos de células, se necessário
+                        // Você pode querer ignorar células que não são do tipo Text
+                    }
                 });
                 sTableContent += "</tr>";
             });
+        
             sTableContent += `
                         </tbody>
                     </table>
                 </div>`;
- 
+        
             var oPopupWin = window.open('', '_blank', 'width=800,height=750');
             oPopupWin.document.open();
             oPopupWin.document.write(`
@@ -591,7 +691,7 @@ sap.ui.define([
                     </body>
                 </html>`);
             oPopupWin.document.close();
- 
+        
             setTimeout(function() {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
