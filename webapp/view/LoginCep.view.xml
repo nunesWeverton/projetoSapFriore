@@ -1,30 +1,97 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="sap.btp.logincep.controller.LoginCep" displayBlock="true">
-    <Page id="page" title="Login Busca Cep">
-        <content >
-            <FlexBox class= "flexBoxTLG" id="_IDGenFlexBox1"  >
-                <HBox class="myHBox1" id="_IDGenVbox1" > 
-                    <VBox id="image" class="image"/>  
-                    <VBox id="body" class= "myVboxBody">
-                        <FlexBox id="1" class= "FlextextLogin" >   
-                            <Text id="_IDGenText1" text="Login" class="text2"/>
-                        </FlexBox>
-                        <FlexBox id="buttonsID" class= "buttonsForm">
-                            <VBox id="3">
-                                <Text id="textEmail" text="Email" class="colorText" />
-                                <Input id="_IDGenInput1" showClearIcon="true" placeholder="Digite deu email" width="18rem" />
-                            </VBox>
-                            <VBox id="4" >
-                                <Text id="textSenha" text="Senha" class="colorText" />
-                                <Input  id="_IDGenInput2"  type="Password" showValueHelp="true" showClearIcon="false" placeholder="Digite sua senha" width="18rem"/>
-                            </VBox>
-                        </FlexBox>
-                        <FlexBox id="IDFlexBox2" class= "buttonsLogin">
-                            <Button id="_IDGenButton1" text="Entrar" type="Accept" press="OnLogin" class="button" />
-                            <Button id="_IDGenButton2" text="Cadastre-se" type="Reject" press="onRegister" class="button"/>
-                        </FlexBox>
-                    </VBox>
-                </HBox>
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" controllerName="sap.btp.logincep.controller.LoginCep" displayBlock="true" >
+    <FlexBox id="_IDGenFlexBox2"
+        width="100%"
+        height="100%" 
+        class="background">
+    <FlexBox id="_IDGenFlexBox1"
+        width="100%"
+        height="100%"
+        alignItems="Center"
+        justifyContent="Center"
+        >
+        
+        <l:VerticalLayout
+            id="_IDGenVerticalLayout1"
+            class="sapUiContentPadding centerDiv loginModel"
+            width="100%"
+        >
+        <FlexBox id="_IDGenFlexBox7" class="headerLogin" >
+
+            <FlexBox id="_IDGenFlexBox8" class="boxImageAnglo">
+                <Image id="_IDGenImage1" 
+                 class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" />
             </FlexBox>
-        </content>
-    </Page>
+
+            
+        </FlexBox>
+            <l:content >
+                <FlexBox id="_IDGenFlexBox4" class="boxLogin nopadding" >
+                    <Label id="_IDGenLabel2" text="Usuário" class="labelLogin"/>
+                    <Input
+                        id="_IDGenInput1"
+                        class="inputLogin"
+                        type="Text"
+                        placeholder="Usuário"
+                        enabled="true"
+                        editable="true"
+                    />
+                </FlexBox>
+                <FlexBox id="_IDGenFlexBox5" class="boxLogin" >
+                <Label id="_IDGenLabel1" text="Senha" class="labelLogin"/>
+                <Input
+                    id="_IDGenInput2"
+                    class="inputLogin"
+                    type="Password"
+                    placeholder="Senha"
+                    enabled="true"
+                    editable="true"
+
+                />
+                </FlexBox>
+                <FlexBox id="IDFlexBox2" justifyContent="Center" class="boxButton">
+                    <Button id="_IDGenButton1" width="100%" text="ENTRAR" press="OnLogin" class="buttonCss buttonEntrar"/>
+                    <Button id="_IDGenButton2" width="100%" text="CADASTRE-SE" press="onRegister" class="buttonCss buttonCadastro"/>
+                </FlexBox>
+            </l:content>
+        </l:VerticalLayout>
+    </FlexBox>
+
+    
+    <!-- <Page id="page" title="{i18n>title}">
+        <content> -->
+            <!-- <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
+                <Label id="_IDGenLabel1" text="Product" labelFor="productInput" />
+                <Input
+                    id="productInput"
+                    placeholder="Enter product"
+                    showSuggestion="true"
+                    showValueHelp="true"
+                    valueHelpRequest=".onValueHelpRequest"
+                    suggestionItems="{/ProductCollection}">
+                    <suggestionItems>
+                        <core:Item id="_IDGenItem1" text="{Name}" />
+                    </suggestionItems>
+                </Input>
+            </l:VerticalLayout> -->
+            <!-- <FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
+                <VBox id="_IDGenVbox1" alignItems="Center" justifyContent="Center" width="100%">
+                    <Button id="_IDGenButton3" icon="sap-icon://customer"/>
+                    <Text id="_IDGenText1" text="Login" class="HeaderLabel sapUiSmallMargin"/>
+                    <HBox id="_IDGenHbox1">
+                        <Label id="_IDLabel1" text="User Name" width="100px"/>
+                        <Input id="_IDGenInput1" width="200px" showClearIcon="true"/>
+                    </HBox>
+                    <HBox id="_IDHbox2">
+                        <Label id="_IDLabel2" text="Password" width="100px"/>
+                        <Input id="_IDGenInput2" width="200px" type="Password" showValueHelp="true" showClearIcon="false"/>
+                    </HBox>
+                    <FlexBox id="IDFlexBox2" justifyContent="Center">
+                        <Button id="_IDGenButton1" text="Login" type="Accept" press="OnLogin" class="sapUiSmallMargin"/>
+                        <Button id="_IDGenButton2" text="Registre" type="Reject" press="onRegister" class="sapUiSmallMargin"/>
+                    </FlexBox>
+                </VBox>
+            </FlexBox>  -->
+      <!-- </content>
+    </Page> -->
+    </FlexBox>
 </mvc:View>

@@ -1,0 +1,105 @@
+.background {
+  background: linear-gradient(69.35deg, #031795 27.77%, #1D4EC8 73.36%, #347FF6 113.99%) !important;
+}
+
+.loginModel {
+  background-color: #FFFFFF;
+  border-radius: 0.6rem;
+  width: 29.5rem;
+  height: 100%;
+}
+
+.labelLogin {
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  line-height: 1.313rem !important;
+  color: #347FF6 !important;
+}
+
+.inputLogin input {
+  height: 2rem !important;
+  padding: 16px !important;
+}
+
+.inputLogin {
+  height: 2rem !important;
+}
+
+.inputLogin :first-child {
+  height: 2rem !important;
+}
+
+.headerLogin {
+  height: 3.5rem;
+  justify-content: space-evenly !important;
+  align-items: center !important;
+}
+
+.headerLogin :first-child {
+  position: static !important;
+  justify-content: center !important;
+}
+
+.sapUiVltCell {
+  padding-bottom: 0 !important;
+}
+
+.boxLogin {
+  flex: 1;
+  display: flex;
+  flex-direction: column !important;
+  padding-top: 1rem;
+}
+
+.boxButton {
+  flex: 1;
+  flex-direction: column !important;
+  width: 100%s;
+  padding-top: 2rem;
+  gap: 0.5rem;
+}
+
+.buttonCss {
+  height: 2.5rem !important;
+  padding: 10px;
+
+
+  /* width: 100%; */
+
+}
+
+.buttonCss span {
+  height: 100% !important;
+  align-content: center !important;
+  border-radius: 100px !important;
+  border-color: #031795;
+  /* width: 100%; */
+
+}
+
+.imageAnglo {
+  flex: 1 !important;
+  width: 180px;
+  height: 100%;
+
+}
+
+.boxImageAnglo {
+  flex: 1 !important;
+  width: 100%;
+  height: 100%;
+  align-items: center !important;
+}
+
+.buttonEntrar span {
+  background-color: #031795 !important;
+  color: #FFFFFF !important;
+}
+
+.buttonCadastro span {
+  color: #031795 !important;
+}
+
+.nopadding {
+  padding-top: 0 !important;
+}
