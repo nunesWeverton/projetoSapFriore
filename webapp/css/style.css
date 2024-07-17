@@ -500,9 +500,9 @@ parte da tela de login */
     color: white;
 }
 
-.myCustomTextCep {}
+/* .myCustomTextCep {}
 
-.myCustomTextResultado {}
+.myCustomTextResultado {} */
 
 /* Ajuste de espaçamento para itens da lista */
 .myCustomListItem>.sapMText {
@@ -600,9 +600,6 @@ parte da tela de login */
     color: #fff
 }
 
-.buttonMargin {
-    /* margin-left: 10px; */
-}
 
 .sapUiTinyMarginTop {
     color: black;

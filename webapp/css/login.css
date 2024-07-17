@@ -6,7 +6,7 @@
   background-color: #FFFFFF;
   border-radius: 0.6rem;
   width: 29.5rem;
-  height: 24.5rem;
+  height: 100%;
 }
 
 .labelLogin {
@@ -30,13 +30,14 @@
 }
 
 .headerLogin {
-  height: 5rem;
+  height: 3.5rem;
   justify-content: space-evenly !important;
   align-items: center !important;
 }
 
 .headerLogin :first-child {
   position: static !important;
+  justify-content: center !important;
 }
 
 .sapUiVltCell {
@@ -97,4 +98,8 @@
 
 .buttonCadastro span {
   color: #031795 !important;
+}
+
+.nopadding {
+  padding-top: 0 !important;
 }
