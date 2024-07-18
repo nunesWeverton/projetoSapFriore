@@ -77,6 +77,12 @@
       "css": [
         {
           "uri": "css/style.css"
+        },
+        {
+          "uri": "css/login.css"
+        },
+        {
+          "uri": "css/register.css"
         }
       ]
     },
