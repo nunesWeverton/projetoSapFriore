@@ -2,10 +2,21 @@
     background-color: red;
 } */
 
+}
+
+
+.sapMPage {
+    background-color: white;
+}
 
 /*
 parte da tela de login */
-
+.sapMListTbl {
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    /* Adiciona uma borda com cor cinza claro */
+}
 
 
 /* Estilo para a lista de menu */
@@ -234,6 +245,7 @@ parte da tela de login */
     border-radius: 5px;
     border: 3px solid #e1e1e1;
     margin-top: 2rem;
+    margin-left: 50px;
 }
 
 .textForHead {
@@ -314,7 +326,7 @@ parte da tela de login */
     padding-right: 30px;
     width: 80%;
     height: 100%;
-    background-color: #F0F8FF;
+    background-color: white;
     margin-right: 8px;
 }
 
@@ -343,6 +355,25 @@ parte da tela de login */
     padding: 10px;
 }
 
+.sapMPageHeader {
+    height: 40px !important;
+    margin-bottom: 60px;
+}
+
+.btnIconeMenuLateral {
+    font-size: 200px;
+    /* Ajusta o tamanho do ícone */
+    height: 150px;
+    /* Ajusta a altura do botão */
+    width: 50px;
+    /* Ajusta a largura do botão */
+}
+
+.btnIconeMenuLateral .sapMBtnIcon {
+    font-size: 150px;
+    /* Ajusta o tamanho do ícone dentro do botão */
+}
+
 /* Estilo para o título da Toolbar */
 #historicoTitle {
     font-weight: bold;
@@ -361,15 +392,51 @@ parte da tela de login */
     font-size: 24px;
 }
 
+.historicoTableStyle .sapMLIB:nth-child(odd) {
+    background-color: #f9f9f9;
+    /* Cor para linhas ímpares */
+}
+
+.historicoTableStyle .sapMLIB:nth-child(even) {
+    background-color: #e9e9e9;
+    /* Cor para linhas pares */
+}
+
+.itemCountText {
+    margin: 10px;
+    margin-left: 35px;
+    color: blue;
+}
+
+.imageTitulo {
+    margin: 20px;
+    margin-top: 30px;
+    height: 130px !important;
+    width: 135px !important;
+}
+
+.historicoTableStyle {
+    width: 85% !important;
+    margin: auto;
+    /* Centraliza a tabela na tela */
+}
+
 /* CSS para estilizar a tabela */
 .resultTable {
-    width: 90rem;
+    width: 30rem;
     border-collapse: collapse;
     margin-top: 20px;
     font-family: Arial, sans-serif;
     font-size: 16px;
     color: black;
     font-weight: bold;
+    margin: 20px;
+    /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
+    border-radius: 10px;
+    /* Adiciona bordas arredondadas */
+    overflow: hidden;
+    margin-left: 50px;
+    /* Garante que bordas arredondadas sejam aplicadas corretamente */
 }
 
 .resultTable th,
@@ -380,6 +447,41 @@ parte da tela de login */
     /* Espaçamento interno */
     text-align: left;
 
+}
+
+.sapMListTblRow {
+    border: none;
+}
+
+.sapMListTblHeader {
+    height: 100%;
+}
+
+
+
+.sapMTableTHead {
+    background-color: #DFE3FE;
+    height: 40px;
+
+}
+
+.sapMColumnHeader {
+    background-color: #DFE3FE;
+}
+
+.sapMTableTH {
+    height: 40px;
+    background-color: #DFE3FE;
+}
+
+
+.resultTableHeader {
+    background-color: blue;
+    color: white;
+}
+
+.teste {
+    background-color: #007bff;
 }
 
 .resultTable th {
@@ -397,7 +499,8 @@ parte da tela de login */
 
 /* Estilo para a tabela */
 .myCustomTable {
-    width: 100%;
+    width: 50px;
+    height: 3%;
     border-collapse: collapse;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -410,34 +513,37 @@ parte da tela de login */
     background-color: #4CAF50;
     /* Verde */
     color: white;
-    padding: 10px;
     border-bottom: 2px solid #388E3C;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 /* Estilo para o título */
 .myCustomTitle {
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
+
     margin-right: auto;
 }
 
+
 /* Estilo para o input */
 .myCustomInput {
-    margin-right: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 296px;
+    height: 70px;
 }
 
 /* Estilo para os botões */
 .myCustomButton {
     margin-right: 5px;
-    background-color: #ffffff;
-    color: #4CAF50;
-    border: 1px solid #45cdf7;
+    margin-left: 10px;
+    background-color: #031795;
+    color: white;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
@@ -460,9 +566,7 @@ parte da tela de login */
 .myCustomColumnHeader {
     font-weight: bold;
     text-align: left;
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-bottom: 2px solid #ddd;
+    padding: 0px;
 }
 
 /* Estilo para os itens da lista */
@@ -471,6 +575,13 @@ parte da tela de login */
     border-bottom: 1px solid #ccc;
     padding: 10px;
     transition: background-color 0.3s;
+}
+
+.Pesquisa {
+    border-radius: 30px;
+    width: 96px;
+    height: 40px;
+    color: #FFFFFF;
 }
 
 .myCustomListItem:hover {
@@ -483,7 +594,7 @@ parte da tela de login */
 
 /* Estilo para o texto nas células */
 .myCustomText {
-    color: #333;
+    color: #3B63C0;
     font-size: 14px;
 }
 
@@ -505,6 +616,18 @@ parte da tela de login */
 .myCustomListItem>.sapMText {
     margin-right: 10px;
     background-color: white;
+}
+
+.myCustomButton .sapMBtnIcon {
+    color: white;
+    /* Cor do ícone */
+    font-size: 1.1rem;
+    /* Tamanho da fonte do ícone */
+}
+
+.myCustomButton .sapMBtnText {
+    color: white;
+    /* Cor do texto */
 }
 
 
@@ -540,6 +663,11 @@ parte da tela de login */
     font-size: 14px;
     line-height: 1.5;
     resize: vertical;
+}
+
+.resultTableHeader {
+    background-color: blue !important;
+    color: white;
 }
 
 .customTextArea1 {
@@ -602,6 +730,7 @@ parte da tela de login */
     color: black;
     font-family: Arial, sans-serif;
     font-size: 12px;
+    background-color: #005a8b;
 }
 
 .buttonDetalhesHistorico {
