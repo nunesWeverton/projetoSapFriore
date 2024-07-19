@@ -46,7 +46,9 @@
                     <VBox id="vboxBuscaCep" visible="true" class = "VboxSearch">
                       <FlexBox id="search" class="FlexBoxSearch">
                         <Text id="textCep" text="Digite o CEP para buscar informações :" class = "textForHead" />
-                        <Input id="inputCep" placeholder="Digite o CEP..." />
+                        <Input id="inputCep" placeholder="Digite o CEP..."
+                         liveChange="onLiveChange"
+                        value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
                         <Button id="btnBuscar" text="Buscar" press="onBuscarCep" class ="btnBuscaCep"/>
                       </FlexBox>
                       <VBox id="textResult" visible= "true"/>
@@ -57,7 +59,9 @@
                                 <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
                                     <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" icon="sap-icon://forward"  class="myCustomInput InputSearchTable"/>
+                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" icon="sap-icon://forward" 
+                                         class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
+                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
                                         <Button id="btnBuscarEndereco" text="Pesquisar"  press="onBuscarEndereco" class="myCustomButton Pesquisa" />
                                         <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />

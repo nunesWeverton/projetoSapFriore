@@ -87,7 +87,7 @@ sap.ui.define([
                                 }.bind(this)
                             }).addStyleClass("btnDelete")
                         ]
-                    }),
+                    }).addStyleClass("hboxBtnEditonDelete"),
                     
                 ]
             })
@@ -587,6 +587,7 @@ sap.ui.define([
         },
  
         onOrdenarCrescente: function() {
+            console.log("gygysyaz")
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
@@ -695,6 +696,27 @@ sap.ui.define([
             setTimeout(function() {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
+        },
+        formatCep: function(value) {
+            // Remove tudo que não é dígito
+            value = value.replace(/\D/g, '');
+
+            // Adiciona a máscara no formato 00000-000
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+
+            return value;
+        },
+        onLiveChange: function(oEvent) {
+            var oInput = oEvent.getSource();
+            var sValue = oInput.getValue();
+
+            // Formatar o valor do CEP
+            var sFormattedValue = this.formatCep(sValue);
+
+            // Definir o valor formatado no input
+            oInput.setValue(sFormattedValue);
         }
     });
 });
