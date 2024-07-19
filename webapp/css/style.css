@@ -12,7 +12,7 @@ parte da tela de login */
 .sapMListTbl {
     margin-top: 10px;
     border-radius: 20px;
-    border: 1px solid #ccc; /* Adiciona uma borda com cor cinza claro */
+    /* border: 1px solid #ccc; Adiciona uma borda com cor cinza claro */
 }
 
 
@@ -235,7 +235,7 @@ parte da tela de login */
 .FlexBoxSearch {
 
     background-color: #d5dadd;
-    width: 94rem;
+    width: 94%;
     height: 4rem;
     align-items: center;
     justify-content: center;
@@ -395,7 +395,7 @@ parte da tela de login */
 
 .itemCountText{
     margin: 10px;
-    margin-left: 35px;
+    margin-left: 7.5%;
     color: blue;
 }
 
@@ -487,7 +487,7 @@ parte da tela de login */
 .myCustomTable {
     width: 50px;
     height: 3%;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -605,12 +605,12 @@ parte da tela de login */
 }
 
 .myCustomButton .sapMBtnIcon {
-    color: white; /* Cor do ícone */
+    color: white !important; /* Cor do ícone */
     font-size: 1.1rem; /* Tamanho da fonte do ícone */
 }
 
 .myCustomButton .sapMBtnText {
-    color: white; /* Cor do texto */
+    color: #FFFFFF  !important; /* Cor do texto */
 }
 
 
@@ -666,7 +666,7 @@ parte da tela de login */
 
 /* Estilos para os botões */
 .customSaveButton {
-    color: #ffffff;
+    color: #fff;
     border: 1px solid #007bff;
     padding: 8px 16px;
     cursor: pointer;
@@ -740,4 +740,22 @@ parte da tela de login */
 
 .buttonSim {
     color: red;
+}
+
+.btnEdition{
+    margin-right: 10px;
+}
+
+.btnEdition .sapUiIcon {
+    color: red;
+}
+
+.InputSearchTable{
+    height: 20px !important;
+}
+
+.HboxImageAnglo .imageAnglo {
+    height: 70px !important;
+    width: 150px !important;
+    
 }
