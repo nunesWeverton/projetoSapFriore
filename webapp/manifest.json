@@ -84,6 +84,11 @@
         {
           "uri": "css/register.css"
         }
+      ],
+      "img": [
+        {
+          "uri": "images/Anglo_American_Logo_RGB_4C 1.png"
+        }
       ]
     },
     "routing": {
