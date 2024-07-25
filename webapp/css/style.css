@@ -1,9 +1,6 @@
-/* body {
-    background-color: red;
-} */
 
 
-.sapMPage {
+.sapMPage  {
     background-color: white;
 }
 
@@ -12,8 +9,6 @@ parte da tela de login */
 .sapMListTbl {
     margin-top: 10px;
     border-radius: 20px;
-    border: 1px solid #ccc;
-    /* Adiciona uma borda com cor cinza claro */
     /* border: 1px solid #ccc; Adiciona uma borda com cor cinza claro */
 }
 
@@ -31,29 +26,6 @@ parte da tela de login */
 }
 
 
-/* Estilo para o título da página */
-#pageTitle {
-    font-size: 1.5rem;
-    color: blue;
-    background-color: red;
-}
-
-/* Estilo para os botões na barra de cabeçalho */
-#headerBox .sapMBtn {
-    margin-right: 0.5rem;
-}
-
-/* Estilo para o campo de texto de busca */
-#inputCep {
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-/* Estilo para o botão de busca */
-#btnBuscar {
-    width: 100%;
-    margin-bottom: 1rem;
-}
 
 .flex1 {
     width: 100%;
@@ -64,15 +36,7 @@ parte da tela de login */
 
 
 
-/* Estilo para o resultado da busca */
-#textResult {
-    margin-top: 1rem;
-}
 
-/* Estilo para o histórico de buscas */
-#vboxHistorico {
-    background-color: aqua;
-}
 
 .centerDiv {
     width: 25rem !important;
@@ -225,10 +189,7 @@ parte da tela de login */
     /* Tamanho da fonte */
 }
 
-.myButton:hover {
-    background-color: #005a8b;
-    /* Cor de fundo do botão ao passar o mouse */
-}
+
 
 .titleBuscaCep {
     font-family: Arial, Helvetica, sans-serif;
@@ -348,60 +309,32 @@ parte da tela de login */
     padding: 10px;
 }
 
-/* Estilo para o cabeçalho do Toolbar */
-#historicoToolbar {
-    background-color: #e0e0e0;
-    padding: 10px;
-}
 
-.sapMPageHeader {
+.sapMPageHeader{
     height: 40px !important;
     margin-bottom: 60px;
 }
 
 .btnIconeMenuLateral {
-    font-size: 200px;
-    /* Ajusta o tamanho do ícone */
-    height: 150px;
-    /* Ajusta a altura do botão */
-    width: 50px;
-    /* Ajusta a largura do botão */
+    font-size: 200px; /* Ajusta o tamanho do ícone */
+    height: 150px; /* Ajusta a altura do botão */
+    width: 50px; /* Ajusta a largura do botão */
 }
 
 .btnIconeMenuLateral .sapMBtnIcon {
-    font-size: 150px;
-    /* Ajusta o tamanho do ícone dentro do botão */
+    font-size: 150px; /* Ajusta o tamanho do ícone dentro do botão */
 }
 
-/* Estilo para o título da Toolbar */
-#historicoTitle {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Estilo para o botão de logout */
-#logoutButton {
-    background-color: #d9534f;
-    color: #ffffff;
-}
-
-/* Estilo para o título da página */
-#pageTitle {
-    color: #007bff;
-    font-size: 24px;
-}
 
 .historicoTableStyle .sapMLIB:nth-child(odd) {
-    background-color: #f9f9f9;
-    /* Cor para linhas ímpares */
+    background-color: #f9f9f9; /* Cor para linhas ímpares */
 }
 
 .historicoTableStyle .sapMLIB:nth-child(even) {
-    background-color: #e9e9e9;
-    /* Cor para linhas pares */
+    background-color: #e9e9e9; /* Cor para linhas pares */
 }
 
-.itemCountText {
+.itemCountText{
     margin: 10px;
     margin-left: 7.5%;
     color: blue;
@@ -416,8 +349,7 @@ parte da tela de login */
 
 .historicoTableStyle {
     width: 85% !important;
-    margin: auto;
-    /* Centraliza a tabela na tela */
+    margin: auto; /* Centraliza a tabela na tela */
 }
 
 /* CSS para estilizar a tabela */
@@ -429,13 +361,10 @@ parte da tela de login */
     font-size: 16px;
     color: black;
     font-weight: bold;
-    margin: 20px;
-    /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
-    border-radius: 10px;
-    /* Adiciona bordas arredondadas */
+    margin: 20px ; /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
+    border-radius: 10px; /* Adiciona bordas arredondadas */
     overflow: hidden;
-    margin-left: 50px;
-    /* Garante que bordas arredondadas sejam aplicadas corretamente */
+    margin-left: 50px; /* Garante que bordas arredondadas sejam aplicadas corretamente */
 }
 
 .resultTable th,
@@ -458,13 +387,12 @@ parte da tela de login */
 
 
 
-.sapMTableTHead {
+.sapMTableTHead{
     background-color: #DFE3FE;
     height: 40px;
-
+   
 }
-
-.sapMColumnHeader {
+.sapMColumnHeader{
     background-color: #DFE3FE;
 }
 
@@ -479,7 +407,7 @@ parte da tela de login */
     color: white;
 }
 
-.teste {
+.teste{
     background-color: #007bff;
 }
 
@@ -522,7 +450,7 @@ parte da tela de login */
 .myCustomTitle {
     font-size: 1.5rem;
     font-weight: bold;
-
+    
     margin-right: auto;
 }
 
@@ -543,16 +471,12 @@ parte da tela de login */
     margin-left: 10px;
     background-color: #031795;
     color: white;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none !important;/* Cor do texto */
 }
 
-.myCustomButton:hover {
-    background-color: #4fcdf3;
-    color: white;
-}
+
 
 /* Estilo para as colunas */
 .myCustomColumn {
@@ -576,16 +500,16 @@ parte da tela de login */
     transition: background-color 0.3s;
 }
 
-.Pesquisa {
+.Pesquisa{
     border-radius: 30px;
     width: 96px;
     height: 40px;
-    color: #FFFFFF;
+   color: #FFFFFF;
 }
 
-.myCustomListItem:hover {
+/* .myCustomListItem:hover {
     background-color: #f1f1f1;
-}
+} */
 
 .myCustomListItem:nth-child(even) {
     background-color: #f9f9f9;
@@ -607,6 +531,10 @@ parte da tela de login */
     color: white;
 }
 
+.btnOnLogout > .sapMBtnText {
+    background-color: #031795 !important;
+}
+
 /* .myCustomTextCep {}
 
 .myCustomTextResultado {} */
@@ -618,18 +546,13 @@ parte da tela de login */
 }
 
 .myCustomButton .sapMBtnIcon {
-    color: white;
-    /* Cor do ícone */
-    font-size: 1.1rem;
-    /* Tamanho da fonte do ícone */
     color: white !important; /* Cor do ícone */
     font-size: 1.1rem; /* Tamanho da fonte do ícone */
 }
 
 .myCustomButton .sapMBtnText {
-    color: white;
-    /* Cor do texto */
-    color: #FFFFFF  !important; /* Cor do texto */
+    color: #FFFFFF  !important; 
+     border: none !important;
 }
 
 
@@ -749,12 +672,20 @@ parte da tela de login */
 }
 
 
-.desejaExcluir {
+.oDialogFilter {
 
     display: flex;
+    padding: 0px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    background-color: #347FF6 !important;
+    border: none;
+}
+
+
+.oDialogFilter .sapMBar  {
+    background-color: #347FF6 !important;
 }
 
 .buttonSim {
@@ -766,6 +697,10 @@ parte da tela de login */
 }
 
 .btnEdition .sapUiIcon {
+    color: #031795;
+}
+
+.btnDelete .sapMBtnIcon{
     color: red;
 }
 
@@ -777,4 +712,47 @@ parte da tela de login */
     height: 70px !important;
     width: 150px !important;
     
+}
+
+.vboxFilter{
+    width: 100%;
+}
+
+.btnFilter {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 0;
+    background-color: #347FF6 !important;
+    color: #FFFFFF;
+    height: auto;
+}
+
+.btnFilter .sapMBtnText {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #347FF6 !important;
+    color: #FFFFFF;
+}
+
+.btnFilter .sapMBtnIcon {
+    color: #FFFFFF;
+}
+.vboxFilter{
+   background-color: #347FF6 !important; ;
+}
+
+
+.userButton .sapMBtnIcon{
+
+    color:  #347FF6;
+         
 }

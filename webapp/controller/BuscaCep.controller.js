@@ -118,37 +118,39 @@ sap.ui.define([
                 titleAlignment : TitleAlignment.Center,
                 content: [
                     new VBox({
-                        aligItems: "Center", // Centraliza os botões horizontalmente
+                        alignItems: "Center",
                         items: [
                             new Button({
                                 text: "Orderna Crescente",
+                                icon: "sap-icon://sort-ascending",
                                 press: function () {
                                     this.onOrdenarCrescente();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Ordena Decrescente",
+                                icon: "sap-icon://sort-descending",
                                 press: function () {
-                                    this.onOrdenarDecrescente(); // Certifique-se de que this.onOrdenarDecrescente está corretamente definida
+                                    this.onOrdenarDecrescente();
                                     oDialog.close();
                                     oDialog.destroy();
-                                }.bind(this) // Garante que o "this" se refere ao seu controller
-                            }).addStyleClass("buttonDetalhesHistorico"),
-                            
+                                }.bind(this)
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Limpar histórico",
+                                icon: "sap-icon://delete",
                                 press: () => {
                                     this.onLimpaOrdenacao();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                         ]
-                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                    }).addStyleClass("vboxFilter") // Adiciona espaçamento entre os botões
                 ]
-            }).addStyleClass("desejaExcluir");
+            }).addStyleClass("oDialogFilter");
 
             oDialog.open();
                
