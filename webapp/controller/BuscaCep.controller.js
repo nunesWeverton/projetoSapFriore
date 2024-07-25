@@ -16,7 +16,7 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator" 
 ], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
-    var sUrl = 'https://api-btp.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
        

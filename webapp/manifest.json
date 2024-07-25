@@ -83,6 +83,9 @@
         },
         {
           "uri": "css/register.css"
+        },
+        {
+          "uri": "css/buscaCep.css"
         }
 
       ],
