@@ -4,27 +4,20 @@
     background-color: white;
 }
 
-/*
-parte da tela de login */
 .sapMListTbl {
     margin-top: 10px;
     border-radius: 20px;
-    /* border: 1px solid #ccc; Adiciona uma borda com cor cinza claro */
 }
 
-
-/* Estilo para a lista de menu */
 .menuItem {
     background-color: white;
     width: 100rem;
     font-size: 16px;
-    /* Tamanho da fonte */
     color: red !important;
     font-weight: bold !important;
     font: red !important;
 
 }
-
 
 
 .flex1 {
@@ -35,9 +28,6 @@ parte da tela de login */
 }
 
 
-
-
-
 .centerDiv {
     width: 25rem !important;
 }
@@ -45,19 +35,15 @@ parte da tela de login */
 .flexBoxTLG {
     background-color: #71b7f4;
     padding: 20px;
-    /* Espaçamento interno */
     border-radius: 10px;
     align-items: center;
     justify-content: center;
     height: 100%;
     flex-direction: column;
 
-
 }
 
-/* Estilo personalizado para VBox */
 .myHBox1 {
-    /* Cor de fundo do VBox */
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -71,7 +57,6 @@ parte da tela de login */
 }
 
 .myHBox2 {
-    /* Cor de fundo do VBox */
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -90,9 +75,7 @@ parte da tela de login */
     background-color: white;
     image-rendering: auto;
     background-image: url('https://http2.mlstatic.com/D_NQ_NP_614856-MLB73684575745_122023-O.webp');
-    /* Caminho para a imagem */
     background-size: 80%;
-    /* Ajusta a imagem para cobrir todo o contêiner */
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -174,19 +157,12 @@ parte da tela de login */
 
 .myButton {
     background-color: #007cc0;
-    /* Cor de fundo do botão */
     color: #ffffff;
-    /* Cor do texto do botão */
     border: none;
-    /* Remove a borda padrão */
     border-radius: 5px;
-    /* Cantos arredondados */
     padding: 10px 20px;
-    /* Espaçamento interno */
     margin: 5px;
-    /* Espaçamento externo */
     font-size: 16px;
-    /* Tamanho da fonte */
 }
 
 
@@ -210,20 +186,17 @@ parte da tela de login */
 
 .textForHead {
     font-size: 13px;
-    /* Tamanho da fonte */
     color: #333;
     margin: 8px;
 }
 
 .text {
     font-size: 16px;
-    /* Tamanho da fonte */
     color: black;
 }
 
 .text2 {
     font-size: 28px;
-    /* Tamanho da fonte */
     color: black;
 }
 
@@ -242,13 +215,12 @@ parte da tela de login */
 
 .colorText {
     font-size: 18px;
-    /* Tamanho da fonte */
     color: black;
 }
 
 .colorText2 {
     font-size: 15px;
-    /* Tamanho da fonte */
+
     color: black;
 }
 
@@ -262,12 +234,7 @@ parte da tela de login */
 
 }
 
-/* Estilos personalizados para a página SAPUI5 */
 
-/* Estilo para o FlexBox no menu */
-
-
-/* Estilo para itens do menu */
 .menuItem {
     font-size: 16px;
     color: #333;
@@ -277,7 +244,6 @@ parte da tela de login */
     background-color: #d1e0e0 !important;
 }
 
-/* Estilo para o VBox que contém a busca de CEP */
 .VboxSearch {
     padding-left: 10px;
     padding-right: 10px;
@@ -290,20 +256,17 @@ parte da tela de login */
     margin-right: 8px;
 }
 
-/* Estilo para o FlexBox que contém os campos de busca */
 
-/* Estilo para o texto de instrução da busca de CEP */
 .text3 {
     font-size: 14px;
     color: #666;
 }
 
-/* Estilo para o HBox que contém o campo de CEP e o botão */
+
 .box {
     margin-top: 10px;
 }
 
-/* Estilo para a tabela de histórico */
 .headerToolbar {
     background-color: #fafafa;
     padding: 10px;
@@ -316,22 +279,22 @@ parte da tela de login */
 }
 
 .btnIconeMenuLateral {
-    font-size: 200px; /* Ajusta o tamanho do ícone */
-    height: 150px; /* Ajusta a altura do botão */
-    width: 50px; /* Ajusta a largura do botão */
+    font-size: 200px; 
+    height: 150px; 
+    width: 50px; 
 }
 
 .btnIconeMenuLateral .sapMBtnIcon {
-    font-size: 150px; /* Ajusta o tamanho do ícone dentro do botão */
+    font-size: 150px;
 }
 
 
 .historicoTableStyle .sapMLIB:nth-child(odd) {
-    background-color: #f9f9f9; /* Cor para linhas ímpares */
+    background-color: #f9f9f9; 
 }
 
 .historicoTableStyle .sapMLIB:nth-child(even) {
-    background-color: #e9e9e9; /* Cor para linhas pares */
+    background-color: #e9e9e9; 
 }
 
 .itemCountText{
@@ -349,10 +312,9 @@ parte da tela de login */
 
 .historicoTableStyle {
     width: 85% !important;
-    margin: auto; /* Centraliza a tabela na tela */
+    margin: auto; 
 }
 
-/* CSS para estilizar a tabela */
 .resultTable {
     width: 30rem;
     border-collapse: collapse;
@@ -361,18 +323,16 @@ parte da tela de login */
     font-size: 16px;
     color: black;
     font-weight: bold;
-    margin: 20px ; /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
-    border-radius: 10px; /* Adiciona bordas arredondadas */
+    margin: 20px ; 
+    border-radius: 10px; 
     overflow: hidden;
-    margin-left: 50px; /* Garante que bordas arredondadas sejam aplicadas corretamente */
+    margin-left: 50px; 
 }
 
 .resultTable th,
 .resultTable td {
     border: 2px solid #007cc0;
-    /* Cor da borda */
     padding: 15px;
-    /* Espaçamento interno */
     text-align: left;
 
 }
@@ -413,32 +373,26 @@ parte da tela de login */
 
 .resultTable th {
     background-color: #007cc0;
-    /* Cor de fundo do cabeçalho */
     color: #FFFFFF;
-    /* Cor do texto no cabeçalho */
     font-weight: bold;
 }
 
 .resultTable tbody tr:nth-child(even) {
     background-color: #F0F8FF;
-    /* Cor de fundo para linhas pares */
+    
 }
 
-/* Estilo para a tabela */
 .myCustomTable {
     width: 50px;
     height: 3%;
-    /* border-collapse: collapse; */
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     font-family: 'Arial', sans-serif;
 }
 
-/* Estilo para a barra de ferramentas */
 .myCustomToolbar {
     background-color: #4CAF50;
-    /* Verde */
     color: white;
     border-bottom: 2px solid #388E3C;
     display: flex;
@@ -446,7 +400,7 @@ parte da tela de login */
     justify-content: space-between;
 }
 
-/* Estilo para o título */
+
 .myCustomTitle {
     font-size: 1.5rem;
     font-weight: bold;
@@ -455,7 +409,6 @@ parte da tela de login */
 }
 
 
-/* Estilo para o input */
 .myCustomInput {
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -465,34 +418,33 @@ parte da tela de login */
     height: 70px;
 }
 
-/* Estilo para os botões */
+
 .myCustomButton {
     margin-right: 5px;
     margin-left: 10px;
     background-color: #031795;
     color: white;
-    /* border-radius: 4px; */
     padding: 5px 10px;
-    text-decoration: none !important;/* Cor do texto */
+    text-decoration: none !important;
 }
 
 
 
-/* Estilo para as colunas */
+
 .myCustomColumn {
     text-align: left;
     padding: 10px;
     border-bottom: 2px solid #ddd;
 }
 
-/* Estilo para os cabeçalhos das colunas */
+
 .myCustomColumnHeader {
     font-weight: bold;
     text-align: left;
     padding: 0px;
 }
 
-/* Estilo para os itens da lista */
+
 .myCustomListItem {
     background-color: #ffffff;
     border-bottom: 1px solid #ccc;
@@ -507,23 +459,21 @@ parte da tela de login */
    color: #FFFFFF;
 }
 
-/* .myCustomListItem:hover {
-    background-color: #f1f1f1;
-} */
+
+
 
 .myCustomListItem:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Estilo para o texto nas células */
+
 .myCustomText {
     color: #3B63C0;
     font-size: 14px;
 }
 
-/* Estilos adicionais para os dados */
+
 .myCustomTextData {
-    /* Laranja */
     font-weight: bold;
 }
 
@@ -535,19 +485,15 @@ parte da tela de login */
     background-color: #031795 !important;
 }
 
-/* .myCustomTextCep {}
 
-.myCustomTextResultado {} */
-
-/* Ajuste de espaçamento para itens da lista */
 .myCustomListItem>.sapMText {
     margin-right: 10px;
     background-color: white;
 }
 
 .myCustomButton .sapMBtnIcon {
-    color: white !important; /* Cor do ícone */
-    font-size: 1.1rem; /* Tamanho da fonte do ícone */
+    color: white !important; 
+    font-size: 1.1rem; 
 }
 
 .myCustomButton .sapMBtnText {
@@ -559,27 +505,22 @@ parte da tela de login */
 
 
 
-/* fim da parte da tela de login
-
-/* Estilos para o diálogo */
 .customDialog {
     background-color: #f2f2f2;
-    /* Cor de fundo do diálogo */
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 2px;
     position: fixed;
     z-index: 1000;
     overflow: hidden;
-    /* Impede que a caixa do diálogo cresça com seu conteúdo */
+    
 }
 
-/* Estilos para o título do diálogo */
 .customDialog h2 {
     margin-top: 0;
 }
 
-/* Estilos para o textarea */
+
 .customTextArea {
     width: 100%;
     height: 100px;
@@ -606,7 +547,7 @@ parte da tela de login */
     resize: vertical;
 }
 
-/* Estilos para os botões */
+
 .customSaveButton {
     color: #fff;
     border: 1px solid #007bff;
@@ -620,7 +561,6 @@ parte da tela de login */
 
 .customCancelButton {
     background-color: #dc3545;
-    /* Vermelho */
     color: #fff;
     border: 1px solid #dc3545;
     padding: 8px 16px;
@@ -629,22 +569,14 @@ parte da tela de login */
     border-radius: 20%;
 }
 
-/* .customCancelButton1 { 
-    background-color: #dc3545;
-    color:#fff;
-    border: 1px solid #dc3545;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    border-radius: 10px;
-} */
+
 
 .customPopover {
     font-family: Arial, sans-serif;
     color: #fff;
 }
 
-/* Adicione padding ao conteúdo do Popover */
+
 .customPopoverContent {
     padding: 16px;
     color: #fff
@@ -664,11 +596,9 @@ parte da tela de login */
 
 .customPopover {
     border: 2px solid #000;
-    /* Altere a cor e a espessura da borda conforme necessário */
     padding: 10px;
-    /* Opcional: Adicione padding para espaçamento interno */
     border-radius: 5px;
-    /* Opcional: Adicione bordas arredondadas */
+
 }
 
 
