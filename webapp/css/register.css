@@ -29,12 +29,14 @@
 }
 
 .textFooterRegister {
-  font-size: 1rem;
-  font-weight: bolder;
+  font-weight: bolder !important;
 }
 
 .linkColor {
   color: #031795 !important;
 }
 
-.boxImageAngloFooter {}
+html.sap-desktop .sapMLnk:not(.sapMLnkDsbl):focus {
+  background-color: #fff !important;
+
+}

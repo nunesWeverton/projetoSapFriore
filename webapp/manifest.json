@@ -77,6 +77,21 @@
       "css": [
         {
           "uri": "css/style.css"
+        },
+        {
+          "uri": "css/login.css"
+        },
+        {
+          "uri": "css/register.css"
+        },
+        {
+          "uri": "css/buscaCep.css"
+        }
+
+      ],
+      "img": [
+        {
+          "uri": "images/Anglo_American_Logo_RGB_4C 1.png"
         }
       ]
     },

@@ -16,7 +16,7 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator" 
 ], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
-    var sUrl = 'https://api-btp.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
        
@@ -87,7 +87,7 @@ sap.ui.define([
                                 }.bind(this)
                             }).addStyleClass("btnDelete")
                         ]
-                    }),
+                    }).addStyleClass("hboxBtnEditonDelete"),
                     
                 ]
             })
@@ -118,37 +118,39 @@ sap.ui.define([
                 titleAlignment : TitleAlignment.Center,
                 content: [
                     new VBox({
-                        aligItems: "Center", // Centraliza os botões horizontalmente
+                        alignItems: "Center",
                         items: [
                             new Button({
                                 text: "Orderna Crescente",
+                                icon: "sap-icon://sort-ascending",
                                 press: function () {
                                     this.onOrdenarCrescente();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Ordena Decrescente",
+                                icon: "sap-icon://sort-descending",
                                 press: function () {
-                                    this.onOrdenarDecrescente(); // Certifique-se de que this.onOrdenarDecrescente está corretamente definida
+                                    this.onOrdenarDecrescente();
                                     oDialog.close();
                                     oDialog.destroy();
-                                }.bind(this) // Garante que o "this" se refere ao seu controller
-                            }).addStyleClass("buttonDetalhesHistorico"),
-                            
+                                }.bind(this)
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Limpar histórico",
+                                icon: "sap-icon://delete",
                                 press: () => {
                                     this.onLimpaOrdenacao();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                         ]
-                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                    }).addStyleClass("vboxFilter") // Adiciona espaçamento entre os botões
                 ]
-            }).addStyleClass("desejaExcluir");
+            }).addStyleClass("oDialogFilter");
 
             oDialog.open();
                
@@ -587,6 +589,7 @@ sap.ui.define([
         },
  
         onOrdenarCrescente: function() {
+            console.log("gygysyaz")
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
@@ -695,6 +698,27 @@ sap.ui.define([
             setTimeout(function() {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
+        },
+        formatCep: function(value) {
+            // Remove tudo que não é dígito
+            value = value.replace(/\D/g, '');
+
+            // Adiciona a máscara no formato 00000-000
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+
+            return value;
+        },
+        onLiveChange: function(oEvent) {
+            var oInput = oEvent.getSource();
+            var sValue = oInput.getValue();
+
+            // Formatar o valor do CEP
+            var sFormattedValue = this.formatCep(sValue);
+
+            // Definir o valor formatado no input
+            oInput.setValue(sFormattedValue);
         }
     });
 });
