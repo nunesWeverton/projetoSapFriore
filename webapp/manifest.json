@@ -86,8 +86,10 @@
         },
         {
           "uri": "css/buscaCep.css"
+        },
+        {
+          "uri": "css/descriptionModal.css"
         }
-
       ],
       "img": [
         {

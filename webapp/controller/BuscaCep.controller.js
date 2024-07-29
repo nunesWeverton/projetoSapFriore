@@ -265,7 +265,7 @@ sap.ui.define([
                         oDialog.destroy();
                     }
                 }).addStyleClass("customCancelButton")
-            })
+            }).addStyleClass("dialogClass")
 
             oDialog.open();
         },
