@@ -128,6 +128,10 @@
     background-color: #e9e9e9; 
 }
 
+.historicoTableStyle .sapMListTblRow:last-child {
+   text-decoration: none;
+}
+
 .itemCountText{
     margin: 10px;
     margin-left: 7.5%;
@@ -252,6 +256,11 @@
     margin-right: 5px;
     width: 296px;
     height: 90px;
+}
+
+
+.InputSearchTable   .sapUiSizeCompact .sapMInputBaseContentWrapper {
+    height: 2.625rem  !important;
 }
 
 .myCustomInput .sapMInputBaseIconContainer {
@@ -607,4 +616,56 @@
     border-radius: 15px;
     width: 98%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.sapMTableTHead .sapMBtnText{
+
+     color: white;
+}
+
+
+.btnGenerateReport span.sapMBtnInner.sapMBtnEmphasized{
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+}
+
+.btnGenerateReport{
+
+    background-color: #031795;
+    border-radius: 25px !important;
+    width: 150px;
+    text-align: center;
+    height: 50px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btnBuscarEndereco{
+    width: 90px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    margin-top: 5px;
+}
+
+.HboxPesquisaFiltro{
+    margin-top: 15px;
+    
+}
+
+
+.myCustomInput   .sapMInputBaseContentWrapper {
+    height: 2.00rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.myCustomInput .sapMInputBaseInner {
+    padding-right: 3rem; 
+}
+
+.myCustomInput .sapMInputBaseIcon {
+    position: absolute; 
+    right: 0.5rem; 
+    top: 50%; 
+    transform: translateY(-50%);
 }

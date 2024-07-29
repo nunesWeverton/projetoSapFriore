@@ -63,7 +63,7 @@
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
                                           value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" 
                                           />
-                                        <Button id="btnBuscarEndereco" text="Pesquisar"  press="onBuscarEndereco" class="myCustomButton"
+                                        <Button id="btnBuscarEndereco" text="Buscar"  press="onBuscarEndereco" class="myCustomButton btnBuscarEndereco"
                                          />
                                         <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
