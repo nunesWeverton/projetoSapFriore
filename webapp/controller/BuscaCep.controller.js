@@ -21,6 +21,7 @@ sap.ui.define([
     return Controller.extend("logincep.controller.BuscaCep", {
        
         onInit: function() {
+            this._bSortAscending  = true;
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
             
@@ -90,7 +91,7 @@ sap.ui.define([
                     }).addStyleClass("hboxBtnEditonDelete"),
                     
                 ]
-            })
+            }).addStyleClass("historyTable")
 
             oTable.bindItems({
                 path: "historico>/historico",
@@ -165,7 +166,7 @@ sap.ui.define([
             }
             var oContext = oItem.getBindingContext("historico");
             var oItemData = oContext.getObject();
-            this.mostrarDetalhesHistorico(oItemData, oItem);
+            // this.mostrarDetalhesHistorico(oItemData, oItem);
         },
  
         mostrarDetalhesHistorico: function (oItemData, oSelectedItem) {
@@ -719,6 +720,23 @@ sap.ui.define([
 
             // Definir o valor formatado no input
             oInput.setValue(sFormattedValue);
+        },
+
+        onToggleSort : function (oEvent){
+                
+            var oButton = oEvent.getSource();
+            var sIcon = this._bSortAscending ? "sap-icon://sort-ascending" : "sap-icon://sort-descending";
+
+            oButton.setIcon(sIcon);
+
+            if( this._bSortAscending){
+                this.onOrdenarCrescente()
+            }
+            else{
+                this.onOrdenarDecrescente()
+            }
+
+            this._bSortAscending = !this._bSortAscending;
         }
     });
 });

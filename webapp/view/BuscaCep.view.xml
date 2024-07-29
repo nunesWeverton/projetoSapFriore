@@ -7,9 +7,9 @@
         <masterPages>
             <Page id="menuPage" title="Menu">
                 <customHeader>
-                    <Bar>
+                    <Bar id= "bar">
                         <contentMiddle>
-                            <HBox class ="HboxImageAnglo">
+                            <HBox id="hbox" class ="HboxImageAnglo">
                                 <Image id ="imageTitulo" class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" height="50px" width="50px" />
                             </HBox>
                         </contentMiddle>
@@ -59,35 +59,38 @@
                                 <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
                                     <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" icon="sap-icon://forward" 
+                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." height = "10rem" width="20rem" icon="sap-icon://forward" 
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
-                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
-                                        <Button id="btnBuscarEndereco" text="Pesquisar"  press="onBuscarEndereco" class="myCustomButton" />
-                                        <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
+                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" 
+                                          />
+                                        <Button id="btnBuscarEndereco" text="Pesquisar"  press="onBuscarEndereco" class="myCustomButton"
+                                         />
+                                        <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
-                                        </HBox>
+                                        </HBox> -->
                                     </HBox>
-                                    <Button id="btnGerarRelatorio" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"  class="myCustomButton" />
+                                    <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
                                 </Toolbar>
                             </headerToolbar>
                             <columns>
-                                <Column id="colData" class="myCustomColumn" >
+                                <Column id="colData" class="myCustomColumn">
+                                <HBox class ="HboxSortData" >
                                     <Text id="colDataText" text="Data" class="myCustomColumnHeader" />
+                                    <Button icon="sap-icon://sort" press="onToggleSort" class="btnSortToggle" />
+                                </HBox>
                                 </Column>
                                 <Column id="colCep">
                                     <Text id="colCepText" text="CEP Pesquisado" class="myCustomColumnHeader" />
                                 </Column>
-                                <Column id="colResultado" class="myCustomColumn" >
+                                <Column id="colResultado" class="myCustomColumn">
                                     <Text id="colResultadoText" text="Resultado" class="myCustomColumnHeader" />
                                 </Column>
                                 <Column id="colDescricao" class="myCustomColumn">
                                     <Text id="colDescricaoText" text="Descrição" class="myCustomColumnHeader" />
                                 </Column>
-
-                                <Column id="colAcoes" class="myCustomColumn" width ="10%">
+                                <Column id="colAcoes" class="myCustomColumn" width="10%">
                                     <Text id="coAcoesText" text="Acões" class="myCustomColumnHeader" />
                                 </Column>
-                                
                             </columns>
                             <items>
                                 <ColumnListItem id="teste" type="Active" class="myCustomListItem">
