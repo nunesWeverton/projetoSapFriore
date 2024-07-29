@@ -5,22 +5,27 @@
 
     <SplitApp id="SplitApp">
         <masterPages>
-            <Page id="menuPage" title="Menu">
+            <Page id="menuPage" title="Menu" class="customMasterPage">
                 <customHeader>
                     <Bar id= "bar">
                         <contentMiddle>
                             <HBox id="hbox" class ="HboxImageAnglo">
-                                <Image id ="imageTitulo" class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" height="50px" width="50px" />
+                                <Image id ="imageTitulo" class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" height="50px" width="10px" />
                             </HBox>
                         </contentMiddle>
                     </Bar>
                 </customHeader>
-                <content>
+                <content class = "customContent">
                     <!-- <Button id="menuButton" class ="btnIconeMenuLateral" type="Transparent" icon="sap-icon://future" tooltip="Menu" press="onMenuButtonPress" /> -->
-                    <List id="menuList"  >
-                        <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem" />
-                        <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem" />
-                    </List>
+                    <Button 
+                        id="reloadButton"
+                        icon="sap-icon://future"  
+                        press="onReloadPress"
+                        width="30px"
+                        height="60px"
+                        margin="10px 5 5 8px"
+                        class="reloadButton" 
+                        design="Transparent"/>
                 </content>
          </Page>
         </masterPages>
@@ -43,7 +48,7 @@
                     </Bar>
                 </customHeader>
                 <content>
-                    <VBox id="vboxBuscaCep" visible="true" class = "VboxSearch">
+                    <VBox id="vboxBuscaCep" visible="false" class = "VboxSearch">
                       <FlexBox id="search" class="FlexBoxSearch">
                         <Text id="textCep" text="Digite o CEP para buscar informações :" class = "textForHead" />
                         <Input id="inputCep" placeholder="Digite o CEP..."
@@ -53,13 +58,13 @@
                       </FlexBox>
                       <VBox id="textResult" visible= "true"/>
                     </VBox>
-                    <VBox class="vboxHistorico" id="vboxHistorico" visible="false">
+                    <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
                         <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
                             <headerToolbar>
                                 <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
                                     <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." height = "10rem" width="20rem" icon="sap-icon://forward" 
+                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." height = "10rem" width="20rem" icon="sap-icon://decline" 
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
                                           value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" 
                                           />

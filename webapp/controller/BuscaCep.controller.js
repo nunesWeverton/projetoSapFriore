@@ -24,6 +24,7 @@ sap.ui.define([
             this._bSortAscending  = true;
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
+            this._loadHistorico();
             
         },
        

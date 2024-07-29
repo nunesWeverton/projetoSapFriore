@@ -495,8 +495,8 @@
 
 
 .HboxImageAnglo .imageAnglo {
-    height: 70px !important;
-    width: 150px !important;
+    height: 98% !important;
+    width: 100% !important;
     
 }
 
@@ -668,4 +668,52 @@
     right: 0.5rem; 
     top: 50%; 
     transform: translateY(-50%);
+}
+
+
+.reloadButton {
+    background-color: transparent; 
+    border: none; 
+    padding: 0; 
+    text-align: left; 
+    border: none;
+    margin: 10px !important;
+    background: none;
+}
+
+.reloadButton .sapMBtnContent {
+    display: flex; 
+    align-items: center; 
+}
+
+.reloadButton .sapMBtnContent .sapMBtnIcon {
+    margin-right: 0; 
+    background: none;
+    font-size: 30px !important;
+}
+
+
+.reloadButton .sapUiSizeCompact .sapMBtnInner .sapMBtnIcon{
+
+     font-size:  30px !important;
+}
+
+
+.customContent {
+    width: 15px !important; 
+    
+    padding: 10px; 
+    margin: 10px; 
+}
+
+
+.sapMSplitContainerMaster {
+
+    border: none;
+    width: 6% !important;
+}
+
+.sapMBtnInner{
+
+    border: none;
 }
