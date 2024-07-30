@@ -631,13 +631,32 @@
     border-radius: 25px !important;
 }
 
+.btnGenerateReport .sapMBtnHover,
+.btnGenerateReport:hover .sapMBtnText   {
+    background-color: inherit; 
+    border: none; 
+    background-color: #031795;
+    border-radius: 25px !important; 
+}
+
 .btnGenerateReport{
 
     background-color: #031795;
     border-radius: 25px !important;
     width: 150px;
+    margin-right: 12px !important;
+    margin-top: 7px !important;
     text-align: center;
     height: 50px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btnGenerateReport:hover{
+  
+    background-color: #031795;
+    border-radius: 25px !important;
+    width: 150px;
+    text-align: center;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -710,10 +729,45 @@
 .sapMSplitContainerMaster {
 
     border: none;
-    width: 6% !important;
+    width: 10% !important;
 }
 
 .sapMBtnInner{
 
     border: none;
+}
+
+
+.reloadButton .sapMBtnInner  .sapMBtnIcon{
+
+    font-size:  30px;
+}
+
+.reloadButton:hover{
+
+    border: none;
+}
+
+
+.myCustomButton .sapMBtnText {
+
+
+    align-items: center;
+}
+
+
+.btnGenerateReport span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+    align-items: center;
+}
+
+.btnGenerateReport:focus span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+    align-items: center;
 }

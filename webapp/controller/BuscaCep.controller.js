@@ -653,7 +653,17 @@ sap.ui.define([
         
             // Filtrar as colunas que você deseja incluir no relatório
             oHistoricoTable.getColumns().forEach(function(oColumn) {
-                var sColumnName = oColumn.getHeader().getText();
+                var oHeader = oColumn.getHeader();
+                var sColumnName = "";
+        
+                // Verificar se o cabeçalho é um controle e possui o método getText
+                if (oHeader && oHeader.getText) {
+                    sColumnName = oHeader.getText();
+                } else {
+                    // Caso contrário, obter o texto de uma outra maneira
+                    sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
+                }
+        
                 // Excluir a coluna "Ações" ou outras que não sejam necessárias no relatório
                 if (sColumnName !== "Ações") {
                     sTableContent += "<th>" + sColumnName + "</th>";
@@ -701,6 +711,7 @@ sap.ui.define([
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
         },
+        
         formatCep: function(value) {
             // Remove tudo que não é dígito
             value = value.replace(/\D/g, '');
