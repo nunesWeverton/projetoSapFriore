@@ -852,7 +852,7 @@
 
 
 
-#__button3-inner
+/* #__button3-inner
 {
     align-items: center;
     color: #000080;
@@ -876,7 +876,7 @@
 } 
 #__dialog0-cont{
     align-items: center;
-}
+} */
 
 .buttonSpacing {
     display: flex;
@@ -884,14 +884,67 @@
     gap: 20px;
 }
 
-#__dialog0-header{
+#excluir .sapMBarPH{
     background-color: #DFE3FE;
+    border: #DFE3FE;
+
 }
-#__dialog0-title-inner{
+#excluir .sapMHeader-CTX{
+    background-color: #DFE3FE;
+    border-color: #DFE3FE;
+    color: #DFE3FE;
+    
+}
+
+#excluir .sapMTitle{
+
     color: #031795;
 }
+#excluir .sapMDialogSection{
+    display: flex;
+    align-items: center;
+    
 
- .sapUiSizeCompact .sapMBtnInner{
+}
 
-    background: transparent;
+#yes .sapMBtnInner{
+    background-color: #031795;
+    width: 95px;
+    height: 40px;
+    border-radius: 100px;
+    gap: 8px;
+    color: white;
+    align-items: center;
+
+
+}
+
+#no .sapMBtnInner{
+    background-color: white;
+    width: 95px;
+    height: 40px;
+    border-radius: 100px;
+    gap: 8px;
+    color: #031795;
+    align-items: center;
+    border: 1px solid #000080;
+    border-radius: 20px;
+
+    
+
+}
+
+
+
+.customMessageToast {
+    background-color: #ffcc00; /* cor de fundo */
+    color: #000; /* cor do texto */
+    text-align: center; /* centralizar o texto */
+    padding: 10px; /* espaçamento interno */
+    border-radius: 5px; /* bordas arredondadas */
+    position: fixed;
+    top: 50%; /* posiciona no meio da tela verticalmente */
+    left: 50%; /* posiciona no meio da tela horizontalmente */
+    transform: translate(-50%, -50%); /* centraliza exatamente no meio */
+    z-index: 1000; /* assegura que esteja acima de outros elementos */
 }

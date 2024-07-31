@@ -316,6 +316,7 @@ sap.ui.define([
         
         _excluirHistorico: function (sId) {
             var oDialog = new Dialog({
+                id: "excluir",
                 title: "DESEJA EXCLUIR?",
                 draggable: true,
                 titleAlignment: TitleAlignment.Center,
@@ -324,6 +325,7 @@ sap.ui.define([
                         justifyContent: "Center", 
                         items: [
                             new Button({
+                                id: "yes",
                                 text: "Sim",
                                 press: function () {
                                     this._excluirItem(sId);
@@ -332,6 +334,7 @@ sap.ui.define([
                                 }.bind(this)
                             }).addStyleClass("buttonYes"),
                             new Button({
+                                id: "no",
                                 text: "Não",
                                 press: function () {
                                     oDialog.close();
@@ -413,14 +416,26 @@ sap.ui.define([
             var sCep = oView.byId("inputCep").getValue();
          
             if (sCep === "") {
-                MessageToast.show("Por favor, insira um CEP.");
+                MessageToast.show("Por favor, insira um CEP.", {
+                    duration: 2000, // duração em milissegundos
+                    closeOnBrowserNavigation: false,
+                    my: "center center",
+                    at: "center center",
+                    className: "customMessageToast"
+                });
                 return;
             }
          
             sCep = sCep.replace(/\D/g, '');
          
             if (sCep.length !== 8) {
-                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
+                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.", {
+                    duration: 2000, // duração em milissegundos
+                    closeOnBrowserNavigation: false,
+                    my: "center center",
+                    at: "center center",
+                    className: "customMessageToast"
+                });
                 return;
             }
          
@@ -433,14 +448,20 @@ sap.ui.define([
                 },
                 success: async function(data) {
                     if (data.erro === "true") {
-                        MessageToast.show("CEP não encontrado.");
+                        MessageToast.show("CEP não encontrado.", {
+                            duration: 2000, // duração em milissegundos
+                            closeOnBrowserNavigation: false,
+                            my: "center center",
+                            at: "center center",
+                            className: "customMessageToast"
+                        });
                         oView.byId("textResult").setText("o cep esta errado");
                     } else {
                         var oModel = new JSONModel(data);
                         oView.setModel(oModel, "cep");
                         this.salvarNoFirestore(data);
-                        this._loadHistorico();
                         await this._esperar(2000);
+                        this._loadHistorico();
                         this.onOrdena();
                     }
                 }.bind(this),
@@ -493,11 +514,23 @@ sap.ui.define([
                     userId: uId
                 }),
                 success: () => {
-                    MessageToast.show("Busca salva com sucesso!");
+                    MessageToast.show("Busca salva com sucesso!", {
+                        duration: 2000, // duração em milissegundos
+                        closeOnBrowserNavigation: false,
+                        my: "center center",
+                        at: "center center",
+                        addStyleClass: "customMessageToast"
+                    });
                    
                 },
                 error: () => {
-                    MessageToast.show("Erro ao tentar fazer registro.");
+                    MessageToast.show("Erro ao tentar fazer registro.", {
+                        duration: 2000, // duração em milissegundos
+                        closeOnBrowserNavigation: false,
+                        my: "center center",
+                        at: "center center",
+                        className: "customMessageToast"
+                    });
                 }
             });
 
