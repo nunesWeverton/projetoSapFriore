@@ -899,6 +899,27 @@
 
 }
 
+.btnDataSort span{
+    background-color: #DFE3FE !important;
+    margin-left: 150px;
+    border-color: #DFE3FE;
+
+}
+
+.btnCepSearch span{
+    background-color: #DFE3FE !important;
+    margin-left: 120px;
+    border-color: #DFE3FE;
+
+}
+
+.btnSortResult span{
+    background-color: #DFE3FE !important;
+    margin-left: 120px;
+    border-color: #DFE3FE;
+
+}
+
 
 
 .customMessageToast {
