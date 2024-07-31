@@ -32,7 +32,7 @@
 
 .btnBuscaCep {
     margin-left: 8px;
-    
+
 }
 
 .box {
@@ -102,15 +102,15 @@
 }
 
 
-.sapMPageHeader{
+.sapMPageHeader {
     height: 40px !important;
     margin-bottom: 60px;
 }
 
 .btnIconeMenuLateral {
-    font-size: 200px; 
-    height: 150px; 
-    width: 50px; 
+    font-size: 200px;
+    height: 150px;
+    width: 50px;
 }
 
 .btnIconeMenuLateral .sapMBtnIcon {
@@ -119,14 +119,14 @@
 
 
 .historicoTableStyle .sapMLIB:nth-child(odd) {
-    background-color: #f9f9f9; 
+    background-color: #f9f9f9;
 }
 
 .historicoTableStyle .sapMLIB:nth-child(even) {
-    background-color: #e9e9e9; 
+    background-color: #e9e9e9;
 }
 
-.itemCountText{
+.itemCountText {
     margin: 10px;
     margin-left: 7.5%;
     color: blue;
@@ -141,7 +141,7 @@
 
 .historicoTableStyle {
     width: 85% !important;
-    margin: auto; 
+    margin: auto;
 }
 
 .resultTable {
@@ -152,8 +152,10 @@
     font-size: 16px;
     color: black;
     font-weight: bold;
-    margin: 20px ; /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
-    border-radius: 10px; /* Adiciona bordas arredondadas */
+    margin: 20px;
+    /* Centraliza a tabela horizontalmente e adiciona margem superior/inferior */
+    border-radius: 10px;
+    /* Adiciona bordas arredondadas */
     overflow: hidden;
 }
 
@@ -175,12 +177,13 @@
 
 
 
-.sapMTableTHead{
+.sapMTableTHead {
     background-color: #DFE3FE;
     height: 40px;
-   
+
 }
-.sapMColumnHeader{
+
+.sapMColumnHeader {
     background-color: #DFE3FE;
 }
 
@@ -195,19 +198,19 @@
     color: white;
 }
 
-.teste{
+.teste {
     background-color: #007bff;
 }
 
 .resultTable th {
-    background-color: #041394 ;
+    background-color: #041394;
     color: #FFFFFF;
     font-weight: bold;
 }
 
 .resultTable tbody tr:nth-child(even) {
     background-color: #F0F8FF;
-    
+
 }
 
 .myCustomTable {
@@ -232,7 +235,7 @@
 .myCustomTitle {
     font-size: 1.5rem;
     font-weight: bold;
-    
+
     margin-right: auto;
 }
 
@@ -281,11 +284,11 @@
     transition: background-color 0.3s;
 }
 
-.Pesquisa{
+.Pesquisa {
     border-radius: 30px;
     width: 96px;
     height: 40px;
-   color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 
@@ -310,7 +313,7 @@
     color: white;
 }
 
-.btnOnLogout > .sapMBtnText {
+.btnOnLogout>.sapMBtnText {
     background-color: #031795 !important;
 }
 
@@ -321,13 +324,13 @@
 }
 
 .myCustomButton .sapMBtnIcon {
-    color: white !important; 
-    font-size: 1.1rem; 
+    color: white !important;
+    font-size: 1.1rem;
 }
 
 .myCustomButton .sapMBtnText {
-    color: #FFFFFF  !important; 
-     border: none !important;
+    color: #FFFFFF !important;
+    border: none !important;
 }
 
 
@@ -342,7 +345,7 @@
     position: fixed;
     z-index: 1000;
     overflow: hidden;
-    
+
 }
 
 .customDialog h2 {
@@ -367,38 +370,45 @@
 
 .customTextArea1 {
     width: 100%;
-    height: 100px;
-    border: 1px solid #ccc;
+    height: 100%;
     margin-bottom: 12px;
     padding: 2px;
     font-size: 14px;
     line-height: 1.5;
-    resize: vertical;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
 }
 
 
 .customSaveButton {
-    color: #fff;
-    border: 1px solid #007bff;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    border-radius: 20%;
+    width: 7rem;
+    height: 1.5rem;
 }
+
+.customSaveButton span {
+    border-color: #031795;
+    background-color: #031795;
+    color: #fff;
+}
+
 
 
 .customCancelButton {
-    background-color: #dc3545;
-    color: #fff;
-    border: 1px solid #dc3545;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    border-radius: 20%;
+    width: 7rem;
+    height: 1.5rem;
+}
+
+.customCancelButton span {
+    border-color: #031795;
+    background-color: #fff;
+    color: #031795;
 }
 
 
+.customSaveButton>.sapMBtn:hover>.sapMBtnHoverable {
+    background-image: none;
+    background-color: #031795 !important;
+    border-color: #031795 !important;
+}
 
 .customPopover {
     font-family: Arial, sans-serif;
@@ -430,7 +440,6 @@
 
 }
 
-
 .oDialogFilter {
 
     display: flex;
@@ -443,7 +452,7 @@
 }
 
 
-.oDialogFilter .sapMBar  {
+.oDialogFilter .sapMBar {
     background-color: #347FF6 !important;
 }
 
@@ -451,7 +460,7 @@
     color: red;
 }
 
-.btnEdition{
+.btnEdition {
     margin-right: 10px;
 }
 
@@ -459,21 +468,21 @@
     color: #031795;
 }
 
-.btnDelete .sapMBtnIcon{
+.btnDelete .sapMBtnIcon {
     color: red;
 }
 
-.InputSearchTable{
+.InputSearchTable {
     height: 20px !important;
 }
 
 .HboxImageAnglo .imageAnglo {
     height: 70px !important;
     width: 150px !important;
-    
+
 }
 
-.vboxFilter{
+.vboxFilter {
     width: 100%;
 }
 
@@ -505,15 +514,17 @@
 .btnFilter .sapMBtnIcon {
     color: #FFFFFF;
 }
-.vboxFilter{
-   background-color: #347FF6 !important; ;
+
+.vboxFilter {
+    background-color: #347FF6 !important;
+    ;
 }
 
 
-.userButton .sapMBtnIcon{
+.userButton .sapMBtnIcon {
 
-    color:  #347FF6;
-         
+    color: #347FF6;
+
 }
 
 .myButton {
@@ -544,6 +555,4 @@
 .myInput {
     width: 35rem;
     height: 8rem;
-
-
 }

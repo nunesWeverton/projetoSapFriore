@@ -241,30 +241,43 @@ sap.ui.define([
             var oDialog = new Dialog({
                 title: "Editar Descrição",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
                 content: [
-                    new TextArea("editDescricaoTextArea", {
-                        value: oItemData.descricao || "",
-                        width: "100%",
-                        placeholder: "Adicionar descrição...",
-                    }).addStyleClass("customTextArea1")
+                    new VBox({
+                        items : [
+                            new Label({ text: "Descrição " }).addStyleClass("labelDescription"),
+                            new TextArea("editDescricaoTextArea", {
+                                value: oItemData.descricao || "",
+                                width: "100%",
+                                placeholder: "Adicionar descrição",
+                            }).addStyleClass("customTextArea1"),
+                            new HBox({
+                                items:[
+                                    new Button({
+                                        id: "saveId",
+                                        text: "Salvar",
+                                        press: function () {
+                                            var sDescricao = sap.ui.getCore().byId("editDescricaoTextArea").getValue();
+                                            this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
+                                            oDialog.close();
+                                            oDialog.destroy();
+                                        }.bind(this)
+                                    }).addStyleClass("customSaveButton"),
+                                    new Button({
+                                        id: "cancelId",
+                                        text: "Cancelar",
+                                        press: function () {
+                                            oDialog.close();
+                                            oDialog.destroy();
+                                        }
+                                    }).addStyleClass("customCancelButton")
+                                ]
+                            }).addStyleClass("hboxButton")
+                            
+                        ]
+                    }).addStyleClass("contentDescription")
                 ],
-                beginButton: new Button({
-                    text: "Salvar",
-                    press: function () {
-                        var sDescricao = sap.ui.getCore().byId("editDescricaoTextArea").getValue();
-                        this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
-                        oDialog.close();
-                        oDialog.destroy();
-                    }.bind(this)
-                }).addStyleClass("customSaveButton"),
-                endButton: new Button({
-                    text: "Cancelar",
-                    press: function () {
-                        oDialog.close();
-                        oDialog.destroy();
-                    }
-                }).addStyleClass("customCancelButton")
+                // beginButton: 
+                // endButton: 
             }).addStyleClass("dialogClass")
 
             oDialog.open();
