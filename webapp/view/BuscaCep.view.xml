@@ -32,7 +32,7 @@
 
         <detailPages>
             <Page id="pageBuscaCep" title="Busca CEP" class = "titleBuscaCep">
-                <customHeader>
+                <customHeader>s
                     <Bar id="detailPageHeader">
                         <contentMiddle>
                             <Title class="pageTitle" id="pageTitle" />
