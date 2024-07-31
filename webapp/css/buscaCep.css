@@ -374,7 +374,8 @@
 
 .customTextArea {
     width: 100%;
-    height: 100px;
+    height: 300px;
+    gap: 10rem;
     border: 1px solid #ccc;
     margin-bottom: 12px;
     font-size: 14px;
@@ -387,39 +388,97 @@
     color: white;
 }
 
-.customTextArea1 {
-    width: 100%;
-    height: 100px;
-    border: 1px solid #ccc;
+/* .customGrid{
+    width: 20%;
+    height: 20%;
+    box-shadow: white;
+    border: 4px  gray;
+    justify-content: start;
+    align-content: center;
+    color: #3498db; 
+  font-size: 24px; 
+  font-weight: bold;
+} */
+
+/* .customTextArea1 {
+
+    width: 100% ;
+    height: 100%;
+    border: 4px  white;
     margin-bottom: 12px;
     padding: 2px;
     font-size: 14px;
+    align-content: center;
     line-height: 1.5;
-    resize: vertical;
 }
 
 
 .customSaveButton {
     color: #fff;
     border: 1px solid #007bff;
-    padding: 8px 16px;
     cursor: pointer;
-    margin-right: 8px;
     margin-bottom: 8px;
     border-radius: 20%;
 }
 
 
 .customCancelButton {
-    background-color: #dc3545;
     color: #fff;
-    border: 1px solid #dc3545;
     padding: 8px 16px;
     cursor: pointer;
     margin-bottom: 30px;
     border-radius: 20%;
+} */
+
+.customDialog.sapMDialog {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f5f5fa; /* Cor de fundo semelhante à imagem */
 }
 
+/* Estilo do TextArea */
+.customTextArea1.sapMTextArea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 14px; /* Ajuste de tamanho da fonte */
+}
+
+/* Estilo do botão Salvar */
+.customSaveButton.sapMBtn {
+    background-color: white; /* Azul escuro */
+    color: white;
+    border: 1px solid #000080;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    box-shadow: none; /* Remove a sombra */
+    font-weight: bold; /* Negrito */
+    align-items: center;
+}
+
+/* Estilo do botão Cancelar */
+.customCancelButton.sapMBtn {
+    background-color: white;
+    color: #000080; /* Azul escuro */
+    border: 1px solid #000080;
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-shadow: none; /* Remove a sombra */
+    font-weight: bold; /* Negrito */
+}
+
+/* Ajustes de alinhamento e outros estilos */
+.customDialog.sapMDialogTitle {
+    text-align: center;
+    font-size: 18px; /* Ajuste de tamanho da fonte */
+    color: #3911eb; /* Cor do texto */
+}
+
+/* Ajustes de alinhamento e outros estilos */
 
 
 .customPopover {
@@ -569,7 +628,7 @@
 
 
 .btnSortToggle {
-    margin-left: 2.5rem; /* Ajuste conforme necessário para espaçamento */
+    margin-left: 3.0rem; /* Ajuste conforme necessário para espaçamento */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -770,4 +829,69 @@
     background: none;
     border-radius: 25px !important;
     align-items: center;
+}
+
+
+.desejaExcluir {
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #e0e0e0; 
+    align-items: center;
+    border: 1px solid #000080;
+    width: 408px;
+    height: 136px;
+}
+
+
+
+
+.buttonSpacing {
+    margin-top: 20px;
+}
+
+
+
+
+#__button3-inner
+{
+    align-items: center;
+    color: #000080;
+    background-color: white;
+    width: 95px;
+    height: 40px ;
+    background-color: white;
+    border: 1px solid #000080;
+    border-radius: 20px;
+
+}
+
+#__button2-inner{
+    align-items: center;
+    color: white;
+    background-color: #031795; 
+    width: 95px;
+    height: 40px ;
+    border-radius: 20px;
+    border: 1px solid #000080;
+} 
+#__dialog0-cont{
+    align-items: center;
+}
+
+.buttonSpacing {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#__dialog0-header{
+    background-color: #DFE3FE;
+}
+#__dialog0-title-inner{
+    color: #031795;
+}
+
+ .sapUiSizeCompact .sapMBtnInner{
+
+    background: transparent;
 }

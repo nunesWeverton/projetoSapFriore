@@ -32,7 +32,7 @@
 
         <detailPages>
             <Page id="pageBuscaCep" title="Busca CEP" class = "titleBuscaCep">
-                <customHeader>s
+                <customHeader>
                     <Bar id="detailPageHeader">
                         <contentMiddle>
                             <Title class="pageTitle" id="pageTitle" />
@@ -48,28 +48,26 @@
                     </Bar>
                 </customHeader>
                 <content>
-                    <VBox id="vboxBuscaCep" visible="false" class = "VboxSearch">
+                    <!-- <VBox id="vboxBuscaCep" visible="false" class = "VboxSearch">
                       <FlexBox id="search" class="FlexBoxSearch">
                         <Text id="textCep" text="Digite o CEP para buscar informações :" class = "textForHead" />
-                        <Input id="inputCep" placeholder="Digite o CEP..."
+                        <Input id="inputEndereco" placeholder="Digite o CEP..."
                          liveChange="onLiveChange"
                         value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
-                        <Button id="btnBuscar" text="Buscar" press="onBuscarCep" class ="btnBuscaCep"/>
+                        <Button id="btnBuscarEndereco" text="Buscar" press="onBuscarEndereco" class ="btnBuscaCep"/>
                       </FlexBox>
                       <VBox id="textResult" visible= "true"/>
-                    </VBox>
+                    </VBox> -->
                     <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
                         <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
                             <headerToolbar>
                                 <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
                                     <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." height = "10rem" width="20rem" icon="sap-icon://decline" 
+                                        <Input id="inputCep" placeholder="Buscar endereço no histórico..." width="20rem" 
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
-                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" 
-                                          />
-                                        <Button id="btnBuscarEndereco" text="Buscar"  press="onBuscarEndereco" class="myCustomButton btnBuscarEndereco"
-                                         />
+                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
+                                        <Button id="btnBuscar" text="Pesquisar"  press="onBuscarCep" class=" btnSearch myCustomButton" />
                                         <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
                                         </HBox> -->
@@ -96,7 +94,7 @@
                                           <Button  icon="sap-icon://sort" press="onToggleSort" class="btnSortResult btnSortToggle" />
                                     </HBox>
                                 </Column>
-                                <Column id="colDescricao" class="myCustomColumn">
+                                <Column id="colDescricao" class="myCustomColumn" width ="15%">
                                     <Text id="colDescricaoText" text="Descrição" class="myCustomColumnHeader" />
                                 </Column>
                                 <Column id="colAcoes" class="myCustomColumn" width="10%">
