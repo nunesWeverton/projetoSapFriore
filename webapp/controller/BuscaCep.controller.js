@@ -13,8 +13,9 @@ sap.ui.define([
     "sap/m/ButtonType",
     "sap/m/TitleAlignment",
     "sap/ui/core/HTML",
-    "sap/ui/core/BusyIndicator" 
-], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
+    "sap/ui/core/BusyIndicator",
+
+], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
     var sUrl = 'https://api-btp-new.azurewebsites.net/api';
 
@@ -23,7 +24,7 @@ sap.ui.define([
         onInit: function() {
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
-            
+            this._loadHistorico();
         },
        
         _loadHistorico: function() {
@@ -47,6 +48,7 @@ sap.ui.define([
                 }
             });
         },
+        
 
         createHistoricTable: function(data){
             var aHistorico = [];
@@ -109,6 +111,8 @@ sap.ui.define([
             var itemCount = aHistorico.length;
             itemCountText.setText(itemCount + " Registros");
         },
+
+        
 
         onFilter : function(){
                
@@ -238,16 +242,18 @@ sap.ui.define([
         },
 
         _openEditDialog: function (oItemData, oSelectedItem) {
+            
             var oDialog = new Dialog({
-                title: "Editar Descrição",
+                title: "EDITAR DESCRIÇÃO",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
+
+                titleAlignment: TitleAlignment.Start,
+                
                 content: [
                     new TextArea("editDescricaoTextArea", {
                         value: oItemData.descricao || "",
-                        width: "100%",
                         placeholder: "Adicionar descrição...",
-                    }).addStyleClass("customTextArea1")
+                    }).addStyleClass("customTextArea1") ,
                 ],
                 beginButton: new Button({
                     text: "Salvar",
@@ -257,16 +263,16 @@ sap.ui.define([
                         oDialog.close();
                         oDialog.destroy();
                     }.bind(this)
-                }).addStyleClass("customSaveButton"),
+                }).addStyleClass("customSaveButton"), // Classe CSS personalizada
                 endButton: new Button({
                     text: "Cancelar",
                     press: function () {
                         oDialog.close();
                         oDialog.destroy();
                     }
-                }).addStyleClass("customCancelButton")
-            })
-
+                }).addStyleClass("customCancelButton") // Classe CSS personalizada
+            });
+            oDialog.addStyleClass("customGrid"); // Classe CSS personalizada
             oDialog.open();
         },
 
@@ -308,12 +314,12 @@ sap.ui.define([
         
         _excluirHistorico: function (sId) {
             var oDialog = new Dialog({
-                title: "Deseja excluir?",
+                title: "DESEJA EXCLUIR?",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
+                titleAlignment: TitleAlignment.Center,
                 content: [
                     new HBox({
-                        justifyContent: "Center", // Centraliza os botões horizontalmente
+                        justifyContent: "Center", 
                         items: [
                             new Button({
                                 text: "Sim",
@@ -322,21 +328,22 @@ sap.ui.define([
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico buttonYes"),
+                            }).addStyleClass("buttonYes"),
                             new Button({
                                 text: "Não",
                                 press: function () {
                                     oDialog.close();
                                     oDialog.destroy();
                                 }
-                            }).addStyleClass("buttonDetalhesHistorico")
+                            }).addStyleClass("buttonNo") 
                         ]
-                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                    }).addStyleClass("buttonSpacing") 
                 ]
-            }).addStyleClass("desejaExcluir");
-
+            }).addStyleClass("desejaExcluir"); 
+        
             oDialog.open();
         },
+        
 
         _openDescricaoDialog: function (oItemData, oSelectedItem) {
             var oDialog = new Dialog({
@@ -416,7 +423,6 @@ sap.ui.define([
             }
  
             var sUrl = "https://viacep.com.br/ws/" + sCep + "/json/";
- 
             $.ajax({
                 url: sUrl,
                 method: "GET",
@@ -424,22 +430,26 @@ sap.ui.define([
                     Authorization: "Bearer " + localStorage.getItem("idToken")
                 },
                 success: function(data) {
-                    if (data.erro) {
+                    if (data.erro === "true") {
                         MessageToast.show("CEP não encontrado.");
-                        oView.byId("textResult").setText("");
-                    } else {
+                        oView.byId("textResult").setText("o cep esta errado");
+                    } else{
+                        // debugger
                         var oModel = new JSONModel(data);
                         oView.setModel(oModel, "cep");
- 
-                        this.exibirResultadoNaTabela(data);
                         this.salvarNoFirestore(data);
+                        this._loadHistorico();
+
                     }
+                    
                 }.bind(this),
                 error: function() {
                     MessageToast.show("Erro ao buscar o CEP.");
                     oView.byId("textResult").setText("");
                 }
+                
             });
+            
         },
  
         exibirResultadoNaTabela: function(data) {
@@ -640,7 +650,7 @@ sap.ui.define([
         
             var sTableContent = `
                 <header>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP Logo">
+                    <img src="images/Anglo_American_Logo_RGB_4C 1.png" alt="SAP Logo">
                     <h2>Histórico de Buscas</h2>
                     <div class="datetime">Emitido em: ${sDateTime}</div>
                 </header>

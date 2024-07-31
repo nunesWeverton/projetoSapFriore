@@ -18,7 +18,6 @@
                 <content>
                     <!-- <Button id="menuButton" class ="btnIconeMenuLateral" type="Transparent" icon="sap-icon://future" tooltip="Menu" press="onMenuButtonPress" /> -->
                     <List id="menuList"  >
-                        <StandardListItem id="menuItemBuscaCep" title="Busca CEP" type="Active" press="onMenuSelect" class="menuItem" />
                         <StandardListItem id="menuItemHistorico" title="Histórico" type="Active" press="onMenuSelect" class="menuItem" />
                     </List>
                 </content>
@@ -43,26 +42,26 @@
                     </Bar>
                 </customHeader>
                 <content>
-                    <VBox id="vboxBuscaCep" visible="true" class = "VboxSearch">
+                    <!-- <VBox id="vboxBuscaCep" visible="true" class = "VboxSearch">
                       <FlexBox id="search" class="FlexBoxSearch">
                         <Text id="textCep" text="Digite o CEP para buscar informações :" class = "textForHead" />
-                        <Input id="inputCep" placeholder="Digite o CEP..."
+                        <Input id="inputEndereco" placeholder="Digite o CEP..."
                          liveChange="onLiveChange"
                         value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
-                        <Button id="btnBuscar" text="Buscar" press="onBuscarCep" class ="btnBuscaCep"/>
+                        <Button id="btnBuscarEndereco" text="Buscar" press="onBuscarEndereco" class ="btnBuscaCep"/>
                       </FlexBox>
                       <VBox id="textResult" visible= "true"/>
-                    </VBox>
-                    <VBox class="vboxHistorico" id="vboxHistorico" visible="false">
+                    </VBox> -->
+                    <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
                         <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
                             <headerToolbar>
                                 <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
                                     <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputEndereco" placeholder="Buscar endereço no histórico..." width="20rem" icon="sap-icon://forward" 
+                                        <Input id="inputCep" placeholder="Buscar endereço no histórico..." width="20rem" 
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
                                           value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
-                                        <Button id="btnBuscarEndereco" text="Pesquisar"  press="onBuscarEndereco" class="myCustomButton" />
+                                        <Button id="btnBuscar" text="Pesquisar"  press="onBuscarCep" class="myCustomButton" />
                                         <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
                                         </HBox>
