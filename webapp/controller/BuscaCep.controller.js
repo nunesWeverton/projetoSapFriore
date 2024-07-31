@@ -429,7 +429,7 @@ sap.ui.define([
          
             if (sCep === "") {
                 MessageToast.show("Por favor, insira um CEP.", {
-                    duration: 2000, // duração em milissegundos
+                    duration: 1500, // duração em milissegundos
                     closeOnBrowserNavigation: false,
                     my: "center center",
                     at: "center center",
@@ -599,8 +599,8 @@ sap.ui.define([
                 success: () => {
                     localStorage.clear()
                     MessageToast.show("Logout feito com sucesso");
-                    this.byId("vboxBuscaCep").setVisible(true);
-                    this.byId("vboxHistorico").setVisible(false);
+                    // this.byId("vboxBuscaCep").setVisible(true);
+                    // this.byId("vboxHistorico").setVisible(false);
                     //document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
                     this.byId("inputCep").setValue("");
                     BusyIndicator.hide()
