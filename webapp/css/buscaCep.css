@@ -425,48 +425,6 @@
     color: #031795;
 }
 
-/* Estilo do TextArea */
-.customTextArea1.sapMTextArea {
-    width: 100%;
-    min-height: 100px;
-    border: 1px solid #E0E0E0;
-    border-radius: 4px;
-    padding: 8px;
-    box-sizing: border-box;
-    font-size: 14px;
-    /* Ajuste de tamanho da fonte */
-}
-
-/* Estilo do botão Salvar */
-.customSaveButton.sapMBtn {
-    background-color: white;
-    /* Azul escuro */
-    color: white;
-    border: 1px solid #000080;
-    border-radius: 20px;
-    padding: 10px 20px;
-    margin-right: 10px;
-    box-shadow: none;
-    /* Remove a sombra */
-    font-weight: bold;
-    /* Negrito */
-    align-items: center;
-}
-
-/* Estilo do botão Cancelar */
-.customCancelButton.sapMBtn {
-    background-color: white;
-    color: #000080;
-    /* Azul escuro */
-    border: 1px solid #000080;
-    border-radius: 20px;
-    padding: 10px 20px;
-    box-shadow: none;
-    /* Remove a sombra */
-    font-weight: bold;
-    /* Negrito */
-}
-
 /* Ajustes de alinhamento e outros estilos */
 .customDialog.sapMDialogTitle {
     text-align: center;
@@ -796,10 +754,10 @@
     width: 10% !important;
 }
 
-.sapMBtnInner {
+/* .sapMBtnInner {
 
     border: none;
-}
+} */
 
 
 .reloadButton .sapMBtnInner .sapMBtnIcon {

@@ -83,3 +83,7 @@
   background-color: #fff;
   /* color: #031795; */
 }
+
+html.sap-desktop .sapMBtn:focus>.sapMFocusable:not(.sapMBadgeIndicator):before {
+  border: 0
+}
