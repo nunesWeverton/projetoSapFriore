@@ -429,7 +429,7 @@ sap.ui.define([
          
             if (sCep === "") {
                 MessageToast.show("Por favor, insira um CEP.", {
-                    duration: 2000, // duração em milissegundos
+                    duration: 1500, // duração em milissegundos
                     closeOnBrowserNavigation: false,
                     my: "center center",
                     at: "center center",

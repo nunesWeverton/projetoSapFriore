@@ -15,8 +15,7 @@
                         </contentMiddle>
                     </Bar>
                 </customHeader>
-                <content class = "customContent">
-                    <!-- <Button id="menuButton" class ="btnIconeMenuLateral" type="Transparent" icon="sap-icon://future" tooltip="Menu" press="onMenuButtonPress" /> -->
+                <!-- <content class = "customContent">
                     <Button 
                         id="reloadButton"
                         icon="sap-icon://future"  
@@ -26,7 +25,7 @@
                         margin="10px 5 5 8px"
                         class="reloadButton" 
                         design="Transparent"/>
-                </content>
+                </content> -->
          </Page>
         </masterPages>
 
