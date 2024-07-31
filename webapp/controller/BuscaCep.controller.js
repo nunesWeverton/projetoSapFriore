@@ -647,20 +647,7 @@ sap.ui.define([
 
       
  
-        // onOrdenarDecrescente: function(oButton) {
-        //     var oView = this.getView();
-        //     var oHistoricoModel = oView.getModel("historico");
-        //     var aHistorico = oHistoricoModel.getProperty("/historico");
-        //     aHistorico.sort(function(a, b) {
-        //         var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-        //         var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-       
-        //         return dataB - dataA;
-        //     });
-       
-        //     oHistoricoModel.setProperty("/historico", aHistorico);
-        // },
- 
+        
         onLimpaOrdenacao: function() {
             this._loadHistorico();
         },
