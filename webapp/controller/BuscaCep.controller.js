@@ -20,7 +20,7 @@ sap.ui.define([
     var sUrl = 'https://api-btp-new.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
-       
+
         onInit: function() {
             this._bSortAscending  = true;
             var oTable = this.getView().byId("historicoTable");
