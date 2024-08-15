@@ -1,5 +1,8 @@
 <mvc:View controllerName="sap.btp.logincep.controller.BuscaCep"
     xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:table="sap.ui.table"
     xmlns="sap.m"
     displayBlock="true">
 
@@ -67,9 +70,9 @@
                                          class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
                                           value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
                                         <Button id="btnBuscar" text="Pesquisar"  press="onBuscarCep" class=" btnSearch myCustomButton" />
-                                        <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
+                                         <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
-                                        </HBox> -->
+                                        </HBox> 
                                     </HBox>
                                     <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
                                 </Toolbar>
@@ -115,6 +118,114 @@
                         </Table>
                         <Text id = "itemCountText" class = "itemCountText"/>
                     </VBox>
+					<VBox>
+						<smartTable:SmartTable
+                            id="SmartTable"
+                            initialVisibleFields="cep,data,dataConvertida,descricao,id,resultado,userId"
+                            entitySet="Products"
+                            tableBindingPath="/oData/teste" 
+                            useTablePersonalisation="true"
+                            showRowCount="true"
+                            showFullScreenButton="true"
+                            enableAutoBinding="true"
+                            enableExport="true" 
+                            persistencyKey="SmartTableKey"
+                            smartFilterId="smartFilterBar" 
+                            demandPopin="true" 
+                            ignoreFromPersonalisation="false"
+                             showVariantManagement="true"
+    showTablePersonalisation="true"
+                            tableType="ResponsiveTable"
+                            useVariantManagement="false"
+                            header="Histórico de Endereços"
+                            class="sapUiResponsiveContentPadding" 
+                            enableAutoColumnWidth="false"
+                            beforeExport="onBeforeExport"
+
+                            >
+                
+                <table:Table
+                    id="innerTable"
+                    enableColumnReordering="true"
+                    visibleRowCount="10">
+                    
+                    <!-- Coluna para CEP -->
+                    <table:Column sortProperty="cep"  filterProperty="cep"
+                        visible="true">
+                    
+                        <Label text="CEP"/>
+                        <table:template>
+                            <Text text="{Products>cep}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para Data -->
+                    <table:Column sortProperty="data"  filterProperty="data"
+                        visible="true">
+                        <Label text="Data"/>
+                        <table:template>
+                            <Text text="{Products>data}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para Data Convertida -->
+                    <table:Column sortProperty="dataConvertida"  filterProperty="dataConvertida"
+                    visible="true">
+                        <Label text="Data Convertida"/>
+                        <table:template>
+                            <Text text="{Products>dataConvertida}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para Descrição -->
+                    <table:Column sortProperty="descricao"  filterProperty="descricao"
+                    visible="true">
+                        <Label text="Descrição"/>
+                        <table:template>
+                            <Text text="{Products>descricao}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para ID -->
+                    <table:Column sortProperty="id"  filterProperty="id" visible="true">
+                        <Label text="ID"/>
+                        <table:template>
+                            <Text text="{Products>id}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para Resultado -->
+                    <table:Column sortProperty="resultado"  filterProperty="resultado"
+    visible="true">
+                        <Label text="Resultado"/>
+                        <table:template>
+                            <Text text="{Products>resultado}"/>
+                        </table:template>
+                    </table:Column>
+
+                    <!-- Coluna para User ID -->
+                    <table:Column sortProperty="ceuserIdp"  filterProperty="userId"
+    visible="true">
+                        <Label text="User ID"/>
+                        <table:template>
+                            <Text text="{Products>userId}"/>
+                        </table:template>
+                    </table:Column>
+
+                </table:Table>
+         </smartTable:SmartTable>
+                    <!-- <headerToolbar>
+                         <OverflowToolbar id="barflow" >
+                            <ToolbarSpacer id="toolbarTable" />
+                            <Button id="buttondelete" class="sapUiSmallMarginBeginEnd" type="Reject" icon="sap-icon://delete" text="Delete" press="onDelete"/>
+                            <Button id="buttonadicionar" icon="sap-icon://edit" text="Adicionar" press="onAdd"/>
+
+                        </OverflowToolbar> 
+                    
+                    </headerToolbar> 
+            </Table> -->
+					
+					</VBox>
                 </content>
             </Page>
         </detailPages>

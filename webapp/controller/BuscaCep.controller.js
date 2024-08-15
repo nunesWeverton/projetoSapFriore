@@ -14,10 +14,11 @@ sap.ui.define([
     "sap/m/TitleAlignment",
     "sap/ui/core/HTML",
     "sap/ui/core/BusyIndicator",
+    
 
 ], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
-    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
 
@@ -26,11 +27,27 @@ sap.ui.define([
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
             this._loadHistorico();
+
+            var oSmartTable = this.byId("SmartTable");
+    
+    // Força a visibilidade das colunas especificadas
+            oSmartTable.getTable().getColumns().forEach(function(column) {
+                var sortProperty = column.getSortProperty();
+                if (["cep", "data", "dataConvertida", "descricao", "id", "resultado", "userId"].includes(sortProperty)) {
+                    column.setVisible(true);
+                } else {
+                    column.setVisible(false);
+                }
+            });
+            
+            // Rebind da tabela
+            oSmartTable.rebindTable();
+
             
         },
        
         _loadHistorico: function() {
-            BusyIndicator.show(0);
+             BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
       
             $.ajax({
@@ -41,7 +58,9 @@ sap.ui.define([
                     Authorization: "Bearer " + localStorage.getItem("idToken")
                 },
                 success: (data) => {
-                    this.createHistoricTable(data);
+                    // this.createHistoricTable(data);
+                    console.log(data);
+                    this.createHistoricTableSmart(data);
                     BusyIndicator.hide()
                 },
                 error: () => {
@@ -49,6 +68,48 @@ sap.ui.define([
                     BusyIndicator.hide()
                 }
             });
+        },
+
+        
+
+        createHistoricTableSmart: function(data) {
+            // Cria um modelo JSON com os dados recebidos
+        
+            var oView = this.getView();
+
+
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData({ oData: { teste: data } });
+
+            oView.setModel(oModel, "Products");
+
+            console.log(oModel);
+
+            // Obtém a referência da SmartTable
+            var oSmartTable = this.byId("SmartTable");
+           
+
+            oSmartTable.setEntitySet("Products");
+            
+
+            var columns = [
+                { id: "cep", label: "CEP", template: "Products>cep", sortProperty: "cep", filterProperty: "cep" },
+                { id: "data", label: "Data", template: "Products>data", sortProperty: "data", filterProperty: "data" },
+                { id: "dataConvertida", label: "Data Convertida", template: "Products>dataConvertida", sortProperty: "dataConvertida", filterProperty: "dataConvertida" },
+                { id: "descricao", label: "Descrição", template: "Products>descricao", sortProperty: "descricao", filterProperty: "descricao" },
+                { id: "id", label: "ID", template: "Products>id", sortProperty: "id", filterProperty: "id" },
+                { id: "resultado", label: "Resultado", template: "Products>resultado", sortProperty: "resultado", filterProperty: "resultado" },
+                { id: "userId", label: "User ID", template: "Products>userId", sortProperty: "userId", filterProperty: "userId" }
+            ];
+
+            oModel.setProperty("/Columns", columns);
+
+            var oTable = oSmartTable.getTable();
+            oTable.bindRows("Products>/oData/teste");
+
+        
+            // Define o caminho para o EntitySet da SmartTable
+            oSmartTable.setModel(oModel);        
         },
         
 
@@ -62,6 +123,8 @@ sap.ui.define([
 
             var oModel = new JSONModel({ historico: aHistorico });
             oView.setModel(oModel, "historico");
+            console.log(oModel)
+
 
             var oTable = oView.byId("historicoTable");
             var oTemplate = new sap.m.ColumnListItem({
