@@ -17,7 +17,7 @@ sap.ui.define([
 
 ], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
-    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
        
@@ -32,6 +32,8 @@ sap.ui.define([
         _loadHistorico: function() {
             BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
+
+            console.log(uId)
       
             $.ajax({
                 url: sUrl + '/buscaCep/getAllByUserId?userId=' + uId,
