@@ -726,53 +726,51 @@ sap.ui.define([
         onGerarRelatorio: function() {
             var oView = this.getView();
             var oHistoricoTable = oView.byId("historicoTable");
-        
+         
             if (!oHistoricoTable) {
                 MessageToast.show("Erro ao acessar a tabela de histórico.");
                 return;
             }
-        
+         
             var bTableVisible = oHistoricoTable.getVisible();
             oHistoricoTable.setVisible(true);
-        
+         
             var oDate = new Date();
             var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
-        
+         
             var sTableContent = `
-                <header>
-                    
-                    <h2>Histórico de Buscas</h2>
-                    <div class="datetime">Emitido em: ${sDateTime}</div>
-                </header>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>`;
-        
-            // Filtrar as colunas que você deseja incluir no relatório
+        <header>
+        <h2>Histórico de Buscas</h2>
+        <div class="datetime">Emitido em: ${sDateTime}</div>
+        </header>
+        <div class="table-container">
+        <table>
+        <thead>
+        <tr>`;
+        var aVisibleColumns = [];
             oHistoricoTable.getColumns().forEach(function(oColumn) {
                 var oHeader = oColumn.getHeader();
                 var sColumnName = "";
         
-                // Verificar se o cabeçalho é um controle e possui o método getText
                 if (oHeader && oHeader.getText) {
                     sColumnName = oHeader.getText();
                 } else {
-                    // Caso contrário, obter o texto de uma outra maneira
                     sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
                 }
         
-                // Excluir a coluna "Ações" ou outras que não sejam necessárias no relatório
-                if (sColumnName !== "Ações") {
+                sColumnName = sColumnName.replace("Ordenar", "").trim();
+        
+                if (sColumnName !== "Acões") {
                     sTableContent += "<th>" + sColumnName + "</th>";
+                    aVisibleColumns.push(oColumn);
                 }
             });
-        
+         
             sTableContent += `
-                            </tr>
-                        </thead>
-                        <tbody>`;
-        
+        </tr>
+        </thead>
+        <tbody>`;
+         
             oHistoricoTable.getItems().forEach(function(oItem) {
                 sTableContent += "<tr>";
                 oItem.getCells().forEach(function(oCell) {
@@ -785,26 +783,26 @@ sap.ui.define([
                 });
                 sTableContent += "</tr>";
             });
-        
+         
             sTableContent += `
-                        </tbody>
-                    </table>
-                </div>`;
-        
+        </tbody>
+        </table>
+        </div>`;
+         
             var oPopupWin = window.open('', '_blank', 'width=800,height=750');
             oPopupWin.document.open();
             oPopupWin.document.write(`
-                <html>
-                    <head>
-                        <title>Relatório de Histórico de Buscas</title>
-                        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
-                    </head>
-                    <body>
+        <html>
+        <head>
+        <title>Relatório de Histórico de Buscas</title>
+        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
+        </head>
+        <body>
                         ${sTableContent}
-                    </body>
-                </html>`);
+        </body>
+        </html>`);
             oPopupWin.document.close();
-        
+         
             setTimeout(function() {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
