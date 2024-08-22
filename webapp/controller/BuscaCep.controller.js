@@ -1,3 +1,4 @@
+
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
@@ -14,36 +15,218 @@ sap.ui.define([
     "sap/m/TitleAlignment",
     "sap/ui/core/HTML",
     "sap/ui/core/BusyIndicator",
-    
-
-], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
+    'sap/ui/model/odata/v2/ODataModel',
+    'sap/ui/core/util/MockServer'
+], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer ) {
     "use strict";
+
+    // const { Edm, EntityType, Property, Schema, EntityContainer } = require('odata-v4-metadata');
     var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
 
-        onInit: function() {
-            this._bSortAscending  = true;
-            var oTable = this.getView().byId("historicoTable");
-            oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
-            this._loadHistorico();
 
-            var oSmartTable = this.byId("SmartTable");
+    //      jsonToODataMetadata: function(json, entityName) {
+    //         const schema = new Schema("MyNamespace");
+    //         const entity = new EntityType(entityName);
+
+    //         for (let key in json) {
+    //             if (json.hasOwnProperty(key)) {
+    //                 const value = json[key];
+    //                 let type = typeof value;
+
+    //                 let odataType = "Edm.String"; // Default type
+    //                 switch (type) {
+    //                     case 'string':
+    //                         odataType = "Edm.String";
+    //                         break;
+    //                     case 'number':
+    //                         odataType = Number.isInteger(value) ? "Edm.Int32" : "Edm.Decimal";
+    //                         break;
+    //                     case 'boolean':
+    //                         odataType = "Edm.Boolean";
+    //                         break;
+    //                     case 'object':
+    //                         if (value !== null && !Array.isArray(value)) {
+    //                             // Handle nested objects as complex types
+    //                             const nestedEntityName = `${entityName}_${key}`;
+    //                             schema.addEntityType(jsonToODataMetadata(value, nestedEntityName));
+    //                             odataType = `MyNamespace.${nestedEntityName}`;
+    //                         }
+    //                         break;
+    //                     // Add other cases as needed
+    //                 }
+
+    //                 entity.addProperty(new Property(key, odataType));
+    //             }
+    //         }
+
+    //     schema.addEntityType(entity);
+    //     return entity;
+    // },
+
+    jsonToODataMetadata: function(json, entityName) {
+        let entityType = {
+            name: entityName,
+            properties: []
+        };
     
-    // Força a visibilidade das colunas especificadas
-            oSmartTable.getTable().getColumns().forEach(function(column) {
-                var sortProperty = column.getSortProperty();
-                if (["cep", "data", "dataConvertida", "descricao", "id", "resultado", "userId"].includes(sortProperty)) {
-                    column.setVisible(true);
-                } else {
-                    column.setVisible(false);
+        for (let key in json) {
+            if (json.hasOwnProperty(key)) {
+                let value = json[key];
+                let type = typeof value;
+    
+                let odataType = "Edm.String"; // Default type
+                switch (type) {
+                    case 'string':
+                        odataType = "Edm.String";
+                        break;
+                    case 'number':
+                        odataType = Number.isInteger(value) ? "Edm.Int32" : "Edm.Decimal";
+                        break;
+                    case 'boolean':
+                        odataType = "Edm.Boolean";
+                        break;
+                    case 'object':
+                        if (value !== null && !Array.isArray(value)) {
+                            // Handle nested objects as complex types
+                            const nestedEntityName = `${entityName}_${key}`;
+                            entityType.properties.push({
+                                name: key,
+                                type: `MyNamespace.${nestedEntityName}`
+                            });
+                            this.jsonToODataMetadata(value, nestedEntityName);
+                            continue;
+                        }
+                        break;
+                    // Add other cases as needed
                 }
+    
+                entityType.properties.push({
+                    name: key,
+                    type: odataType
+                });
+            }
+        }
+    
+        return entityType;
+    },
+    
+        generateODataMetadata: function(json, entityName) {
+        let schema = {
+            namespace: "MyNamespace",
+            entityTypes: [],
+            entityContainers: []
+        };
+    
+        let entityType = this.jsonToODataMetadata(json, entityName);
+        schema.entityTypes.push(entityType);
+    
+        let entityContainer = {
+            name: "DefaultContainer",
+            entitySets: [
+                {
+                    name: entityName + "s",
+                    entityType: `MyNamespace.${entityName}`
+                }
+            ]
+        };
+    
+        schema.entityContainers.push(entityContainer);
+    
+        return schema;
+    },
+    
+    // Exemplo de uso
+   
+
+        onInit: function() {
+
+            // this._bSortAscending  = true;
+            // this._loadHistorico();
+
+            var oMockServer = new MockServer({
+                rootUri: "/odata/service/"
             });
+
+            // Caminho para o arquivo metadata.xml e mockdata
+            var sPath = sap.ui.require.toUrl("sap/btp/logincep/localService");
+            oMockServer.simulate(sPath + "/metadata.xml", {
+                sMockdataBaseUrl: sPath + "/mockdata",
+                // bGenerateMissingMockData: true
+            });
+
+            oMockServer.start();
+
+            // Cria o modelo OData com a URL do mock server
+            var oModel = new ODataModel("/odata/service/", {
+                defaultCountMode: "Inline"
+            });
+
+            // Associa o modelo à view
+            this.getView().setModel(oModel);
+
+            // var oView;
+
+            // let json = {
+            //     name: "John Doe",
+            //     age: 30,
+            //     email: "john.doe@example.com",
+            //     isActive: true,
+            //     address: {
+            //         street: "123 Main St",
+            //         city: "Anytown",
+            //         zip: "12345"
+            //     }
+            // };
             
-            // Rebind da tabela
-            oSmartTable.rebindTable();
+
+            // let metadata = this.generateODataMetadata(json, "Person");
+
+            // Criando um JSONModel a partir dos metadados
+            // let oModel = new sap.ui.model.json.JSONModel(metadata);
+    
+            // Definindo o JSONModel na view
+            // oView = this.getView();
+            // oView.setModel(oModel, "metadataModel");
+    
+            // Verificar se o modelo foi corretamente atribuído
+            // console.log(oView.getModel("metadataModel"));
+
+            // console.log(this.getView().getModel("metadataModel").getData());
+
+            // console.log(this.byId("LineItemsSmartTable").getModel("metadataModel"));
 
             
+            
+
+            // const schema = new Schema("MyNamespace");
+            // const entityName = "Person";
+            // const entityType = jsonToODataMetadata({
+            //     name: "John Doe",
+            //     age: 30,
+            //     email: "john.doe@example.com",
+            //     isActive: true,
+            //     address: {
+            //         street: "123 Main St",
+            //         city: "Anytown",
+            //         zip: "12345"
+            //     }
+            // }, entityName);
+
+            // schema.addEntityType(entityType);
+
+            // // Criar o container de entidades
+            // const container = new EntityContainer("DefaultContainer");
+            // container.addEntitySet("People", entityType);
+            // schema.addEntityContainer(container);
+
+            // // Gerar os metadados XML
+            // const metadata = schema.serialize();
+            // console.log(metadata);
+
+          
+    
         },
        
         _loadHistorico: function() {
@@ -69,162 +252,6 @@ sap.ui.define([
                 }
             });
         },
-
-        
-
-        createHistoricTableSmart: function(data) {
-            // Cria um modelo JSON com os dados recebidos
-        
-            var oView = this.getView();
-
-
-            var oModel = new sap.ui.model.json.JSONModel();
-            oModel.setData({ oData: { teste: data } });
-
-            oView.setModel(oModel, "Products");
-
-            console.log(oModel);
-
-            // Obtém a referência da SmartTable
-            var oSmartTable = this.byId("SmartTable");
-           
-
-            oSmartTable.setEntitySet("Products");
-            
-
-            var columns = [
-                { id: "cep", label: "CEP", template: "Products>cep", sortProperty: "cep", filterProperty: "cep" },
-                { id: "data", label: "Data", template: "Products>data", sortProperty: "data", filterProperty: "data" },
-                { id: "dataConvertida", label: "Data Convertida", template: "Products>dataConvertida", sortProperty: "dataConvertida", filterProperty: "dataConvertida" },
-                { id: "descricao", label: "Descrição", template: "Products>descricao", sortProperty: "descricao", filterProperty: "descricao" },
-                { id: "id", label: "ID", template: "Products>id", sortProperty: "id", filterProperty: "id" },
-                { id: "resultado", label: "Resultado", template: "Products>resultado", sortProperty: "resultado", filterProperty: "resultado" },
-                { id: "userId", label: "User ID", template: "Products>userId", sortProperty: "userId", filterProperty: "userId" }
-            ];
-
-            oModel.setProperty("/Columns", columns);
-
-            var oTable = oSmartTable.getTable();
-            oTable.bindRows("Products>/oData/teste");
-
-        
-            // Define o caminho para o EntitySet da SmartTable
-            oSmartTable.setModel(oModel);        
-        },
-        
-
-        createHistoricTable: function(data){
-            var aHistorico = [];
-            var oView = this.getView();
-
-            data.forEach((doc) => {
-                aHistorico.push(doc);
-            });
-
-            var oModel = new JSONModel({ historico: aHistorico });
-            oView.setModel(oModel, "historico");
-            console.log(oModel)
-
-
-            var oTable = oView.byId("historicoTable");
-            var oTemplate = new sap.m.ColumnListItem({
-                cells: [
-                    new sap.m.Text({ text: "{historico>data}" }),
-                    new sap.m.Text({ text: "{historico>cep}" }),
-                    new sap.m.Text({ text: "{historico>resultado}" }),
-                    new sap.m.Text({ text: "{historico>descricao}" }),
-                    new HBox ({
-                        items : [
-                            new sap.m.Button({
-                                icon: "sap-icon://edit",
-                                press: function(oEvent) {
-                                    var oSelectedItem = oEvent.getSource().getParent();
-                                    var oContext = oSelectedItem.getBindingContext("historico");
-                                    var oItemData = oContext.getObject();
-                                    this._openEditDialog(oItemData, oSelectedItem);
-                                }.bind(this)
-                            }).addStyleClass("btnEdition"),
-                            new sap.m.Button({
-                                icon: "sap-icon://delete",
-                                press: function(oEvent) {
-                                    var oSelectedItem = oEvent.getSource().getParent();
-                                    var oContext = oSelectedItem.getBindingContext("historico");
-                                    var oItemData = oContext.getObject();
-                                    this._excluirHistorico(oItemData.id);
-                                }.bind(this)
-                            }).addStyleClass("btnDelete")
-                        ]
-                    }).addStyleClass("hboxBtnEditonDelete"),
-                    
-                ]
-            }).addStyleClass("historyTable")
-
-            oTable.bindItems({
-                path: "historico>/historico",
-                template: oTemplate
-            });
-            // oTable.attachItemPress(function(oEvent) {
-            //     var oSelectedItem = oEvent.getParameter("listItem");
-            //     var oContext = oSelectedItem.getBindingContext("historico");
-            //     var oItemData = oContext.getObject();
-            //     console.log(oItemData);
-            //     this.mostrarDetalhesHistorico(oItemData, oSelectedItem);
-            // }.bind(this));
-
-            oTable.addStyleClass("historicoTableStyle");
-            var itemCountText = oView.byId("itemCountText");
-            var itemCount = aHistorico.length;
-            itemCountText.setText(itemCount + " Registros");
-        },
-
-        
-
-        onFilter : function(){
-               
-            var oDialog = new Dialog({
-                title: "",
-                draggable: true,
-                titleAlignment : TitleAlignment.Center,
-                content: [
-                    new VBox({
-                        alignItems: "Center",
-                        items: [
-                            new Button({
-                                text: "Orderna Crescente",
-                                icon: "sap-icon://sort-ascending",
-                                press: function () {
-                                    this.onOrdenarCrescente();
-                                    oDialog.close();
-                                    oDialog.destroy();
-                                }.bind(this)
-                            }).addStyleClass("btnFilter"),
-                            new Button({
-                                text: "Ordena Decrescente",
-                                icon: "sap-icon://sort-descending",
-                                press: function () {
-                                    this.onOrdenarDecrescente();
-                                    oDialog.close();
-                                    oDialog.destroy();
-                                }.bind(this)
-                            }).addStyleClass("btnFilter"),
-                            new Button({
-                                text: "Limpar histórico",
-                                icon: "sap-icon://delete",
-                                press: () => {
-                                    this.onLimpaOrdenacao();
-                                    oDialog.close();
-                                    oDialog.destroy();
-                                }
-                            }).addStyleClass("btnFilter"),
-                        ]
-                    }).addStyleClass("vboxFilter") // Adiciona espaçamento entre os botões
-                ]
-            }).addStyleClass("oDialogFilter");
-
-            oDialog.open();
-               
-        },
-
 
         onHistoricoItemDblClick: function (oEvent) {
             var oTable = this.getView().byId("historicoTable");

@@ -37,5 +37,8 @@
       "ui5-task-zipper",
       "mbt"
     ]
+  },
+  "dependencies": {
+    "odata-v4-metadata": "^0.1.5"
   }
 }

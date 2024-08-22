@@ -1,0 +1,27 @@
+{
+  "d": {
+    "results": [
+      {
+        "ID": "1",
+        "name": "John Doe",
+        "age": 30,
+        "email": "john.doe@example.com",
+        "isActive": true
+      },
+      {
+        "ID": "2",
+        "name": "Jane Smith",
+        "age": 25,
+        "email": "jane.smith@example.com",
+        "isActive": false
+      },
+      {
+        "ID": "3",
+        "name": "Michael Johnson",
+        "age": 40,
+        "email": "michael.johnson@example.com",
+        "isActive": true
+      }
+    ]
+  }
+}
