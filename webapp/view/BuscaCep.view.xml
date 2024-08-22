@@ -71,6 +71,7 @@
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
                                         </HBox> -->
                                     </HBox>
+                                    <Button id="btnImportarExcel" class="btnImportarExcel" text="Importar Excel" press="onImportarExcel" type="Emphasized" />
                                     <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
                                 </Toolbar>
                             </headerToolbar>

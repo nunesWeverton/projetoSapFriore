@@ -14,10 +14,14 @@ sap.ui.define([
     "sap/m/TitleAlignment",
     "sap/ui/core/HTML",
     "sap/ui/core/BusyIndicator",
+    "sap/ui/unified/FileUploader",
+    "sap/ui/export/library",
+    "sap/ui/export/Spreadsheet",
+ 
 
 ], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
     "use strict";
-    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
        
@@ -845,6 +849,60 @@ sap.ui.define([
             }
 
             this._bSortAscending = !this._bSortAscending;
+        },
+
+        onImportarExcel: function (oEvent) {
+            var oView = this.getView();
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+            
+        
+            fileInput.addEventListener('change', (event) => { 
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+        
+                    reader.onload = (e) => { 
+                        var data = new Uint8Array(e.target.result);
+                        var workbook = XLSX.read(data, { type: 'array' });
+                        var sheetName = workbook.SheetNames[0];
+                        var worksheet = workbook.Sheets[sheetName];
+        
+                       
+                        var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        
+                        console.log("Dados da planilha:", jsonData);
+                        
+                        if (jsonData.length > 0) {
+                            var columnNames = jsonData[0]; // Cabeçalhos das colunas
+                            var dataRows = jsonData.slice(1); // Dados das linhas
+        
+                            dataRows.forEach((row, rowIndex) => {
+                                if (row[0] != undefined && row[0] != null) {
+                                    var element = oView.byId("inputCep");
+                                    element.setValue(row[0]);
+                                    this.onBuscarCep(); 
+                                    element.setValue();
+                                }
+                               
+                                MessageToast.show("Dados lidos com sucesso!");
+                            });
+                        } else {
+                            console.log("A planilha está vazia.");
+                        }
+                   
+                    };
+                    reader.readAsArrayBuffer(file);
+              
+                }
+            });
+        
+            fileInput.click();
+            fileInput.parentNode.removeChild(fileInput);
+         
         }
+                
     });
 });

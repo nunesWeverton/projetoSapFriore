@@ -4,7 +4,7 @@ sap.ui.define([
 ],
 function (Controller, MessageToast) {
     "use strict";
-    var sUrl = 'https://api-btp-new.azurewebsites.net/api';
+    var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
 
     return Controller.extend("sap.btp.logincep.controller.LoginCep", {
 
