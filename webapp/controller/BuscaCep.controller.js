@@ -13,23 +13,30 @@ sap.ui.define([
     "sap/m/ButtonType",
     "sap/m/TitleAlignment",
     "sap/ui/core/HTML",
-    "sap/ui/core/BusyIndicator" 
-], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator ) {
+    "sap/ui/core/BusyIndicator",
+    "sap/ui/unified/FileUploader",
+    "sap/suite/ui/commons/imageeditor/ImageEditor",
+	"sap/suite/ui/commons/imageeditor/ImageEditorContainer"
+
+], function (Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType, TitleAlignment, HTML, BusyIndicator, FileUploader, ImageEditor, ImageEditorContainer) {
     "use strict";
-    var sUrl = 'https://api-btp.azurewebsites.net/api';
+    // var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
+    var sUrl = 'http://localhost:5036/api';
 
     return Controller.extend("logincep.controller.BuscaCep", {
-       
-        onInit: function() {
+
+        onInit: function () {
+            this._bSortAscending = true;
             var oTable = this.getView().byId("historicoTable");
             oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
-            
+            this._loadHistorico();
+
         },
-       
-        _loadHistorico: function() {
+
+        _loadHistorico: function () {
             BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
-      
+
             $.ajax({
                 url: sUrl + '/buscaCep/getAllByUserId?userId=' + uId,
                 method: "GET",
@@ -48,17 +55,23 @@ sap.ui.define([
             });
         },
 
-        createHistoricTable: function(data){
+        onCadastro: function () {
+            // Navegue para a tela de cadastro de cliente
+            this.getOwnerComponent().getRouter().navTo("Cadastro")
+        },
+
+
+        createHistoricTable: function (data) {
             var aHistorico = [];
             var oView = this.getView();
-
+        
             data.forEach((doc) => {
                 aHistorico.push(doc);
             });
-
+        
             var oModel = new JSONModel({ historico: aHistorico });
             oView.setModel(oModel, "historico");
-
+        
             var oTable = oView.byId("historicoTable");
             var oTemplate = new sap.m.ColumnListItem({
                 cells: [
@@ -66,20 +79,95 @@ sap.ui.define([
                     new sap.m.Text({ text: "{historico>cep}" }),
                     new sap.m.Text({ text: "{historico>resultado}" }),
                     new sap.m.Text({ text: "{historico>descricao}" }),
-                    new HBox ({
-                        items : [
+                    new HBox({
+                        items: [
                             new sap.m.Button({
                                 icon: "sap-icon://edit",
-                                press: function(oEvent) {
+                                press: function (oEvent) {
                                     var oSelectedItem = oEvent.getSource().getParent();
                                     var oContext = oSelectedItem.getBindingContext("historico");
                                     var oItemData = oContext.getObject();
                                     this._openEditDialog(oItemData, oSelectedItem);
                                 }.bind(this)
                             }).addStyleClass("btnEdition"),
+                            new sap.m.MenuButton({
+                                icon: "sap-icon://camera",
+                                menu: new sap.m.Menu({
+                                    items: [
+                                        new sap.m.MenuItem({
+                                            text: "Carregar Imagem",
+                                            icon: "sap-icon://upload",
+                                            press: function (oEvent) {
+                                                var sFileUploaderId = "fileUploader_" + Date.now();
+                                                var oSelectedItem = oEvent.getSource().getParent().getParent().getParent();
+                                                var oContext = oSelectedItem.getBindingContext("historico");
+                                                var oItemData = oContext.getObject();
+
+                                                // Cria o FileUploader com um id
+                                                var oFileUploader = new sap.ui.unified.FileUploader(sFileUploaderId, {
+                                                    name: "myFileUploader",
+                                                    buttonOnly: true,
+                                                    multiple: false,
+                                                    uploadOnChange: false,
+                                                    change: function (oEvent) {
+                                                        // Handle file selection
+                                                        if (oEvent.getParameter("newValue")) {
+                                                            // Enable the send button when a file is selected
+                                                            oDialog.getBeginButton().setEnabled(true);
+                                                        }
+                                                    }
+                                                });
+                                        
+                                                var oSendButton = new sap.m.Button({
+                                                    text: "Enviar",
+                                                    enabled: false,
+                                                    press: function (oEvent) {
+                                                        var oFile = sap.ui.getCore().byId(sFileUploaderId).oFileUpload.files[0];
+                                                        if (oFile) {
+                                                            this.handleUploadPress(oFile, oItemData);
+                                                            oDialog.close();
+                                                        } else {
+                                                            sap.m.MessageToast.show("Nenhum arquivo selecionado.");
+                                                        }
+                                                    }.bind(this)
+                                                });
+                                        
+                                                var oDialog = new sap.m.Dialog({
+                                                    title: "Carregar Imagem",
+                                                    content: [oFileUploader],
+                                                    beginButton: oSendButton,
+                                                    endButton: new sap.m.Button({
+                                                        text: "Fechar",
+                                                        press: function () {
+                                                            oDialog.close();
+                                                        }
+                                                    }),
+                                                    afterClose: function () {
+                                                        oDialog.destroy();
+                                                    }
+                                                });
+                                        
+                                                // Adiciona o Dialog à view
+                                                oView.addDependent(oDialog);
+                                                oDialog.open();
+                                            }.bind(this)
+                                        }),
+                                        new sap.m.MenuItem({
+                                            text: "Ver Imagem",
+                                            icon: "sap-icon://show",
+                                            press: function (oEvent) {
+                                                var oSelectedItem = oEvent.getSource().getParent().getParent().getParent();
+                                                var oContext = oSelectedItem.getBindingContext("historico");
+                                                var oItemData = oContext.getObject();
+                                                this.imageRequisition(oItemData);
+                                            }.bind(this)
+                                        })
+                                    ]
+                                })
+                            }).addStyleClass("btnCameraMenu"),
                             new sap.m.Button({
                                 icon: "sap-icon://delete",
-                                press: function(oEvent) {
+                                press: function (oEvent) {
                                     var oSelectedItem = oEvent.getSource().getParent();
                                     var oContext = oSelectedItem.getBindingContext("historico");
                                     var oItemData = oContext.getObject();
@@ -87,71 +175,66 @@ sap.ui.define([
                                 }.bind(this)
                             }).addStyleClass("btnDelete")
                         ]
-                    }),
-                    
+                    }).addStyleClass("hboxBtnEditonDelete")
                 ]
-            })
-
+            }).addStyleClass("historyTable");
+        
             oTable.bindItems({
                 path: "historico>/historico",
                 template: oTemplate
             });
-            // oTable.attachItemPress(function(oEvent) {
-            //     var oSelectedItem = oEvent.getParameter("listItem");
-            //     var oContext = oSelectedItem.getBindingContext("historico");
-            //     var oItemData = oContext.getObject();
-            //     console.log(oItemData);
-            //     this.mostrarDetalhesHistorico(oItemData, oSelectedItem);
-            // }.bind(this));
-
+        
             oTable.addStyleClass("historicoTableStyle");
             var itemCountText = oView.byId("itemCountText");
             var itemCount = aHistorico.length;
             itemCountText.setText(itemCount + " Registros");
         },
+        
 
-        onFilter : function(){
-               
+        onFilter: function () {
+
             var oDialog = new Dialog({
                 title: "",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
+                titleAlignment: TitleAlignment.Center,
                 content: [
                     new VBox({
-                        aligItems: "Center", // Centraliza os botões horizontalmente
+                        alignItems: "Center",
                         items: [
                             new Button({
                                 text: "Orderna Crescente",
+                                icon: "sap-icon://sort-ascending",
                                 press: function () {
                                     this.onOrdenarCrescente();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Ordena Decrescente",
+                                icon: "sap-icon://sort-descending",
                                 press: function () {
-                                    this.onOrdenarDecrescente(); // Certifique-se de que this.onOrdenarDecrescente está corretamente definida
+                                    this.onOrdenarDecrescente();
                                     oDialog.close();
                                     oDialog.destroy();
-                                }.bind(this) // Garante que o "this" se refere ao seu controller
-                            }).addStyleClass("buttonDetalhesHistorico"),
-                            
+                                }.bind(this)
+                            }).addStyleClass("btnFilter"),
                             new Button({
                                 text: "Limpar histórico",
+                                icon: "sap-icon://delete",
                                 press: () => {
                                     this.onLimpaOrdenacao();
                                     oDialog.close();
                                     oDialog.destroy();
                                 }
-                            }).addStyleClass("buttonDetalhesHistorico"),
+                            }).addStyleClass("btnFilter"),
                         ]
-                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                    }).addStyleClass("vboxFilter") // Adiciona espaçamento entre os botões
                 ]
-            }).addStyleClass("desejaExcluir");
+            }).addStyleClass("oDialogFilter");
 
             oDialog.open();
-               
+
         },
 
 
@@ -163,15 +246,14 @@ sap.ui.define([
             }
             var oContext = oItem.getBindingContext("historico");
             var oItemData = oContext.getObject();
-            this.mostrarDetalhesHistorico(oItemData, oItem);
         },
- 
+
         mostrarDetalhesHistorico: function (oItemData, oSelectedItem) {
             var oPopover = new Popover({
                 title: "Detalhes do Histórico",
                 contentWidth: "350px",
                 placement: PlacementType.Vertical,
-                titleAlignment : TitleAlignment.Center,
+                titleAlignment: TitleAlignment.Center,
                 content: [
                     new VBox({
                         items: [
@@ -184,17 +266,16 @@ sap.ui.define([
                             new Label({ text: "Descrição: " + (oItemData.descricao || ""), design: "Bold", textAlign: "Left", width: "auto" }).addStyleClass("sapUiTinyMarginTop"),
                             new HTML({ content: "<hr>" }),
                         ]
-                    }).addStyleClass("customPopoverContent"), // Adiciona padding ao conteúdo
+                    }).addStyleClass("customPopoverContent"), 
                     new HBox({
-                        //justifyContent: "SpaceAround",
                         items: [
                             new Button({
                                 text: "Editar",
                                 press: function () {
-                                    if(oItemData.descricao){
+                                    if (oItemData.descricao) {
                                         this._openEditDialog(oItemData, oSelectedItem);
-                                        
-                                    }else{
+
+                                    } else {
                                         this._openDescricaoDialog(oItemData, oSelectedItem);
                                     }
                                     oPopover.close();
@@ -210,11 +291,11 @@ sap.ui.define([
                             new Button({
                                 text: "Adicionar Descrição",
                                 press: function () {
-                                    if(!oItemData.descricao){
+                                    if (!oItemData.descricao) {
                                         this._openDescricaoDialog(oItemData, oSelectedItem);
                                     }
-                                    else  this._openEditDialog(oItemData, oSelectedItem);
-                                    
+                                    else this._openEditDialog(oItemData, oSelectedItem);
+
                                     oPopover.close();
                                 }.bind(this)
                             }).addStyleClass("buttonDetalhesHistorico"),
@@ -231,39 +312,137 @@ sap.ui.define([
                 backgroundColor: "#f0f0f0", // Cor de fundo do Popover
                 verticalScrolling: false // Desabilita o scroll vertical
             }).addStyleClass("customPopover"); // Aplica a fonte Arial ao Popover
-        
+
             oPopover.openBy(oSelectedItem);
         },
 
-        _openEditDialog: function (oItemData, oSelectedItem) {
-            var oDialog = new Dialog({
-                title: "Editar Descrição",
-                draggable: true,
-                titleAlignment : TitleAlignment.Center,
-                content: [
-                    new TextArea("editDescricaoTextArea", {
-                        value: oItemData.descricao || "",
-                        width: "100%",
-                        placeholder: "Adicionar descrição...",
-                    }).addStyleClass("customTextArea1")
-                ],
-                beginButton: new Button({
-                    text: "Salvar",
-                    press: function () {
-                        var sDescricao = sap.ui.getCore().byId("editDescricaoTextArea").getValue();
-                        this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
-                        oDialog.close();
-                        oDialog.destroy();
-                    }.bind(this)
-                }).addStyleClass("customSaveButton"),
-                endButton: new Button({
-                    text: "Cancelar",
-                    press: function () {
-                        oDialog.close();
-                        oDialog.destroy();
+        handleUploadPress: function (file, oItemData) {
+
+            var rId = oItemData.id;
+        
+            if (file) {
+                var formData = new FormData();
+                formData.append("file", file);
+        
+                BusyIndicator.show(0);
+        
+                $.ajax({
+                    url: sUrl + '/buscaCep/UploadImage?buscaCepId=' + rId,
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("idToken")
+                    },
+                    processData: false,
+                    contentType: false, 
+                    data: formData,
+                    success: (data) => {
+                        MessageToast.show("File uploaded successfully!");
+                        BusyIndicator.hide();
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => {
+                        console.error("Error during upload:", textStatus, errorThrown);
+                        MessageToast.show("Error uploading the file. Please try again.");
+                        BusyIndicator.hide();
                     }
-                }).addStyleClass("customCancelButton")
-            })
+                });
+        
+            } else {
+                MessageToast.show("Please select a file to upload.");
+            }
+        },
+
+        imageRequisition: function (oItemData){
+            var rId = oItemData.id;
+       
+            $.ajax({
+                url: sUrl + '/buscaCep/GetImageByIdRegister?buscaCepId=' + rId,
+                type: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                success: (response) => {
+                    sap.m.MessageToast.show("Image retrieved successfully!");
+                    this.onViewImage(response)
+                    
+                },
+                error: (xhr, status, error) => {
+                    sap.m.MessageToast.show("Failed to retrieve image: " + xhr.responseText);
+                }
+            });
+        },
+
+        onViewImage: function (data) {
+            var oController = this;
+            console.log(data.dataUrl);
+
+			if (!this.oDialog) {
+				this.oDialog = new Dialog({
+					title: 'Image Editor',
+					verticalScrolling: false,
+					stretch: true,
+					content: [
+						new ImageEditorContainer({
+						    imageEditor: new ImageEditor({
+                                id: oController.createId("imageEditor")
+                        })
+						})
+					],
+					beginButton: new Button({
+						text: 'Close',
+						press: function () {
+							oController.oDialog.close();
+						}
+					})
+				});
+			}
+
+            var oImageEditor = this.byId("imageEditor");
+            oImageEditor.setSrc(data.dataUrl);
+
+			this.oDialog.open();
+        },
+
+        _openEditDialog: function (oItemData, oSelectedItem) {
+
+            var oDialog = new Dialog({
+                title: "EDITAR DESCRIÇÃO",
+                draggable: true,
+                content: [
+                    new VBox({
+                        items: [
+                            new Label({ text: "Descrição " }).addStyleClass("labelDescription"),
+                            new TextArea("editDescricaoTextArea", {
+                                value: oItemData.descricao || "",
+                                width: "100%",
+                                placeholder: "Adicionar descrição",
+                            }).addStyleClass("customTextArea1"),
+                            new HBox({
+                                items: [
+                                    new Button({
+                                        id: "saveId",
+                                        text: "Salvar",
+                                        press: function () {
+                                            var sDescricao = sap.ui.getCore().byId("editDescricaoTextArea").getValue();
+                                            this._salvarDescricao(oItemData.id, sDescricao, oSelectedItem);
+                                            oDialog.close();
+                                            oDialog.destroy();
+                                        }.bind(this)
+                                    }).addStyleClass("customSaveButton"),
+                                    new Button({
+                                        id: "cancelId",
+                                        text: "Cancelar",
+                                        press: function () {
+                                            oDialog.close();
+                                            oDialog.destroy();
+                                        }
+                                    }).addStyleClass("customCancelButton")
+                                ]
+                            }).addStyleClass("hboxButton")
+
+                        ]
+                    }).addStyleClass("contentDescription")
+                ],
+            }).addStyleClass("dialogClass")
 
             oDialog.open();
         },
@@ -279,12 +458,12 @@ sap.ui.define([
                 },
                 contentType: "application/json",
                 data: JSON.stringify({
-                    id : sId,
-                    descricao : sDescricao,
-                    userId : localStorage.getItem("localId")
+                    id: sId,
+                    descricao: sDescricao,
+                    userId: localStorage.getItem("localId")
                 }),
                 success: () => {
-                    
+
                     //var oContext = oSelectedItem.getBindingContext("historico");
                     //oContext.getModel().setProperty(oContext.getPath() + "/descricao", sDescricao);
                     this._loadHistorico();
@@ -299,48 +478,52 @@ sap.ui.define([
 
             });
 
-             
-        },  
 
-        
-        
+        },
+
+
+
         _excluirHistorico: function (sId) {
             var oDialog = new Dialog({
-                title: "Deseja excluir?",
+                id: "excluir",
+                title: "DESEJA EXCLUIR?",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
+                titleAlignment: TitleAlignment.Center,
                 content: [
                     new HBox({
-                        justifyContent: "Center", // Centraliza os botões horizontalmente
+                        justifyContent: "Center",
                         items: [
                             new Button({
+                                id: "yes",
                                 text: "Sim",
                                 press: function () {
                                     this._excluirItem(sId);
                                     oDialog.close();
                                     oDialog.destroy();
                                 }.bind(this)
-                            }).addStyleClass("buttonDetalhesHistorico buttonYes"),
+                            }).addStyleClass("buttonYes"),
                             new Button({
+                                id: "no",
                                 text: "Não",
                                 press: function () {
                                     oDialog.close();
                                     oDialog.destroy();
                                 }
-                            }).addStyleClass("buttonDetalhesHistorico")
+                            }).addStyleClass("buttonNo")
                         ]
-                    }).addStyleClass("buttonSpacing") // Adiciona espaçamento entre os botões
+                    }).addStyleClass("buttonSpacing")
                 ]
             }).addStyleClass("desejaExcluir");
 
             oDialog.open();
         },
 
+
         _openDescricaoDialog: function (oItemData, oSelectedItem) {
             var oDialog = new Dialog({
                 title: "Adicionar Descrição",
                 draggable: true,
-                titleAlignment : TitleAlignment.Center,
+                titleAlignment: TitleAlignment.Center,
                 content: [
                     new TextArea("descricaoTextArea", {
                         value: oItemData.descricao || "",
@@ -358,7 +541,7 @@ sap.ui.define([
                         oDialog.destroy();
                     }.bind(this)
                 }).addStyleClass("customSaveButton"), // Adiciona classe de estilo para personalização
-        
+
                 endButton: new Button({
                     text: "Cancelar",
                     //type: ButtonType.Transparent, // Define o tipo de botão como transparente para remover o estilo padrão
@@ -368,16 +551,16 @@ sap.ui.define([
                     }
                 }).addStyleClass("customCancelButton") // Adiciona classe de estilo para personalização
             });
-        
+
             oDialog.addStyleClass("customDialog"); // Adiciona classe de estilo para personalização adicional do diálogo
             oDialog.open();
         },
-        
+
 
         _excluirItem: function (sId) {
             BusyIndicator.show(0);
             $.ajax({
-                url: sUrl + "/buscaCep?id="+ sId,
+                url: sUrl + "/buscaCep?id=" + sId,
                 method: "DELETE",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("idToken")
@@ -393,77 +576,99 @@ sap.ui.define([
                     BusyIndicator.hide();
                 }
             });
-         
-        }, 
 
- 
-        onBuscarCep: function() {
+        },
+
+
+        onBuscarCep: async function () {
             var oView = this.getView();
             var sCep = oView.byId("inputCep").getValue();
- 
+
             if (sCep === "") {
-                MessageToast.show("Por favor, insira um CEP.");
+                MessageToast.show("Por favor, insira um CEP.", {
+                    duration: 1500, // duração em milissegundos
+                    closeOnBrowserNavigation: false,
+                    my: "center center",
+                    at: "center center",
+                    className: "customMessageToast"
+                });
                 return;
             }
- 
+
             sCep = sCep.replace(/\D/g, '');
- 
+
             if (sCep.length !== 8) {
-                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
+                MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.", {
+                    duration: 2000, // duração em milissegundos
+                    closeOnBrowserNavigation: false,
+                    my: "center center",
+                    at: "center center",
+                    className: "customMessageToast"
+                });
                 return;
             }
- 
+
             var sUrl = "https://viacep.com.br/ws/" + sCep + "/json/";
- 
             $.ajax({
                 url: sUrl,
                 method: "GET",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("idToken")
                 },
-                success: function(data) {
-                    if (data.erro) {
-                        MessageToast.show("CEP não encontrado.");
-                        oView.byId("textResult").setText("");
+                success: async function (data) {
+                    if (data.erro === "true") {
+                        MessageToast.show("CEP não encontrado.", {
+                            duration: 2000, // duração em milissegundos
+                            closeOnBrowserNavigation: false,
+                            my: "center center",
+                            at: "center center",
+                            className: "customMessageToast"
+                        });
+                        oView.byId("textResult").setText("o cep esta errado");
                     } else {
                         var oModel = new JSONModel(data);
                         oView.setModel(oModel, "cep");
- 
-                        this.exibirResultadoNaTabela(data);
                         this.salvarNoFirestore(data);
+                        await this._esperar(2000);
+                        this._loadHistorico();
+                        this.onOrdena();
                     }
                 }.bind(this),
-                error: function() {
+                error: function () {
                     MessageToast.show("Erro ao buscar o CEP.");
                     oView.byId("textResult").setText("");
                 }
             });
         },
- 
-        exibirResultadoNaTabela: function(data) {
+
+        _esperar: function (ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+
+        exibirResultadoNaTabela: function (data) {
             var aData = [
                 { campo: "Logradouro:", valor: data.logradouro },
                 { campo: "Bairro:", valor: data.bairro },
                 { campo: "Cidade:", valor: data.localidade },
                 { campo: "Estado:", valor: data.uf }
             ];
-        
+
             var tableHtml = '<table class="resultTable">';
             tableHtml += '<thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>';
-        
-            aData.forEach(function(item) {
+
+            aData.forEach(function (item) {
                 tableHtml += '<tr><td>' + item.campo + '</td><td>' + item.valor + '</td></tr>';
             });
-        
+
             tableHtml += '</tbody></table>';
-        
+
             var textResultDiv = document.getElementById("container-sap.btp.logincep---BuscaCep--textResult");
             textResultDiv.innerHTML = tableHtml;
         },
-        salvarNoFirestore: function(data) {
-            var uId = localStorage.getItem('localId'); 
+        salvarNoFirestore: function (data) {
+            var uId = localStorage.getItem('localId');
             var dataHoraLocal = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
- 
+
             $.ajax({
                 url: sUrl + '/buscaCep',
                 method: "POST",
@@ -478,28 +683,40 @@ sap.ui.define([
                     userId: uId
                 }),
                 success: () => {
-                    MessageToast.show("Busca salva com sucesso!");
-                   
+                    MessageToast.show("Busca salva com sucesso!", {
+                        duration: 2000, // duração em milissegundos
+                        closeOnBrowserNavigation: false,
+                        my: "center center",
+                        at: "center center",
+                        addStyleClass: "customMessageToast"
+                    });
+
                 },
                 error: () => {
-                    MessageToast.show("Erro ao tentar fazer registro.");
+                    MessageToast.show("Erro ao tentar fazer registro.", {
+                        duration: 2000, // duração em milissegundos
+                        closeOnBrowserNavigation: false,
+                        my: "center center",
+                        at: "center center",
+                        className: "customMessageToast"
+                    });
                 }
             });
 
         },
 
-        
- 
-        onBack: function() {
+
+
+        onBack: function () {
             this.getOwnerComponent().getRouter().navTo("RouteLoginCep");
         },
- 
-        onUserPress: function() {
+
+        onUserPress: function () {
             MessageToast.show("Botão do usuário pressionado");
         },
 
-        onMenuButtonPress: function(oEvent) {
-            
+        onMenuButtonPress: function (oEvent) {
+
             var oButton = oEvent.getSource();
             var oMenuList = this.getView().byId("menuList");
 
@@ -507,40 +724,40 @@ sap.ui.define([
             if (!oButton.data("clicked")) {
                 oMenuList.setVisible(true);
             }
-            
+
         },
 
- 
-        onMenuSelect: function(oEvent) {
+
+        onMenuSelect: function (oEvent) {
             var sItemId = oEvent.getSource().getId();
             var oPage = this.byId("pageBuscaCep");
- 
+
             if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemBuscaCep") {
                 oPage.setTitle("Busca CEP");
                 this.byId("vboxBuscaCep").setVisible(true);
                 this.byId("vboxHistorico").setVisible(false);
-            } else if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemHistorico"){
+            } else if (sItemId === "container-sap.btp.logincep---BuscaCep--menuItemHistorico") {
                 oPage.setTitle("Histórico");
                 this.byId("vboxBuscaCep").setVisible(false);
                 this.byId("vboxHistorico").setVisible(true);
                 this._loadHistorico();
             }
- 
+
             var oSplitApp = this.byId("SplitApp");
             oSplitApp.toDetail(this.createId("pageBuscaCep"));
         },
- 
+
         onLogout: function () {
             BusyIndicator.show(0);
             $.ajax({
-                url: sUrl + '/account/logout?localId='+ localStorage.getItem("localId"),
+                url: sUrl + '/account/logout?localId=' + localStorage.getItem("localId"),
                 method: "POST",
                 contentType: "application/json",
                 success: () => {
                     localStorage.clear()
                     MessageToast.show("Logout feito com sucesso");
-                    this.byId("vboxBuscaCep").setVisible(true);
-                    this.byId("vboxHistorico").setVisible(false);
+                    // this.byId("vboxBuscaCep").setVisible(true);
+                    // this.byId("vboxHistorico").setVisible(false);
                     //document.getElementById("container-sap.btp.logincep---BuscaCep--textResult").innerHTML = '';
                     this.byId("inputCep").setValue("");
                     BusyIndicator.hide()
@@ -551,118 +768,150 @@ sap.ui.define([
                     BusyIndicator.hide()
                 }
             });
-           
+
         },
- 
-        onBuscarEndereco: function() {
+
+        onBuscarEndereco: function () {
             var oView = this.getView();
             var sCep = oView.byId("inputEndereco").getValue();
-       
+
             var sCepNormalizado = sCep.replace(/\D/g, '').replace(/^(\d{5})(\d)/, "$1-$2");
 
             if (sCepNormalizado.length !== 9) {
                 MessageToast.show("Por favor, insira um CEP válido com 8 dígitos.");
-                
-            }else{
-                 $.ajax({
-                url: sUrl + '/buscaCep/getAllByCep?cep=' + sCepNormalizado,
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("idToken")
-                },
-                contentType: "application/json",
-                success: (data) => {
-                    var oHistoricoModel = oView.getModel("historico");
-                    oHistoricoModel.setProperty("/historico", data);
-                    var itemCountText = oView.byId("itemCountText");
-                    var itemCount = data.length;
-                    itemCountText.setText(itemCount + " Registros");
-                },
-                error: () => {
-                    MessageToast.show("Não há nenhum registro com este CEP.");
-                }
-            });
-            }      
-            
+
+            } else {
+                $.ajax({
+                    url: sUrl + '/buscaCep/getAllByCep?cep=' + sCepNormalizado,
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("idToken")
+                    },
+                    contentType: "application/json",
+                    success: (data) => {
+                        var oHistoricoModel = oView.getModel("historico");
+                        oHistoricoModel.setProperty("/historico", data);
+                        var itemCountText = oView.byId("itemCountText");
+                        var itemCount = data.length;
+                        itemCountText.setText(itemCount + " Registros");
+                    },
+                    error: () => {
+                        MessageToast.show("Não há nenhum registro com este CEP.");
+                    }
+                });
+            }
+
         },
- 
-        onOrdenarCrescente: function() {
+
+        onOrdenar: function () {
+
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
-       
-            aHistorico.sort(function(a, b) {
+
+            aHistorico.sort(function (a, b) {
                 var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
                 var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-       
                 return dataA - dataB;
             });
-       
+
             oHistoricoModel.setProperty("/historico", aHistorico);
         },
- 
-        onOrdenarDecrescente: function() {
+
+        onOrdenarCrescenteDecrescente: function (oButton, type) {
             var oView = this.getView();
             var oHistoricoModel = oView.getModel("historico");
             var aHistorico = oHistoricoModel.getProperty("/historico");
-       
-            aHistorico.sort(function(a, b) {
-                var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-                var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-       
-                return dataB - dataA;
-            });
-       
+
+            var sortButtonClass = oButton.aCustomStyleClasses[0];
+
+            switch (sortButtonClass) {
+
+                case "btnDataSort":
+                    aHistorico.sort(function (a, b) {
+                        var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
+                        var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
+
+                        return type === "crescente" ? dataA - dataB : dataB - dataA;
+                    });
+                    break;
+
+                case "btnCepSearch":
+                    aHistorico.sort(function (a, b) {
+                        var cepA = parseInt(a.cep.replace('-', ''), 10);
+                        var cepB = parseInt(b.cep.replace('-', ''), 10);
+                        return type === "crescente" ? cepA - cepB : cepB - cepA;
+                    });
+                    break;
+
+                case "btnSortResult":
+                    aHistorico.sort(function (a, b) {
+                        return type === "crescente" ? a.cep.localeCompare(b.cep) : b.cep.localeCompare(a.cep);
+                    });
+                    break;
+            }
+
             oHistoricoModel.setProperty("/historico", aHistorico);
         },
- 
-        onLimpaOrdenacao: function() {
+
+
+
+
+        onLimpaOrdenacao: function () {
             this._loadHistorico();
         },
- 
-        onGerarRelatorio: function() {
+
+        onGerarPDF: function () {
             var oView = this.getView();
             var oHistoricoTable = oView.byId("historicoTable");
-        
+
             if (!oHistoricoTable) {
                 MessageToast.show("Erro ao acessar a tabela de histórico.");
                 return;
             }
-        
+
             var bTableVisible = oHistoricoTable.getVisible();
             oHistoricoTable.setVisible(true);
-        
+
             var oDate = new Date();
             var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
-        
+
             var sTableContent = `
-                <header>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP Logo">
-                    <h2>Histórico de Buscas</h2>
-                    <div class="datetime">Emitido em: ${sDateTime}</div>
-                </header>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>`;
-        
-            // Filtrar as colunas que você deseja incluir no relatório
-            oHistoricoTable.getColumns().forEach(function(oColumn) {
-                var sColumnName = oColumn.getHeader().getText();
-                // Excluir a coluna "Ações" ou outras que não sejam necessárias no relatório
-                if (sColumnName !== "Ações") {
+        <header>
+        <h2>Histórico de Buscas</h2>
+        <div class="datetime">Emitido em: ${sDateTime}</div>
+        </header>
+        <div class="table-container">
+        <table>
+        <thead>
+        <tr>`;
+            var aVisibleColumns = [];
+            oHistoricoTable.getColumns().forEach(function (oColumn) {
+                var oHeader = oColumn.getHeader();
+                var sColumnName = "";
+
+                if (oHeader && oHeader.getText) {
+                    sColumnName = oHeader.getText();
+                } else {
+                    sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
+                }
+
+                sColumnName = sColumnName.replace("Ordenar", "").trim();
+
+                if (sColumnName !== "Acões") {
                     sTableContent += "<th>" + sColumnName + "</th>";
+                    aVisibleColumns.push(oColumn);
                 }
             });
-        
+
             sTableContent += `
-                            </tr>
-                        </thead>
-                        <tbody>`;
-        
-            oHistoricoTable.getItems().forEach(function(oItem) {
+        </tr>
+        </thead>
+        <tbody>`;
+
+            oHistoricoTable.getItems().forEach(function (oItem) {
                 sTableContent += "<tr>";
-                oItem.getCells().forEach(function(oCell) {
+                oItem.getCells().forEach(function (oCell) {
                     if (oCell instanceof sap.m.Text) {
                         sTableContent += "<td>" + oCell.getText() + "</td>";
                     } else {
@@ -672,27 +921,131 @@ sap.ui.define([
                 });
                 sTableContent += "</tr>";
             });
-        
+
             sTableContent += `
-                        </tbody>
-                    </table>
-                </div>`;
-        
+        </tbody>
+        </table>
+        </div>`;
+
             var oPopupWin = window.open('', '_blank', 'width=800,height=750');
             oPopupWin.document.open();
             oPopupWin.document.write(`
-                <html>
-                    <head>
-                        <title>Relatório de Histórico de Buscas</title>
-                        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
-                    </head>
-                    <body>
+        <html>
+        <head>
+        <title>Relatório de Histórico de Buscas</title>
+        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
+        </head>
+        <body>
                         ${sTableContent}
-                    </body>
-                </html>`);
+        </body>
+        </html>`);
             oPopupWin.document.close();
-        
-            setTimeout(function() {
+
+            setTimeout(function () {
+                oHistoricoTable.setVisible(bTableVisible);
+            }, 1000);
+        },
+
+        formatCep: function (value) {
+            // Remove tudo que não é dígito
+            value = value.replace(/\D/g, '');
+
+            // Adiciona a máscara no formato 00000-000
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+
+            return value;
+        },
+        onLiveChange: function (oEvent) {
+            var oInput = oEvent.getSource();
+            var sValue = oInput.getValue();
+
+            // Formatar o valor do CEP
+            var sFormattedValue = this.formatCep(sValue);
+
+            // Definir o valor formatado no input
+            oInput.setValue(sFormattedValue);
+        },
+
+        onToggleSort: function (oEvent) {
+
+            var oButton = oEvent.getSource();
+            var sIcon = this._bSortAscending ? "sap-icon://sort-ascending" : "sap-icon://sort-descending";
+
+            oButton.setIcon(sIcon);
+
+            if (this._bSortAscending) {
+                this.onOrdenarCrescenteDecrescente(oButton, "crescente")
+            }
+            else {
+                this.onOrdenarCrescenteDecrescente(oButton, "decrescente")
+            }
+
+            this._bSortAscending = !this._bSortAscending;
+        },
+
+        onGerarExcel: function () {
+            var oView = this.getView();
+            var oHistoricoTable = oView.byId("historicoTable");
+
+            if (!oHistoricoTable) {
+                MessageToast.show("Erro ao acessar a tabela de histórico.");
+                return;
+            }
+
+            var bTableVisible = oHistoricoTable.getVisible();
+            oHistoricoTable.setVisible(true);
+
+            var oDate = new Date();
+            var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
+
+            var aVisibleColumns = [];
+            var aData = [];
+
+            // Adicionar cabeçalhos
+            var aHeaders = [];
+            oHistoricoTable.getColumns().forEach(function (oColumn) {
+                var oHeader = oColumn.getHeader();
+                var sColumnName = "";
+
+                if (oHeader && oHeader.getText) {
+                    sColumnName = oHeader.getText();
+                } else {
+                    sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
+                }
+
+                sColumnName = sColumnName.replace("Ordenar", "").trim();
+
+                if (sColumnName !== "Acões") {
+                    aHeaders.push(sColumnName);
+                    aVisibleColumns.push(oColumn);
+                }
+            });
+            aData.push(aHeaders);
+
+            // Adicionar dados
+            oHistoricoTable.getItems().forEach(function (oItem) {
+                var aRowData = [];
+                oItem.getCells().forEach(function (oCell) {
+                    if (oCell instanceof sap.m.Text) {
+                        aRowData.push(oCell.getText());
+                    } else {
+                        // Trate outros tipos de células, se necessário
+                        // Você pode querer ignorar células que não são do tipo Text
+                    }
+                });
+                aData.push(aRowData);
+            });
+
+            // Criar e exportar o arquivo Excel
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(aData);
+            XLSX.utils.book_append_sheet(wb, ws, "Histórico de Buscas");
+
+            XLSX.writeFile(wb, "Relatorio_Historico_Buscas.xlsx");
+
+            setTimeout(function () {
                 oHistoricoTable.setVisible(bTableVisible);
             }, 1000);
         }

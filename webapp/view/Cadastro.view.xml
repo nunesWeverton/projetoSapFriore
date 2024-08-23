@@ -1,0 +1,84 @@
+<mvc:View controllerName="sap.btp.logincep.controller.Cadastro"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <SplitApp id="SplitApp">
+        <masterPages>
+            <Page id="menuPage" title="Menu" class="customMasterPage">
+                <customHeader>
+                    <Bar id= "bar">
+                        <contentMiddle>
+                            <HBox id="hbox" class="HboxImageAnglo">
+                                <Image id="imageTitulo" class="imageAnglo" src="images/Anglo_American_Logo_RGB_4C 1.png" height="50px" width="10px" />
+                            </HBox>
+                        </contentMiddle>
+                    </Bar>
+                </customHeader>
+            </Page>
+        </masterPages>
+
+        <detailPages>
+            <Page id="pageBuscaCep" title="Busca CEP" class="titleBuscaCep">
+                <customHeader>
+                    <Bar id="detailPageHeader">
+                        <contentLeft>
+                            <Button id="BuscaCepButton" text="Busca Cep" press="onBuscaCep" type="Emphasized" class="btnBuscaCep" />
+                            <Button id="cadastroButton" text="Cadastro" press="onCadastro" type="Emphasized" class="btnActive" />
+                        </contentLeft>
+                        <contentMiddle>
+                            <Title class="pageTitle" id="pageTitle" />
+                        </contentMiddle>
+                        <contentRight>
+                            <HBox id="headerBox">
+                                <Button id="userButton" type="Transparent" icon="sap-icon://person-placeholder" press="onUserPressCadastro" />
+                                <Button id="logoutButton" text="Logout" icon="sap-icon://log" press="onLogoutCadastro" type="Emphasized" class="btnOnLogout" />
+                            </HBox>
+                        </contentRight>
+                    </Bar>
+                </customHeader>
+                <VBox class="vboxCadastro">
+                    <Button id="novoClienteButton" text="Novo Cliente" press="onNewClient" type="Emphasized" class="btnNovoCliente" />
+                    
+                    <Table id="clientesTable" inset="false" class="tableClientes">
+                        <columns>
+                            <Column>
+                                <Text text="Ações" />
+                            </Column>
+                            <Column>
+                                <Text text="Nome do Cliente" />
+                            </Column>
+                            <Column>
+                                <Text text="ID do Cliente" />
+                            </Column>
+                            <Column>
+                                <Text text="Endereço" />
+                            </Column>
+                            <Column>
+                                <Text text="E-mail" />
+                            </Column>
+                            <Column>
+                                <Text text="Telefone" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <HBox>
+                                        <Button icon="sap-icon://check-availability" press="onViewCustomer" class="btnVisualizar" />
+                                        <Button icon="sap-icon://edit" press="onEditCustomer" class="btnEditar" />
+                                    </HBox>
+                                    <Text text="{NomeCliente}" />
+                                    <Text text="{IdCliente}" />
+                                    <Text text="{Endereco}" />
+                                    <Text text="{Email}" />
+                                    <Text text="{Telefone}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+            </Page>
+        </detailPages>
+    </SplitApp>
+</mvc:View>

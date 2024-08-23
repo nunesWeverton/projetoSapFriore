@@ -1,0 +1,958 @@
+.titleBuscaCep {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.FlexBoxSearch {
+
+    background-color: #d5dadd;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 3px solid #e1e1e1;
+    margin-top: 2rem;
+    margin-left: 50px;
+}
+
+.textForHead {
+    font-size: 13px;
+    color: #333;
+    margin: 8px;
+}
+
+.text {
+    font-size: 16px;
+    color: black;
+}
+
+.text2 {
+    font-size: 28px;
+    color: black;
+}
+
+.btnBuscaCep {
+    margin-left: 8px;
+
+}
+
+
+
+.box {
+    height: 5rem;
+    width: 30rem;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3rem;
+    gap: 10px;
+}
+
+.colorText {
+    font-size: 18px;
+    color: black;
+}
+
+.colorText2 {
+    font-size: 15px;
+
+    color: black;
+}
+
+.box2 {
+    gap: 2rem;
+
+}
+
+.headerToolbar {
+    background-color: white;
+
+}
+
+
+.menuItem {
+    font-size: 16px;
+    color: #333;
+}
+
+.menuItem.sapMSLISelected {
+    background-color: #d1e0e0 !important;
+}
+
+.VboxSearch {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 30px;
+    background-color: white;
+    margin-right: 8px;
+}
+
+
+.text3 {
+    font-size: 14px;
+    color: #666;
+}
+
+
+.box {
+    margin-top: 10px;
+}
+
+.headerToolbar {
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+
+.sapMPageHeader {
+    height: 40px !important;
+    margin-bottom: 60px;
+}
+
+.btnIconeMenuLateral {
+    font-size: 200px;
+    height: 150px;
+    width: 50px;
+}
+
+.btnIconeMenuLateral .sapMBtnIcon {
+    font-size: 150px;
+}
+
+
+.historicoTableStyle .sapMLIB:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.historicoTableStyle .sapMLIB:nth-child(even) {
+    background-color: #e9e9e9;
+}
+
+.historicoTableStyle .sapMListTblRow:last-child {
+    text-decoration: none;
+}
+
+.itemCountText {
+    margin: 10px;
+    margin-left: 7.5%;
+    color: blue;
+}
+
+.imageTitulo {
+    margin: 20px;
+    margin-top: 30px;
+    height: 130px !important;
+    width: 135px !important;
+}
+
+.historicoTableStyle {
+    width: 85% !important;
+    margin: auto;
+    border-radius: 35px !important;
+    box-shadow: 5px 5px 10px rgba(0, 0, 255, 0.5);
+    text-decoration: none;
+}
+
+.resultTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    margin: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.resultTable th,
+.resultTable td {
+    border: 2px solid #041394;
+    padding: 5px;
+    text-align: left;
+
+}
+
+.sapMListTblRow {
+    border: none;
+}
+
+.sapMListTblHeader {
+    height: 100%;
+}
+
+
+
+.sapMTableTHead {
+    background-color: #DFE3FE;
+    height: 40px;
+
+}
+
+.sapMColumnHeader {
+    background-color: #DFE3FE;
+}
+
+.sapMTableTH {
+    height: 40px;
+    background-color: #DFE3FE;
+}
+
+
+.resultTableHeader {
+    background-color: blue;
+    color: white;
+}
+
+.teste {
+    background-color: #007bff;
+}
+
+.resultTable th {
+    background-color: #041394;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.resultTable tbody tr:nth-child(even) {
+    background-color: #F0F8FF;
+
+}
+
+.myCustomTable {
+    width: 50px;
+    height: 3%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    border-radius: 15px !important;
+    box-shadow: 15px;
+    border-color: 1px #031795 !important;
+}
+
+.myCustomToolbar {
+    background-color: #4CAF50;
+    color: white;
+    border-bottom: 2px solid #388E3C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.myCustomTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    margin-right: auto;
+}
+
+
+.myCustomInput {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 296px;
+    height: 90px;
+}
+
+
+.InputSearchTable .sapUiSizeCompact .sapMInputBaseContentWrapper {
+    height: 2.625rem !important;
+}
+
+.myCustomInput .sapMInputBaseIconContainer {
+    width: 80px;
+    height: 80px !important;
+}
+
+
+.myCustomButton {
+    margin-right: 5px;
+    margin-left: 10px;
+    background-color: #031795;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none !important;
+    border-radius: 10px;
+}
+
+
+
+
+.myCustomColumn {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+
+.myCustomColumnHeader {
+    font-weight: bold;
+    text-align: left;
+    padding: 0px;
+}
+
+
+.myCustomListItem {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.Pesquisa {
+    border-radius: 30px;
+    width: 96px;
+    height: 40px;
+    color: #FFFFFF;
+}
+
+
+
+
+.myCustomListItem:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+.myCustomText {
+    color: #3B63C0;
+    font-size: 14px;
+}
+
+
+.myCustomTextData {
+    font-weight: bold;
+}
+
+.gerarRelatorio {
+    color: white;
+}
+
+.btnOnLogout>.sapMBtnText {
+    background-color: #031795 !important;
+}
+
+
+.myCustomListItem>.sapMText {
+    margin-right: 10px;
+    background-color: white;
+}
+
+.myCustomButton .sapMBtnIcon {
+    color: white !important;
+    font-size: 1.1rem;
+}
+
+.myCustomButton .sapMBtnText {
+    color: #FFFFFF !important;
+    border: none !important;
+}
+
+
+
+
+
+.customDialog {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2px;
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden;
+
+}
+
+.customDialog h2 {
+    margin-top: 0;
+}
+
+
+.customTextArea {
+    width: 100%;
+    height: 300px;
+    gap: 10rem;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.resultTableHeader {
+    background-color: blue !important;
+    color: white;
+}
+
+.customTextArea1 {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 12px;
+    padding: 2px;
+    font-size: 14px;
+    align-content: center;
+    line-height: 1.5;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+}
+
+
+.customSaveButton {
+    width: 7rem;
+    height: 1.5rem;
+}
+
+.customSaveButton span {
+    border-color: #031795;
+    background-color: #031795;
+    color: #fff;
+}
+
+
+
+.customCancelButton {
+    width: 7rem;
+    height: 1.5rem;
+}
+
+.customCancelButton span {
+    border-color: #031795;
+    background-color: #fff;
+    color: #031795;
+}
+
+/* Ajustes de alinhamento e outros estilos */
+.customDialog.sapMDialogTitle {
+    text-align: center;
+    font-size: 18px;
+    /* Ajuste de tamanho da fonte */
+    color: #3911eb;
+    /* Cor do texto */
+}
+
+/* Ajustes de alinhamento e outros estilos */
+
+.customSaveButton>.sapMBtn:hover>.sapMBtnHoverable {
+    background-image: none;
+    background-color: #031795 !important;
+    border-color: #031795 !important;
+}
+
+.customPopover {
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+
+.customPopoverContent {
+    padding: 16px;
+    color: #fff
+}
+
+
+.sapUiTinyMarginTop {
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    background-color: #005a8b;
+}
+
+.buttonDetalhesHistorico {
+    margin: 3px;
+}
+
+.customPopover {
+    border: 2px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.oDialogFilter {
+
+    display: flex;
+    padding: 0px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #347FF6 !important;
+    border: none;
+}
+
+
+.oDialogFilter .sapMBar {
+    background-color: #347FF6 !important;
+}
+
+.buttonSim {
+    color: red;
+}
+
+.btnEdition {
+    margin-right: 10px;
+}
+
+.btnEdition .sapUiIcon {
+    color: #031795;
+}
+
+.btnDelete .sapMBtnIcon {
+    color: red;
+}
+
+.InputSearchTable {
+    height: 40px !important;
+    text-decoration: none;
+    border: none;
+    border-radius: 15px;
+    text-align: center;
+}
+
+
+.HboxImageAnglo .imageAnglo {
+    height: 98% !important;
+    width: 100% !important;
+
+}
+
+.vboxFilter {
+    width: 100%;
+}
+
+.btnFilter {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 0;
+    background-color: #347FF6 !important;
+    color: #FFFFFF;
+    height: auto;
+}
+
+.btnFilter .sapMBtnText {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #347FF6 !important;
+    color: #FFFFFF;
+}
+
+.btnFilter .sapMBtnIcon {
+    color: #FFFFFF;
+}
+
+.vboxFilter {
+    background-color: #347FF6 !important;
+    ;
+}
+
+
+.userButton .sapMBtnIcon {
+
+    color: #347FF6;
+
+}
+
+.myButton {
+    background-color: #007cc0;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.myVboxBody {
+    align-items: flex-end;
+    align-content: space-around;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 60%;
+    height: 80%;
+    border: 2px solid #e1e1e1;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.btnSortToggle {
+    margin-left: 3.0rem;
+    /* Ajuste conforme necessário para espaçamento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sapMColumnHeader .sapMText {
+    padding-top: 8px;
+}
+
+
+
+.HboxSortData>.myCustomColumnHeader>.sapMBtnText {
+    padding-top: 25px;
+}
+
+
+.sapUiSizeCompact .sapMTB.sapMTBHeader-CTX {
+    height: 3.75rem;
+}
+
+
+.myInput {
+    width: 35rem;
+    height: 8rem;
+
+
+}
+
+.historyTable {
+    border-radius: 100px !important;
+    border: 2px solid blue;
+}
+
+
+.sapMTB.sapMTBStandard {
+    border: none;
+}
+
+
+.sapMListTbl {
+    padding: 5px !important;
+    margin: 10px;
+    margin-top: 2px;
+    border-radius: 15px;
+    width: 98%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.sapMTableTHead .sapMBtnText {
+
+    color: white;
+}
+
+
+.btnGenerateReport span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+}
+
+.btnGenerateReport .sapMBtnHover,
+.btnGenerateReport:hover .sapMBtnText {
+    background-color: inherit;
+    border: none;
+    background-color: #031795;
+    border-radius: 25px !important;
+}
+
+.btnGenerateReport {
+
+    background-color: #031795;
+    border-radius: 25px !important;
+    width: 150px;
+    margin-right: 12px !important;
+    margin-top: 7px !important;
+    text-align: center;
+    height: 50px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btnGenerateReport:hover {
+
+    background-color: #031795;
+    border-radius: 25px !important;
+    width: 150px;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btnBuscarEndereco {
+    width: 90px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    margin-top: 5px;
+}
+
+.HboxPesquisaFiltro {
+    margin-top: 15px;
+
+}
+
+
+.myCustomInput .sapMInputBaseContentWrapper {
+    height: 2.00rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.myCustomInput .sapMInputBaseInner {
+    padding-right: 3rem;
+}
+
+.myCustomInput .sapMInputBaseIcon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.reloadButton {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    text-align: left;
+    border: none;
+    margin: 10px !important;
+    background: none;
+}
+
+.reloadButton .sapMBtnContent {
+    display: flex;
+    align-items: center;
+}
+
+.reloadButton .sapMBtnContent .sapMBtnIcon {
+    margin-right: 0;
+    background: none;
+    font-size: 30px !important;
+}
+
+
+.reloadButton .sapUiSizeCompact .sapMBtnInner .sapMBtnIcon {
+
+    font-size: 30px !important;
+}
+
+
+.customContent {
+    width: 15px !important;
+
+    padding: 10px;
+    margin: 10px;
+}
+
+
+.sapMSplitContainerMaster {
+
+    border: none;
+    width: 10% !important;
+}
+
+/* .sapMBtnInner {
+
+    border: none;
+} */
+
+
+.reloadButton .sapMBtnInner .sapMBtnIcon {
+
+    font-size: 30px;
+}
+
+.reloadButton:hover {
+
+    border: none;
+}
+
+
+.myCustomButton .sapMBtnText {
+
+
+    align-items: center;
+}
+
+
+.btnGenerateReport span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+    align-items: center;
+}
+
+.btnGenerateReport:focus span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #031795;
+    border: none;
+    background: none;
+    border-radius: 25px !important;
+    align-items: center;
+}
+
+
+.desejaExcluir {
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    align-items: center;
+    border: 1px solid #000080;
+    width: 408px;
+    height: 136px;
+}
+
+
+
+
+.buttonSpacing {
+    margin-top: 20px;
+}
+
+
+
+
+/* #__button3-inner
+{
+    align-items: center;
+    color: #000080;
+    background-color: white;
+    width: 95px;
+    height: 40px ;
+    background-color: white;
+    border: 1px solid #000080;
+    border-radius: 20px;
+
+}
+
+#__button2-inner{
+    align-items: center;
+    color: white;
+    background-color: #031795; 
+    width: 95px;
+    height: 40px ;
+    border-radius: 20px;
+    border: 1px solid #000080;
+} 
+#__dialog0-cont{
+    align-items: center;
+} */
+
+.buttonSpacing {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#excluir .sapMBarPH {
+    background-color: #DFE3FE;
+    border: #DFE3FE;
+
+}
+
+#excluir .sapMHeader-CTX {
+    background-color: #DFE3FE;
+    border-color: #DFE3FE;
+    color: #DFE3FE;
+
+}
+
+#excluir .sapMTitle {
+
+    color: #031795;
+}
+
+#excluir .sapMDialogSection {
+    display: flex;
+    align-items: center;
+
+
+}
+
+#yes .sapMBtnInner {
+    background-color: #031795;
+    width: 95px;
+    height: 40px;
+    border-radius: 100px;
+    gap: 8px;
+    color: white;
+    align-items: center;
+
+
+}
+
+#no .sapMBtnInner {
+    background-color: white;
+    width: 95px;
+    height: 40px;
+    border-radius: 100px;
+    gap: 8px;
+    color: #031795;
+    align-items: center;
+    border: 1px solid #000080;
+    border-radius: 20px;
+
+
+
+}
+
+.btnDataSort span{
+    background-color: #DFE3FE !important;
+    margin-left: 150px;
+    border-color: #DFE3FE;
+
+}
+
+.btnCepSearch span{
+    background-color: #DFE3FE !important;
+    margin-left: 120px;
+    border-color: #DFE3FE;
+
+}
+
+.btnSortResult span{
+    background-color: #DFE3FE !important;
+    margin-left: 120px;
+    border-color: #DFE3FE;
+
+}
+
+
+
+.customMessageToast {
+    background-color: #ffcc00;
+    /* cor de fundo */
+    color: #000;
+    /* cor do texto */
+    text-align: center;
+    /* centralizar o texto */
+    padding: 10px;
+    /* espaçamento interno */
+    border-radius: 5px;
+    /* bordas arredondadas */
+    position: fixed;
+    top: 50%;
+    /* posiciona no meio da tela verticalmente */
+    left: 50%;
+    /* posiciona no meio da tela horizontalmente */
+    transform: translate(-50%, -50%);
+    /* centraliza exatamente no meio */
+    z-index: 1000;
+    /* assegura que esteja acima de outros elementos */
+}
+
+.btnCadastro>.sapMBtnText {
+    background-color: #031795 !important;
+}
+
+.btnBuscaCep>.sapMBtnText {
+    background-color: #031795 !important;
+}
+
+.btnActive>.sapMBtnText {
+    background-color: white !important;
+    color: #031795 !important;
+}

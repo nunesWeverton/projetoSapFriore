@@ -83,6 +83,17 @@
         },
         {
           "uri": "css/register.css"
+        },
+        {
+          "uri": "css/buscaCep.css"
+        },
+        {
+          "uri": "css/descriptionModal.css"
+        }
+      ],
+      "img": [
+        {
+          "uri": "images/Anglo_American_Logo_RGB_4C 1.png"
         }
       ]
     },
@@ -113,6 +124,11 @@
           "pattern": "Register",
           "name": "Register",
           "target": "TargetRegister"
+        },
+        {
+          "pattern": "Cadastro",
+          "name": "Cadastro",
+          "target": "TargetCadastro"
         }
       ],
       "targets": {
@@ -136,6 +152,13 @@
           "clearControlAggregation": false,
           "viewId": "Register",
           "viewName": "Register"
+        },
+        "TargetCadastro": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Cadastro",
+          "viewName": "Cadastro"
         }
       }
     },

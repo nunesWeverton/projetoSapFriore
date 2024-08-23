@@ -3,7 +3,8 @@ sap.ui.define([
     "sap/m/MessageToast"
 ], function (Controller, MessageToast) {
     "use strict";
-    var sUrl = 'https://api-btp.azurewebsites.net/api';
+    // var sUrl = 'https://api-btp-dev.azurewebsites.net/api';
+    var sUrl = 'http://localhost:5036/api';
 
     return Controller.extend("sap.btp.logincep.controller.Register", {
         onInit: function () {

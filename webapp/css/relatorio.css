@@ -3,14 +3,14 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #f9fbfd;
-    color: #333;
+    color: #031795; /* Primary/AngloAmericanBlue */
 }
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #0066cc;
+    background-color: #031795; /* Primary/AngloAmericanBlue */
     color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -48,16 +48,16 @@ th, td {
     text-align: left;
 }
 th {
-    background: linear-gradient(to right, #007bff, #0056b3);
-    color: #fff;
+    background: #DFE3FE; /* Primary/Light/AA.Blue/10 */
+    color: #031795; /* Primary/AngloAmericanBlue */
     font-weight: bold;
-    border-bottom: 2px solid #0056b3;
+    border-bottom: 2px solid #031795; /* Primary/AngloAmericanBlue */
 }
 td {
     border-bottom: 1px solid #dee2e6;
 }
 tr:nth-of-type(even) {
-    background-color: #f2f2f2;
+    background-color: #DFE3FE; /* Primary/Light/AA.Blue/10 */
 }
 tr:hover {
     background-color: #e9ecef;

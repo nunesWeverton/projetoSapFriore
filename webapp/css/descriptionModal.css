@@ -1,0 +1,89 @@
+.dialogClass {
+  border-radius: 10px !important;
+  border-color: #031795 !important;
+  width: 27rem !important;
+}
+
+
+
+/* #__dialog0-header {
+  background-color: #DFE3FE;
+} */
+
+
+.sapMPopup-CTX .sapMIBar.sapMHeader-CTX {
+  background-color: #DFE3FE;
+  filter: none;
+  background-image: none;
+}
+
+.sapMDialog>header .sapMDialogTitleGroup .sapMTitle {
+  color: #031795;
+}
+
+/* #__dialog0-title {
+  
+} */
+
+.contentDescription {
+  padding: 1rem;
+}
+
+.labelDescription {
+  color: #347FF6;
+  ;
+}
+
+#editDescricaoTextArea-inner {
+  height: 5rem;
+}
+
+#editDescricaoTextArea-content {
+  border-radius: 10px !important;
+}
+
+.sapMFocus.sapMInputBase .sapMInputBaseContentWrapper:not(.sapMInputBaseDisabledWrapper)::before {
+  border-radius: 10px !important;
+}
+
+.sapMDialog .sapMDialogTitleGroup:focus::after {
+  border: 0 !important;
+  border-radius: 0 !important;
+  pointer-events: none;
+}
+
+.hboxButton {
+  padding-top: 1rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#__data223 {
+  align-content: center;
+}
+
+#__data224 {
+  align-content: center;
+}
+
+#saveId-inner {
+  background-color: #031795 !important;
+  border-color: #031795 !important;
+}
+
+#saveId-inner {
+  background-color: #031795 !important;
+  border-color: #031795 !important;
+
+}
+
+
+#cancelId-inner {
+  border-color: #031795;
+  background-color: #fff;
+  /* color: #031795; */
+}
+
+html.sap-desktop .sapMBtn:focus>.sapMFocusable:not(.sapMBadgeIndicator):before {
+  border: 0
+}
