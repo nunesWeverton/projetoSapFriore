@@ -73,33 +73,29 @@
                         </contentRight>
                     </Bar>
                 </customHeader>
-                <VBox
-                    id="_IDGenVBox1"
-                    fitContainer="true"
-                >
-                    <!--
-                        <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="LineItemsSet" persistencyKey="SmartFilter_Explored" basicSearchFieldName="Bukrs" enableBasicSearch="true" >
-                            <smartFilterBar:controlConfiguration>
-                                <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1" key="Bukrs">
-                                <smartFilterBar:defaultFilterValues>
-                                        <smartFilterBar:SelectOption id="_IDGenSelectOption1" low="0001">
-                                        </smartFilterBar:SelectOption>
-                                    </smartFilterBar:defaultFilterValues>
-                                </smartFilterBar:ControlConfiguration>
-                                <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2" key="Gjahr">
-                                    <smartFilterBar:defaultFilterValues>
-                                            <smartFilterBar:SelectOption id="_IDGenSelectOption2" low="2014">
-                                            </smartFilterBar:SelectOption>
-                                        </smartFilterBar:defaultFilterValues>
-                                    </smartFilterBar:ControlConfiguration>
-                            </smartFilterBar:controlConfiguration> -->
-                    <!-- <smartFilterBar:layoutData>
-                                <FlexItemData id="_IDGenFlexItemData1" shrinkFactor="0"/>
-                            </smartFilterBar:layoutData>WW
-                        </smartFilterBar:SmartFilterBar> -->
+
+
+                <VBox id="VboxContent" class="vboxcontent">
+                    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Persons" persistencyKey="SmartFilter_Explored" >
+                         <smartFilterBar:controlConfiguration>
+                              <smartFilterBar:ControlConfiguration id="1" key="name" visibleInAdvancedArea="true"/> 
+                             <!-- <smartFilterBar:ControlConfiguration id="2" key="Description" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="3" key="DiscontinuedDate" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="4" key="Name" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="5" key="Price" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="6" key="Rating" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="7" key="Rating" visibleInAdvancedArea="true"/> -->
+
+                            
+                                
+                        
+                        </smartFilterBar:controlConfiguration> 
+                
+                </smartFilterBar:SmartFilterBar> 
+                       
                     <smartTable:SmartTable
                         id="LineItemsSmartTable"
-                        initiallyVisibleFields="name,age,email,isActive"
+                        initiallyVisibleFields="ID,name,age,email,isActive"
                         entitySet="Persons"
                         smartFilterId="smartFilterBar"
                         tableType="Table"
@@ -112,13 +108,27 @@
                         persistencyKey="SmartTableAnalytical_Explored"
                         enableAutoBinding="true"
                         class="sapUiResponsiveContentPadding"
-                        enableAutoColumnWidth="true"
+                        enableAutoColumnWidth="false"
+                        showFullScreenButton="true"
                         editTogglable="true"
                         app:useSmartToggle="true"
-                    />
+                    >
+
+                    <Table id="idTable" mode="MultiSelect" growing="true" >
+                    <headerToolbar>
+                         <OverflowToolbar id="barflow" >
+                            <ToolbarSpacer id="toolbarTable" />
+                            <Button id="buttondelete" class="sapUiSmallMarginBeginEnd" type="Reject" icon="sap-icon://delete" text="Delete" press="onDelete"/>
+                            <Button id="buttonadicionar" icon="sap-icon://edit" text="Adicionar" press="onAdd"/>
+
+                        </OverflowToolbar> 
+                    
+                                </headerToolbar>
+                        </Table>
+                </smartTable:SmartTable>
+
                 </VBox>
 
-                <!-- </VBox> -->
             </Page>
         </detailPages>
     </SplitApp>

@@ -1,0 +1,28 @@
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" >
+    <Dialog id="1" title="Add Product">
+        <content>
+            <VBox id="2" class="sapUiSmallMargin">
+                <Label id="3" text="ID"/>
+                <Input id="inputID"/>
+
+                <Label id="4" text="Name"/>
+                <Input id="inputName" />
+
+                <Label id="5" text="Description"/>
+                <Input id="inputDescription" />
+
+                <Label id="6" text="Price"/>
+                <Input  id="inputPrice" type="Number" />
+
+                <Label id="7" text="Rating"/>
+                <Input id="inputRating" type="Number" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button id="8" text="Save" press="onSaveProduct"/>
+        </beginButton>
+        <endButton>
+            <Button id="9" text="Cancel" press="onCancel"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition> -->

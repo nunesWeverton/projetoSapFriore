@@ -139,4 +139,64 @@
 
 
 
+.sapUiCompFilterBarNonPhone {
+    background-color: white;
 
+    margin-top: 20px;
+    border-radius: 15px;
+    width: 94%;
+    padding-left: 30px;
+
+
+
+}
+/* .sapMFlexItemAlignAuto {
+    display: flex;
+    justify-content: center;    
+} */
+
+
+.vboxcontent{
+    width: 70%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 15px;
+
+
+
+}
+
+.sapMPageEnableScrolling {
+    justify-content: center;
+    display: flex;
+}
+
+
+
+
+.sapMVarMngmtTitle{
+    color: #031795 !important;
+
+}
+
+.sapMBtnEmphasized{
+    background-color: #031795 !important;
+    border-color: #031795 !important;
+    color: #fff !important;
+
+}
+
+/* .sapMBtnContent{
+    color:#031795;
+
+} */
+
+.sapMBtnTransparent{
+    color: #031795 !important;
+
+}
+.sapUiIcon {
+    color: #031795 !important;
+}

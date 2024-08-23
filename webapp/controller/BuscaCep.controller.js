@@ -16,8 +16,9 @@ sap.ui.define([
     "sap/ui/core/HTML",
     "sap/ui/core/BusyIndicator",
     'sap/ui/model/odata/v2/ODataModel',
-    'sap/ui/core/util/MockServer'
-], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer ) {
+    'sap/ui/core/util/MockServer',
+
+], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer ) {
     "use strict";
 
     // const { Edm, EntityType, Property, Schema, EntityContainer } = require('odata-v4-metadata');
@@ -228,7 +229,110 @@ sap.ui.define([
           
     
         },
-       
+
+        onDelete: function() {
+            var oTable = this.byId("idTable");
+            var aSelectedContexts = oTable.getSelectedContexts();
+        
+            if (aSelectedContexts.length === 0) {
+                sap.m.MessageToast.show("Selecione pelo menos um item para deletar.");
+                return;
+            }
+        
+            aSelectedContexts.forEach(function(oContext) {
+                var sPath = oContext.getPath();
+                this.getView().getModel().remove(sPath, {
+                    success: function() {
+                        sap.m.MessageToast.show("Item deletado com sucesso!");
+                    },
+                    error: function() {
+                        sap.m.MessageToast.show("Falha ao deletar o item.");
+                    }
+                });
+            }.bind(this));
+        },
+        onAdd: function() {
+            if (!this._oAddDialog) {
+                this._oAddDialog = this.createAddDialog();
+            }
+            this._oAddDialog.open();
+        },
+      
+        createAddDialog: function() {
+            // Cria o diálogo
+            var oDialog = new sap.m.Dialog({
+                title: "Adicionar Item",
+                contentWidth: "400px",
+                content: [
+                    new sap.m.Label({ text: "ID" }),
+                    new sap.m.Input({ id: "inputID" }),
+                    
+                    new sap.m.Label({ text: "Nome" }),
+                    new sap.m.Input({ id: "inputName" }),
+                    
+                    new sap.m.Label({ text: "Idade" }),
+                    new sap.m.Input({ id: "inputAge", type: "Number" }),
+                    
+                    new sap.m.Label({ text: "Email" }),
+                    new sap.m.Input({ id: "inputEmail", type: "Email" }),
+                    
+                    new sap.m.Label({ text: "Ativo" }),
+                    new sap.m.CheckBox({ id: "inputIsActive" })
+                ],
+                beginButton: new sap.m.Button({
+                    text: "Adicionar",
+                    press: function() {
+                        this.onAddItem(); // Chama a função para adicionar o item
+                        oDialog.close(); // Fecha o diálogo
+                    }.bind(this)
+                }),
+                endButton: new sap.m.Button({
+                    text: "Cancelar",
+                    press: function() {
+                        oDialog.close(); // Fecha o diálogo
+                    }
+                })
+            });
+        
+            // Anexa o diálogo ao controlador para reutilização
+            this.getView().addDependent(oDialog);
+        
+            return oDialog;
+        },
+
+                    onAddItem: function() {
+                        var oTable = this.byId("idTable");
+                        var oModel = oTable.getModel();
+                        var oData = oModel.getData();
+                    
+                        // Obtém os valores do diálogo
+                        var sID = sap.ui.getCore().byId("inputID").getValue();
+                        var sName = sap.ui.getCore().byId("inputName").getValue();
+                        var iAge = parseInt(sap.ui.getCore().byId("inputAge").getValue(), 10);
+                        var sEmail = sap.ui.getCore().byId("inputEmail").getValue();
+                        var bIsActive = sap.ui.getCore().byId("inputIsActive").getSelected();
+                    
+                        // Cria o novo item
+                        var oNewItem = {
+                            ID: sID,
+                            name: sName,
+                            age: iAge,
+                            email: sEmail,
+                            isActive: bIsActive
+                        };
+                    
+                        // Adiciona o novo item ao array de dados
+                        oData.Persons.push(oNewItem);
+                    
+                        // Atualiza o modelo com os novos dados
+                        oModel.setData(oData);
+                    
+                        // Atualiza a tabela
+                        oTable.getBinding("items").refresh();
+                    },
+
+                    
+        
         _loadHistorico: function() {
              BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
