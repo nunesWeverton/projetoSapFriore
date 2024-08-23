@@ -65,84 +65,13 @@ sap.ui.define([
     //     return entity;
     // },
 
-    jsonToODataMetadata: function(json, entityName) {
-        let entityType = {
-            name: entityName,
-            properties: []
-        };
     
-        for (let key in json) {
-            if (json.hasOwnProperty(key)) {
-                let value = json[key];
-                let type = typeof value;
-    
-                let odataType = "Edm.String"; // Default type
-                switch (type) {
-                    case 'string':
-                        odataType = "Edm.String";
-                        break;
-                    case 'number':
-                        odataType = Number.isInteger(value) ? "Edm.Int32" : "Edm.Decimal";
-                        break;
-                    case 'boolean':
-                        odataType = "Edm.Boolean";
-                        break;
-                    case 'object':
-                        if (value !== null && !Array.isArray(value)) {
-                            // Handle nested objects as complex types
-                            const nestedEntityName = `${entityName}_${key}`;
-                            entityType.properties.push({
-                                name: key,
-                                type: `MyNamespace.${nestedEntityName}`
-                            });
-                            this.jsonToODataMetadata(value, nestedEntityName);
-                            continue;
-                        }
-                        break;
-                    // Add other cases as needed
-                }
-    
-                entityType.properties.push({
-                    name: key,
-                    type: odataType
-                });
-            }
-        }
-    
-        return entityType;
-    },
-    
-        generateODataMetadata: function(json, entityName) {
-        let schema = {
-            namespace: "MyNamespace",
-            entityTypes: [],
-            entityContainers: []
-        };
-    
-        let entityType = this.jsonToODataMetadata(json, entityName);
-        schema.entityTypes.push(entityType);
-    
-        let entityContainer = {
-            name: "DefaultContainer",
-            entitySets: [
-                {
-                    name: entityName + "s",
-                    entityType: `MyNamespace.${entityName}`
-                }
-            ]
-        };
-    
-        schema.entityContainers.push(entityContainer);
-    
-        return schema;
-    },
     
     // Exemplo de uso
    
 
         onInit: function() {
 
-            // this._bSortAscending  = true;
             // this._loadHistorico();
 
             var oMockServer = new MockServer({
@@ -166,66 +95,6 @@ sap.ui.define([
             // Associa o modelo à view
             this.getView().setModel(oModel);
 
-            // var oView;
-
-            // let json = {
-            //     name: "John Doe",
-            //     age: 30,
-            //     email: "john.doe@example.com",
-            //     isActive: true,
-            //     address: {
-            //         street: "123 Main St",
-            //         city: "Anytown",
-            //         zip: "12345"
-            //     }
-            // };
-            
-
-            // let metadata = this.generateODataMetadata(json, "Person");
-
-            // Criando um JSONModel a partir dos metadados
-            // let oModel = new sap.ui.model.json.JSONModel(metadata);
-    
-            // Definindo o JSONModel na view
-            // oView = this.getView();
-            // oView.setModel(oModel, "metadataModel");
-    
-            // Verificar se o modelo foi corretamente atribuído
-            // console.log(oView.getModel("metadataModel"));
-
-            // console.log(this.getView().getModel("metadataModel").getData());
-
-            // console.log(this.byId("LineItemsSmartTable").getModel("metadataModel"));
-
-            
-            
-
-            // const schema = new Schema("MyNamespace");
-            // const entityName = "Person";
-            // const entityType = jsonToODataMetadata({
-            //     name: "John Doe",
-            //     age: 30,
-            //     email: "john.doe@example.com",
-            //     isActive: true,
-            //     address: {
-            //         street: "123 Main St",
-            //         city: "Anytown",
-            //         zip: "12345"
-            //     }
-            // }, entityName);
-
-            // schema.addEntityType(entityType);
-
-            // // Criar o container de entidades
-            // const container = new EntityContainer("DefaultContainer");
-            // container.addEntitySet("People", entityType);
-            // schema.addEntityContainer(container);
-
-            // // Gerar os metadados XML
-            // const metadata = schema.serialize();
-            // console.log(metadata);
-
-          
     
         },
        
