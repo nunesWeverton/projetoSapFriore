@@ -99,7 +99,7 @@
                         </smartFilterBar:SmartFilterBar> -->
                     <smartTable:SmartTable
                         id="LineItemsSmartTable"
-                        initiallyVisibleFields="name,age,email,isActive"
+                        initiallyVisibleFields="Nome,Idade,Email,Ativo"
                         entitySet="Persons"
                         smartFilterId="smartFilterBar"
                         tableType="Table"
