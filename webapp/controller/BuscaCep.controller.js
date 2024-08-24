@@ -17,9 +17,9 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator",
     'sap/ui/model/odata/v2/ODataModel',
     'sap/ui/core/util/MockServer',
-    // "sap/ui/unified/FileUploader",
-    // "sap/ui/export/library",
-    // "sap/ui/export/Spreadsheet",
+    "sap/ui/export/library",
+    "sap/ui/export/Spreadsheet",
+    "sap/ui/unified/FileUploader",
     "sap/suite/ui/commons/imageeditor/ImageEditor",
 	"sap/suite/ui/commons/imageeditor/ImageEditorContainer"
     
@@ -1038,6 +1038,156 @@ sap.ui.define([
             }
 
             this._bSortAscending = !this._bSortAscending;
+        },
+
+        onGerarPDF: function () {
+            var oView = this.getView();
+            var oHistoricoTable = oView.byId("historicoTable");
+
+            if (!oHistoricoTable) {
+                MessageToast.show("Erro ao acessar a tabela de histórico.");
+                return;
+            }
+
+            var bTableVisible = oHistoricoTable.getVisible();
+            oHistoricoTable.setVisible(true);
+
+            var oDate = new Date();
+            var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
+
+            var sTableContent = `
+        <header>
+        <h2>Histórico de Buscas</h2>
+        <div class="datetime">Emitido em: ${sDateTime}</div>
+        </header>
+        <div class="table-container">
+        <table>
+        <thead>
+        <tr>`;
+            var aVisibleColumns = [];
+            oHistoricoTable.getColumns().forEach(function (oColumn) {
+                var oHeader = oColumn.getHeader();
+                var sColumnName = "";
+
+                if (oHeader && oHeader.getText) {
+                    sColumnName = oHeader.getText();
+                } else {
+                    sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
+                }
+
+                sColumnName = sColumnName.replace("Ordenar", "").trim();
+
+                if (sColumnName !== "Acões") {
+                    sTableContent += "<th>" + sColumnName + "</th>";
+                    aVisibleColumns.push(oColumn);
+                }
+            });
+
+            sTableContent += `
+        </tr>
+        </thead>
+        <tbody>`;
+
+            oHistoricoTable.getItems().forEach(function (oItem) {
+                sTableContent += "<tr>";
+                oItem.getCells().forEach(function (oCell) {
+                    if (oCell instanceof sap.m.Text) {
+                        sTableContent += "<td>" + oCell.getText() + "</td>";
+                    } else {
+                        // Trate outros tipos de células, se necessário
+                        // Você pode querer ignorar células que não são do tipo Text
+                    }
+                });
+                sTableContent += "</tr>";
+            });
+
+            sTableContent += `
+        </tbody>
+        </table>
+        </div>`;
+
+            var oPopupWin = window.open('', '_blank', 'width=800,height=750');
+            oPopupWin.document.open();
+            oPopupWin.document.write(`
+        <html>
+        <head>
+        <title>Relatório de Histórico de Buscas</title>
+        <link rel="stylesheet" type="text/css" href="css/relatorio.css">
+        </head>
+        <body>
+                        ${sTableContent}
+        </body>
+        </html>`);
+            oPopupWin.document.close();
+
+            setTimeout(function () {
+                oHistoricoTable.setVisible(bTableVisible);
+            }, 1000);
+        },
+
+        onGerarExcel: function () {
+            var oView = this.getView();
+            var oHistoricoTable = oView.byId("historicoTable");
+
+            if (!oHistoricoTable) {
+                MessageToast.show("Erro ao acessar a tabela de histórico.");
+                return;
+            }
+
+            var bTableVisible = oHistoricoTable.getVisible();
+            oHistoricoTable.setVisible(true);
+
+            var oDate = new Date();
+            var sDateTime = oDate.toLocaleDateString() + ' ' + oDate.toLocaleTimeString();
+
+            var aVisibleColumns = [];
+            var aData = [];
+
+            // Adicionar cabeçalhos
+            var aHeaders = [];
+            oHistoricoTable.getColumns().forEach(function (oColumn) {
+                var oHeader = oColumn.getHeader();
+                var sColumnName = "";
+
+                if (oHeader && oHeader.getText) {
+                    sColumnName = oHeader.getText();
+                } else {
+                    sColumnName = oHeader.getDomRef() ? oHeader.getDomRef().textContent : "N/A";
+                }
+
+                sColumnName = sColumnName.replace("Ordenar", "").trim();
+
+                if (sColumnName !== "Acões") {
+                    aHeaders.push(sColumnName);
+                    aVisibleColumns.push(oColumn);
+                }
+            });
+            aData.push(aHeaders);
+
+            // Adicionar dados
+            oHistoricoTable.getItems().forEach(function (oItem) {
+                var aRowData = [];
+                oItem.getCells().forEach(function (oCell) {
+                    if (oCell instanceof sap.m.Text) {
+                        aRowData.push(oCell.getText());
+                    } else {
+                        // Trate outros tipos de células, se necessário
+                        // Você pode querer ignorar células que não são do tipo Text
+                    }
+                });
+                aData.push(aRowData);
+            });
+
+            // Criar e exportar o arquivo Excel
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(aData);
+            XLSX.utils.book_append_sheet(wb, ws, "Histórico de Buscas");
+
+            XLSX.writeFile(wb, "Relatorio_Historico_Buscas.xlsx");
+
+            setTimeout(function () {
+                oHistoricoTable.setVisible(bTableVisible);
+            }, 1000);
         },
 
         onImportarExcel: function (oEvent) {

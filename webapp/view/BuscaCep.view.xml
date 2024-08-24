@@ -89,7 +89,9 @@
                                         </HBox> -->
                                     </HBox>
                                     <Button id="btnImportarExcel" class="btnImportarExcel" text="Importar Excel" press="onImportarExcel" type="Emphasized" />
+                                    <Button id="btnExportarExcel" class="btnExportarExcel" text="Exportar Excel" press="onGerarExcel" type="Emphasized" />
                                     <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
+                                
                                 </Toolbar>
                             </headerToolbar>
                             <columns>
