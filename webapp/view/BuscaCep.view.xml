@@ -73,53 +73,67 @@
                         </contentRight>
                     </Bar>
                 </customHeader>
-                <VBox
-                    id="_IDGenVBox1"
-                    fitContainer="true"
-                >
-                    <!--
-                        <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="LineItemsSet" persistencyKey="SmartFilter_Explored" basicSearchFieldName="Bukrs" enableBasicSearch="true" >
-                            <smartFilterBar:controlConfiguration>
-                                <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1" key="Bukrs">
-                                <smartFilterBar:defaultFilterValues>
-                                        <smartFilterBar:SelectOption id="_IDGenSelectOption1" low="0001">
-                                        </smartFilterBar:SelectOption>
-                                    </smartFilterBar:defaultFilterValues>
-                                </smartFilterBar:ControlConfiguration>
-                                <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2" key="Gjahr">
-                                    <smartFilterBar:defaultFilterValues>
-                                            <smartFilterBar:SelectOption id="_IDGenSelectOption2" low="2014">
-                                            </smartFilterBar:SelectOption>
-                                        </smartFilterBar:defaultFilterValues>
-                                    </smartFilterBar:ControlConfiguration>
-                            </smartFilterBar:controlConfiguration> -->
-                    <!-- <smartFilterBar:layoutData>
-                                <FlexItemData id="_IDGenFlexItemData1" shrinkFactor="0"/>
-                            </smartFilterBar:layoutData>WW
-                        </smartFilterBar:SmartFilterBar> -->
-                    <smartTable:SmartTable
-                        id="LineItemsSmartTable"
-                        initiallyVisibleFields="name,age,email,isActive"
-                        entitySet="Persons"
-                        smartFilterId="smartFilterBar"
-                        tableType="Table"
-                        useExportToExcel="true"
-                        beforeExport="onBeforeExport"
-                        useVariantManagement="true"
-                        useTablePersonalisation="true"
-                        header="Line Items"
-                        showRowCount="true"
-                        persistencyKey="SmartTableAnalytical_Explored"
-                        enableAutoBinding="true"
-                        class="sapUiResponsiveContentPadding"
-                        enableAutoColumnWidth="true"
-                        editTogglable="true"
-                        app:useSmartToggle="true"
+                  <content>
+                    <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
+                        <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
+                            <headerToolbar>
+                                <Toolbar id="historicoToolbar" class="myCustomToolbar" >
                         
-                    />
-                </VBox>
-
-                <!-- </VBox> -->
+                                    <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
+                                        <Input id="inputCep" placeholder="Buscar endereço no histórico..." width="20rem" 
+                                         class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
+                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
+                                        <Button id="btnBuscar" text="Pesquisar"  press="onBuscarCep" class=" btnSearch myCustomButton" />
+                                        <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
+                                            <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
+                                        </HBox> -->
+                                    </HBox>
+                                    <Button id="btnImportarExcel" class="btnImportarExcel" text="Importar Excel" press="onImportarExcel" type="Emphasized" />
+                                    <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="colData" class="myCustomColumn">
+                                <HBox class ="HboxSortData" >
+                                    <Text id="colDataText" text="Data" class="myCustomColumnHeader" />
+                                    <Button id = "butonFilter1" icon="sap-icon://sort" press="onToggleSort" class="btnDataSort" />
+                                </HBox>
+                                </Column>
+                                <Column id="colCep">
+                                    <HBox class ="HboxSortData" >
+                                        <Text id="colCepText" text="CEP Pesquisado" class="myCustomColumnHeader" />
+                                        <Button id = "btnCepSearch" icon="sap-icon://sort" press="onToggleSort" class="btnCepSearch" />
+                                     </HBox>
+                                </Column>
+                                <Column id="colResultado" class="myCustomColumn">
+                                    <HBox class ="HboxSortData" >
+                                          <Text id="colResultadoText" text="Resultado" class="myCustomColumnHeader" />
+                                          <Button  id =  "butonFilter2" icon="sap-icon://sort" press="onToggleSort" class="btnSortResult" />
+                                    </HBox>
+                                </Column>
+                                <Column id="colDescricao" class="myCustomColumn" width ="15%">
+                                    <Text id="colDescricaoText" text="Descrição" class="myCustomColumnHeader" />
+                                </Column>
+                                <Column id="colAcoes" class="myCustomColumn" width="10%">
+                                    <Text id="coAcoesText" text="Acões" class="myCustomColumnHeader" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="teste" type="Active" class="myCustomListItem">
+                                    <cells>
+                                        <Text id="historicoDataText" text="{historico>data}" class="myCustomText myCustomTextData" />
+                                        <Text id="historicoCepText" text="{historico>cep}" class="myCustomText myCustomTextCep"  />
+                                        <Text id="historicoResultadoText" text="{historico>resultado}" class="myCustomText myCustomTextResultado" />
+                                        <Text id="historicoDescricaoText" text="{historico>descricao}" class="myCustomText myCustomTextResultado" />
+                                        
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                            
+                        </Table>
+                        <Text id = "itemCountText" class = "itemCountText"/>
+                    </VBox>
+                </content>
             </Page>
         </detailPages>
     </SplitApp>

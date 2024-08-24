@@ -16,8 +16,15 @@ sap.ui.define([
     "sap/ui/core/HTML",
     "sap/ui/core/BusyIndicator",
     'sap/ui/model/odata/v2/ODataModel',
-    'sap/ui/core/util/MockServer'
-], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer ) {
+    'sap/ui/core/util/MockServer',
+    // "sap/ui/unified/FileUploader",
+    // "sap/ui/export/library",
+    // "sap/ui/export/Spreadsheet",
+    "sap/suite/ui/commons/imageeditor/ImageEditor",
+	"sap/suite/ui/commons/imageeditor/ImageEditorContainer"
+    
+ 
+], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer, ImageEditor, ImageEditorContainer ) {
     "use strict";
 
     // const { Edm, EntityType, Property, Schema, EntityContainer } = require('odata-v4-metadata');
@@ -72,7 +79,10 @@ sap.ui.define([
 
         onInit: function() {
 
-            // this._loadHistorico();
+            this._bSortAscending  = true;
+            var oTable = this.getView().byId("historicoTable");
+            oTable.attachBrowserEvent("dblclick", this.onHistoricoItemDblClick.bind(this));
+            this._loadHistorico();
 
             var oMockServer = new MockServer({
                 rootUri: "/odata/service/"
@@ -99,7 +109,7 @@ sap.ui.define([
         },
        
         _loadHistorico: function() {
-             BusyIndicator.show(0);
+            BusyIndicator.show(0);
             var uId = localStorage.getItem('localId');
       
             $.ajax({
@@ -110,9 +120,9 @@ sap.ui.define([
                     Authorization: "Bearer " + localStorage.getItem("idToken")
                 },
                 success: (data) => {
-                    // this.createHistoricTable(data);
+                    this.createHistoricTable(data);
                     console.log(data);
-                    this.createHistoricTableSmart(data);
+                    // this.createHistoricTableSmart(data);
                     BusyIndicator.hide()
                 },
                 error: () => {
@@ -121,6 +131,144 @@ sap.ui.define([
                 }
             });
         },
+
+        createHistoricTable: function(data){
+            var aHistorico = [];
+            var oView = this.getView();
+
+            data.forEach((doc) => {
+                aHistorico.push(doc);
+            });
+
+            var oModel = new JSONModel({ historico: aHistorico });
+            oView.setModel(oModel, "historico");
+
+            var oTable = oView.byId("historicoTable");
+            var oTemplate = new sap.m.ColumnListItem({
+                cells: [
+                    new sap.m.Text({ text: "{historico>data}" }),
+                    new sap.m.Text({ text: "{historico>cep}" }),
+                    new sap.m.Text({ text: "{historico>resultado}" }),
+                    new sap.m.Text({ text: "{historico>descricao}" }),
+                    new HBox ({
+                        items : [
+                            new sap.m.Button({
+                                icon: "sap-icon://edit",
+                                press: function(oEvent) {
+                                    var oSelectedItem = oEvent.getSource().getParent();
+                                    var oContext = oSelectedItem.getBindingContext("historico");
+                                    var oItemData = oContext.getObject();
+                                    this._openEditDialog(oItemData, oSelectedItem);
+                                }.bind(this)
+                            }).addStyleClass("btnEdition"),
+                            new sap.m.MenuButton({
+                                icon: "sap-icon://camera",
+                                menu: new sap.m.Menu({
+                                    items: [
+                                        new sap.m.MenuItem({
+                                            text: "Carregar Imagem",
+                                            icon: "sap-icon://upload",
+                                            press: function (oEvent) {
+                                                var sFileUploaderId = "fileUploader_" + Date.now();
+                                                var oSelectedItem = oEvent.getSource().getParent().getParent().getParent();
+                                                var oContext = oSelectedItem.getBindingContext("historico");
+                                                var oItemData = oContext.getObject();
+
+                                                // Cria o FileUploader com um id
+                                                var oFileUploader = new sap.ui.unified.FileUploader(sFileUploaderId, {
+                                                    name: "myFileUploader",
+                                                    buttonOnly: true,
+                                                    multiple: false,
+                                                    uploadOnChange: false,
+                                                    change: function (oEvent) {
+                                                        // Handle file selection
+                                                        if (oEvent.getParameter("newValue")) {
+                                                            // Enable the send button when a file is selected
+                                                            oDialog.getBeginButton().setEnabled(true);
+                                                        }
+                                                    }
+                                                });
+                                        
+                                                var oSendButton = new sap.m.Button({
+                                                    text: "Enviar",
+                                                    enabled: false,
+                                                    press: function (oEvent) {
+                                                        var oFile = sap.ui.getCore().byId(sFileUploaderId).oFileUpload.files[0];
+                                                        if (oFile) {
+                                                            this.handleUploadPress(oFile, oItemData);
+                                                            oDialog.close();
+                                                        } else {
+                                                            sap.m.MessageToast.show("Nenhum arquivo selecionado.");
+                                                        }
+                                                    }.bind(this)
+                                                });
+                                        
+                                                var oDialog = new sap.m.Dialog({
+                                                    title: "Carregar Imagem",
+                                                    content: [oFileUploader],
+                                                    beginButton: oSendButton,
+                                                    endButton: new sap.m.Button({
+                                                        text: "Fechar",
+                                                        press: function () {
+                                                            oDialog.close();
+                                                        }
+                                                    }),
+                                                    afterClose: function () {
+                                                        oDialog.destroy();
+                                                    }
+                                                });
+                                        
+                                                // Adiciona o Dialog à view
+                                                oView.addDependent(oDialog);
+                                                oDialog.open();
+                                            }.bind(this)
+                                        }),
+                                        new sap.m.MenuItem({
+                                            text: "Ver Imagem",
+                                            icon: "sap-icon://show",
+                                            press: function (oEvent) {
+                                                var oSelectedItem = oEvent.getSource().getParent().getParent().getParent();
+                                                var oContext = oSelectedItem.getBindingContext("historico");
+                                                var oItemData = oContext.getObject();
+                                                this.imageRequisition(oItemData);
+                                            }.bind(this)
+                                        })
+                                    ]
+                                })
+                            }),
+                            new sap.m.Button({
+                                icon: "sap-icon://delete",
+                                press: function(oEvent) {
+                                    var oSelectedItem = oEvent.getSource().getParent();
+                                    var oContext = oSelectedItem.getBindingContext("historico");
+                                    var oItemData = oContext.getObject();
+                                    this._excluirHistorico(oItemData.id);
+                                }.bind(this)
+                            }).addStyleClass("btnDelete")
+                        ]
+                    }).addStyleClass("hboxBtnEditonDelete"),
+                    
+                ]
+            }).addStyleClass("historyTable")
+
+            oTable.bindItems({
+                path: "historico>/historico",
+                template: oTemplate
+            });
+            // oTable.attachItemPress(function(oEvent) {
+            //     var oSelectedItem = oEvent.getParameter("listItem");
+            //     var oContext = oSelectedItem.getBindingContext("historico");
+            //     var oItemData = oContext.getObject();
+            //     console.log(oItemData);
+            //     this.mostrarDetalhesHistorico(oItemData, oSelectedItem);
+            // }.bind(this));
+
+            oTable.addStyleClass("historicoTableStyle");
+            var itemCountText = oView.byId("itemCountText");
+            var itemCount = aHistorico.length;
+            itemCountText.setText(itemCount + " Registros");
+        },
+
 
         onHistoricoItemDblClick: function (oEvent) {
             var oTable = this.getView().byId("historicoTable");
@@ -319,7 +467,93 @@ sap.ui.define([
         
             oDialog.open();
         },
+
+        handleUploadPress: function (file, oItemData) {
+
+            var rId = oItemData.id;
         
+            if (file) {
+                var formData = new FormData();
+                formData.append("file", file);
+        
+                BusyIndicator.show(0);
+        
+                $.ajax({
+                    url: sUrl + '/buscaCep/UploadImage?buscaCepId=' + rId,
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("idToken")
+                    },
+                    processData: false,
+                    contentType: false, 
+                    data: formData,
+                    success: (data) => {
+                        MessageToast.show("File uploaded successfully!");
+                        BusyIndicator.hide();
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => {
+                        console.error("Error during upload:", textStatus, errorThrown);
+                        MessageToast.show("Error uploading the file. Please try again.");
+                        BusyIndicator.hide();
+                    }
+                });
+        
+            } else {
+                MessageToast.show("Please select a file to upload.");
+            }
+        },
+
+        imageRequisition: function (oItemData){
+            var rId = oItemData.id;
+       
+            $.ajax({
+                url: sUrl + '/buscaCep/GetImageByIdRegister?buscaCepId=' + rId,
+                type: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("idToken")
+                },
+                success: (response) => {
+                    sap.m.MessageToast.show("Image retrieved successfully!");
+                    this.onViewImage(response)
+                    
+                },
+                error: (xhr, status, error) => {
+                    sap.m.MessageToast.show("Failed to retrieve image: " + xhr.responseText);
+                }
+            });
+        },
+
+        onViewImage: function (data) {
+            var oController = this;
+            console.log(data.dataUrl);
+
+			if (!this.oDialog) {
+				this.oDialog = new Dialog({
+					title: 'Image Editor',
+					verticalScrolling: false,
+					stretch: true,
+					content: [
+						new ImageEditorContainer({
+						    imageEditor: new ImageEditor({
+                                id: oController.createId("imageEditor")
+                        })
+						})
+					],
+					beginButton: new Button({
+						text: 'Close',
+						press: function () {
+							oController.oDialog.close();
+						}
+					})
+				});
+			}
+
+            var oImageEditor = this.byId("imageEditor");
+            oImageEditor.setSrc(data.dataUrl);
+
+			this.oDialog.open();
+        },
+
 
         _openDescricaoDialog: function (oItemData, oSelectedItem) {
             var oDialog = new Dialog({
@@ -804,6 +1038,59 @@ sap.ui.define([
             }
 
             this._bSortAscending = !this._bSortAscending;
+        },
+
+        onImportarExcel: function (oEvent) {
+            var oView = this.getView();
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+            
+        
+            fileInput.addEventListener('change', (event) => { 
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+        
+                    reader.onload = (e) => { 
+                        var data = new Uint8Array(e.target.result);
+                        var workbook = XLSX.read(data, { type: 'array' });
+                        var sheetName = workbook.SheetNames[0];
+                        var worksheet = workbook.Sheets[sheetName];
+        
+                       
+                        var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        
+                        console.log("Dados da planilha:", jsonData);
+                        
+                        if (jsonData.length > 0) {
+                            var columnNames = jsonData[0]; // Cabeçalhos das colunas
+                            var dataRows = jsonData.slice(1); // Dados das linhas
+        
+                            dataRows.forEach((row, rowIndex) => {
+                                if (row[0] != undefined && row[0] != null) {
+                                    var element = oView.byId("inputCep");
+                                    element.setValue(row[0]);
+                                    this.onBuscarCep(); 
+                                    element.setValue();
+                                }
+                               
+                                MessageToast.show("Dados lidos com sucesso!");
+                            });
+                        } else {
+                            console.log("A planilha está vazia.");
+                        }
+                   
+                    };
+                    reader.readAsArrayBuffer(file);
+              
+                }
+            });
+        
+            fileInput.click();
+            fileInput.parentNode.removeChild(fileInput);
+         
         }
     });
 });

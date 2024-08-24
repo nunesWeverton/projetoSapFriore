@@ -899,21 +899,21 @@
 
 }
 
-.btnDataSort span{
+.btnDataSort span {
     background-color: #DFE3FE !important;
     margin-left: 150px;
     border-color: #DFE3FE;
 
 }
 
-.btnCepSearch span{
+.btnCepSearch span {
     background-color: #DFE3FE !important;
     margin-left: 120px;
     border-color: #DFE3FE;
 
 }
 
-.btnSortResult span{
+.btnSortResult span {
     background-color: #DFE3FE !important;
     margin-left: 120px;
     border-color: #DFE3FE;
@@ -942,4 +942,33 @@
     /* centraliza exatamente no meio */
     z-index: 1000;
     /* assegura que esteja acima de outros elementos */
+}
+
+.btnImportarExcel {
+
+    background-color: #031795;
+    border-radius: 25px !important;
+    width: 150px;
+    margin-right: 12px !important;
+    margin-top: 7px !important;
+    text-align: center;
+    height: 50px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    border: none !important;
+    padding: 10px;
+    /* Adiciona um pouco de espaço interno */
+    line-height: 30px;
+    /* Alinha o texto verticalmente dentro do botão */
+}
+
+button#container-sap\.btp\.logincep---BuscaCep--btnImportarExcel {
+    background-color: #031795 !important;
+    border: none !important;
+    border-radius: 25px !important;
+}
+
+button#container-sap\.btp\.logincep---BuscaCep--btnImportarExcel span#container-sap\.btp\.logincep---BuscaCep--btnImportarExcel-inner {
+    background-color: #031795 !important;
+    border: none !important;
+    border-radius: 25px !important;
 }
