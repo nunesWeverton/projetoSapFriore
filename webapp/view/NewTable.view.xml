@@ -33,14 +33,25 @@
                         </contentMiddle>
                     </Bar>
                 </customHeader>
-                  <tnt:NavigationList
+                <tnt:NavigationList
                     id="navigationList"
                     width="10.5rem"
-                    itemSelect="onItemSelect">
-                    <tnt:NavigationListItem text="Páginas" key="rootItem1" icon="sap-icon://activity-items">
-                        <tnt:NavigationListItem text="Home" key="home"/>
-                        <tnt:NavigationListItem text="New Table" key="newTable" />
-                    </tnt:NavigationListItem>                   
+                    itemSelect="onItemSelect"
+                >
+                    <tnt:NavigationListItem
+                        text="Páginas"
+                        key="rootItem1"
+                        icon="sap-icon://activity-items"
+                    >
+                        <tnt:NavigationListItem
+                            text="Home"
+                            key="home"
+                        />
+                        <tnt:NavigationListItem
+                            text="New Table"
+                            key="newTable"
+                        />
+                    </tnt:NavigationListItem>
                 </tnt:NavigationList>
             </Page>
         </masterPages>
@@ -83,7 +94,76 @@
                         </contentRight>
                     </Bar>
                 </customHeader>
-              
+                <VBox
+                    id="VboxContent"
+                    class="vboxcontent"
+                >
+                    <smartFilterBar:SmartFilterBar
+                        id="smartFilterBar"
+                        entitySet="Persons"
+                        persistencyKey="SmartFilter_Explored"
+                    >
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration
+                                id="1"
+                                key="Nome"
+                                visibleInAdvancedArea="true"
+                            />
+                            <!-- <smartFilterBar:ControlConfiguration id="2" key="Description" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="3" key="DiscontinuedDate" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="4" key="Name" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="5" key="Price" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="6" key="Rating" visibleInAdvancedArea="true"/>
+                             <smartFilterBar:ControlConfiguration id="7" key="Rating" visibleInAdvancedArea="true"/> -->
+                        </smartFilterBar:controlConfiguration>
+                    </smartFilterBar:SmartFilterBar>
+
+                    <smartTable:SmartTable
+                        id="LineItemsSmartTable"
+                        initiallyVisibleFields="Nome,Idade,Email,Ativo"
+                        entitySet="Persons"
+                        smartFilterId="smartFilterBar"
+                        tableType="ResponsiveTable"
+                        enableExport="true"
+                        beforeExport="onBeforeExport"
+                        useVariantManagement="true"
+                        useTablePersonalisation="true"
+                        header="Line Items"
+                        showRowCount="true"
+                        persistencyKey="SmartTableAnalytical_Explored"
+                        enableAutoBinding="true"
+                        class="sapUiResponsiveContentPadding"
+                        enableAutoColumnWidth="false"
+                        showFullScreenButton="true"
+                        editTogglable="true"
+                        app:useSmartToggle="true"
+                    >
+                        <Table
+                            id="idTable"
+                            mode="MultiSelect"
+                            growing="true"
+                            growingThreshold="15"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar id="barflow">
+                                    <ToolbarSpacer id="toolbarTable" />
+                                    <Button
+                                        id="buttondelete"
+                                        icon="sap-icon://delete"
+                                        text="Delete"
+                                        press="onDelete"
+                                    />
+                                    <Button
+                                        id="buttonadicionar"
+                                        icon="sap-icon://add"
+                                        text="Adicionar"
+                                        press="onAdd"
+                                    />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                        </Table>
+                    </smartTable:SmartTable>
+                </VBox>
             </Page>
         </detailPages>
     </SplitApp>

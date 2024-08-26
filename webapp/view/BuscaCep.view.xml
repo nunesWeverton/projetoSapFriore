@@ -33,14 +33,28 @@
                         </contentMiddle>
                     </Bar>
                 </customHeader>
-                  <tnt:NavigationList
+                <tnt:NavigationList
                     id="navigationList"
                     width="10.5rem"
-                    itemSelect="onItemSelect">
-                    <tnt:NavigationListItem id="_IDGenNavigationListItem1" text="Páginas"  key="rootItem2" icon="sap-icon://activity-items">
-                        <tnt:NavigationListItem id="_IDGenNavigationListItem2" text="Home" key="home"/>
-                        <tnt:NavigationListItem id="_IDGenNavigationListItem3" text="New Table" key="newTable" />
-                    </tnt:NavigationListItem>                   
+                    itemSelect="onItemSelect"
+                >
+                    <tnt:NavigationListItem
+                        id="_IDGenNavigationListItem1"
+                        text="Páginas"
+                        key="rootItem2"
+                        icon="sap-icon://activity-items"
+                    >
+                        <tnt:NavigationListItem
+                            id="_IDGenNavigationListItem2"
+                            text="Home"
+                            key="home"
+                        />
+                        <tnt:NavigationListItem
+                            id="_IDGenNavigationListItem3"
+                            text="New Table"
+                            key="newTable"
+                        />
+                    </tnt:NavigationListItem>
                 </tnt:NavigationList>
             </Page>
         </masterPages>
@@ -83,68 +97,177 @@
                         </contentRight>
                     </Bar>
                 </customHeader>
-                <VBox >
-                
-                    <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
-                        <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
+                <VBox>
+                    <VBox
+                        class="vboxHistorico"
+                        id="vboxHistorico"
+                        visible="true"
+                    >
+                        <Table
+                            id="historicoTable"
+                            mode="SingleSelectMaster"
+                            class="myCustomTable"
+                        >
                             <headerToolbar>
-                                <Toolbar id="historicoToolbar" class="myCustomToolbar" >
-                        
-                                    <HBox id = "HboxPesquisaFiltro" class = "HboxPesquisaFiltro">
-                                        <Input id="inputCep" placeholder="Buscar endereço no histórico..." width="20rem" 
-                                         class="myCustomInput InputSearchTable"   liveChange="onLiveChange"
-                                          value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}" />
-                                        <Button id="btnBuscar" text="Pesquisar"  press="onBuscarCep" class=" btnSearch myCustomButton" />
+                                <Toolbar
+                                    id="historicoToolbar"
+                                    class="myCustomToolbar"
+                                >
+                                    <HBox
+                                        id="HboxPesquisaFiltro"
+                                        class="HboxPesquisaFiltro"
+                                    >
+                                        <Input
+                                            id="inputCep"
+                                            placeholder="Buscar endereço no histórico..."
+                                            width="20rem"
+                                            class="myCustomInput InputSearchTable"
+                                            liveChange="onLiveChange"
+                                            value="{path: 'yourModel>/cep', type: 'sap.ui.model.type.String'}"
+                                        />
+                                        <Button
+                                            id="btnBuscar"
+                                            text="Pesquisar"
+                                            press="onBuscarCep"
+                                            class=" btnSearch myCustomButton"
+                                        />
                                         <!-- <HBox id ="HboxbtnFiltre" class ="HboxbtnFiltre">
                                             <Button id="btnBuscarEndereco1" icon="sap-icon://arrow-down" press="onFilter" class="btnFiltre" />
                                         </HBox> -->
                                     </HBox>
-                                    <Button id="btnImportarExcel" class="btnImportarExcel" text="Importar Excel" press="onImportarExcel" type="Emphasized" />
-                                    <Button id="btnExportarExcel" class="btnExportarExcel" text="Exportar Excel" press="onGerarExcel" type="Emphasized" />
-                                    <Button id="btnGerarRelatorio" class = "btnGenerateReport" icon = "sap-icon://forward" text="Gerar Relatório" press="onGerarRelatorio"   type="Emphasized"/>
-                                
+                                    <Button
+                                        id="btnImportarExcel"
+                                        class="btnImportarExcel"
+                                        text="Importar Excel"
+                                        press="onImportarExcel"
+                                        type="Emphasized"
+                                    />
+                                    <Button
+                                        id="btnExportarExcel"
+                                        class="btnExportarExcel"
+                                        text="Exportar Excel"
+                                        press="onGerarExcel"
+                                        type="Emphasized"
+                                    />
+                                    <Button
+                                        id="btnGerarRelatorio"
+                                        class="btnGenerateReport"
+                                        text="Gerar Relatório"
+                                        press="onGerarRelatorio"
+                                        type="Emphasized"
+                                    />
                                 </Toolbar>
                             </headerToolbar>
                             <columns>
-                                <Column id="colData" class="myCustomColumn">
-                                <HBox class ="HboxSortData" >
-                                    <Text id="colDataText" text="Data" class="myCustomColumnHeader" />
-                                    <Button id = "butonFilter1" icon="sap-icon://sort" press="onToggleSort" class="btnDataSort" />
-                                </HBox>
-                                </Column>
-                                <Column id="colCep">
-                                    <HBox class ="HboxSortData" >
-                                        <Text id="colCepText" text="CEP Pesquisado" class="myCustomColumnHeader" />
-                                        <Button id = "btnCepSearch" icon="sap-icon://sort" press="onToggleSort" class="btnCepSearch" />
-                                     </HBox>
-                                </Column>
-                                <Column id="colResultado" class="myCustomColumn">
-                                    <HBox class ="HboxSortData" >
-                                          <Text id="colResultadoText" text="Resultado" class="myCustomColumnHeader" />
-                                          <Button  id =  "butonFilter2" icon="sap-icon://sort" press="onToggleSort" class="btnSortResult" />
+                                <Column
+                                    id="colData"
+                                    class="myCustomColumn"
+                                >
+                                    <HBox class="HboxSortData">
+                                        <Text
+                                            id="colDataText"
+                                            text="Data"
+                                            class="myCustomColumnHeader"
+                                        />
+                                        <Button
+                                            id="butonFilter1"
+                                            icon="sap-icon://sort"
+                                            press="onToggleSort"
+                                            class="btnDataSort"
+                                        />
                                     </HBox>
                                 </Column>
-                                <Column id="colDescricao" class="myCustomColumn" width ="15%">
-                                    <Text id="colDescricaoText" text="Descrição" class="myCustomColumnHeader" />
+                                <Column id="colCep">
+                                    <HBox class="HboxSortData">
+                                        <Text
+                                            id="colCepText"
+                                            text="CEP Pesquisado"
+                                            class="myCustomColumnHeader"
+                                        />
+                                        <Button
+                                            id="btnCepSearch"
+                                            icon="sap-icon://sort"
+                                            press="onToggleSort"
+                                            class="btnCepSearch"
+                                        />
+                                    </HBox>
                                 </Column>
-                                <Column id="colAcoes" class="myCustomColumn" width="10%">
-                                    <Text id="coAcoesText" text="Acões" class="myCustomColumnHeader" />
+                                <Column
+                                    id="colResultado"
+                                    class="myCustomColumn"
+                                >
+                                    <HBox class="HboxSortData">
+                                        <Text
+                                            id="colResultadoText"
+                                            text="Resultado"
+                                            class="myCustomColumnHeader"
+                                        />
+                                        <Button
+                                            id="butonFilter2"
+                                            icon="sap-icon://sort"
+                                            press="onToggleSort"
+                                            class="btnSortResult"
+                                        />
+                                    </HBox>
+                                </Column>
+                                <Column
+                                    id="colDescricao"
+                                    class="myCustomColumn"
+                                    width="15%"
+                                >
+                                    <Text
+                                        id="colDescricaoText"
+                                        text="Descrição"
+                                        class="myCustomColumnHeader"
+                                    />
+                                </Column>
+                                <Column
+                                    id="colAcoes"
+                                    class="myCustomColumn"
+                                    width="10%"
+                                >
+                                    <Text
+                                        id="coAcoesText"
+                                        text="Acões"
+                                        class="myCustomColumnHeader"
+                                    />
                                 </Column>
                             </columns>
                             <items>
-                                <ColumnListItem id="teste" type="Active" class="myCustomListItem">
+                                <ColumnListItem
+                                    id="teste"
+                                    type="Active"
+                                    class="myCustomListItem"
+                                >
                                     <cells>
-                                        <Text id="historicoDataText" text="{historico>data}" class="myCustomText myCustomTextData" />
-                                        <Text id="historicoCepText" text="{historico>cep}" class="myCustomText myCustomTextCep"  />
-                                        <Text id="historicoResultadoText" text="{historico>resultado}" class="myCustomText myCustomTextResultado" />
-                                        <Text id="historicoDescricaoText" text="{historico>descricao}" class="myCustomText myCustomTextResultado" />
-                                        
+                                        <Text
+                                            id="historicoDataText"
+                                            text="{historico>data}"
+                                            class="myCustomText myCustomTextData"
+                                        />
+                                        <Text
+                                            id="historicoCepText"
+                                            text="{historico>cep}"
+                                            class="myCustomText myCustomTextCep"
+                                        />
+                                        <Text
+                                            id="historicoResultadoText"
+                                            text="{historico>resultado}"
+                                            class="myCustomText myCustomTextResultado"
+                                        />
+                                        <Text
+                                            id="historicoDescricaoText"
+                                            text="{historico>descricao}"
+                                            class="myCustomText myCustomTextResultado"
+                                        />
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                            
                         </Table>
-                        <Text id = "itemCountText" class = "itemCountText"/>
+                        <Text
+                            id="itemCountText"
+                            class="itemCountText"
+                        />
                     </VBox>
                 </VBox>
             </Page>

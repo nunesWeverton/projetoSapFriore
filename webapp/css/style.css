@@ -1,6 +1,4 @@
-
-
-.sapMPage  {
+.sapMPage {
     background-color: white;
 }
 
@@ -135,8 +133,93 @@
     height: 100%;
 }
 
+.vboxcontent {
+    width: 70%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 15px;
+
+
+
+}
+
+.sapMPageEnableScrolling {
+    justify-content: center;
+    display: flex;
+}
 
 
 
 
+.sapMVarMngmtTitle {
+    color: #031795 !important;
 
+}
+
+.sapMBtnEmphasized {
+    background-color: #031795 !important;
+    border-color: #031795 !important;
+    color: #fff !important;
+
+}
+
+/* .sapMBtnContent{
+    color:#031795;
+
+} */
+
+.sapMBtnTransparent {
+    color: #031795 !important;
+
+}
+
+.sapUiIcon {
+    color: #031795 !important;
+}
+
+.sapMBtnDefault {
+    color: #031795 !important;
+}
+
+.sapMInputBaseDisabledWrapper:hover {
+    border-color: white;
+}
+
+#LineItemsSmartTable {
+    overflow-x: auto;
+    display: block;
+
+}
+
+.customLabel {
+    margin-left: 7px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #031795;
+}
+
+.checkBox {
+    margin-top: 20px;
+}
+
+.customInput {
+    width: 120px;
+    /* Adjust this value as needed */
+    padding: 5px;
+    font-size: 12px;
+    box-sizing: border-box;
+    border-radius: 0px;
+    /* Remove o border-radius */
+    margin-bottom: 10px;
+    color: #031795;
+}
+
+.buttonRoundBlue span {
+    color: #031795;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+
+
+}

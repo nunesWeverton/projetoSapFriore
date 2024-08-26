@@ -222,7 +222,6 @@
 
 .myCustomTable {
     width: 50px;
-    height: 3%;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -335,6 +334,10 @@
 
 .btnOnLogout>.sapMBtnText {
     background-color: #031795 !important;
+}
+
+.btnOnLogout :first-child {
+    color: #fff !important;
 }
 
 
@@ -651,6 +654,7 @@
     border: none;
     background: none;
     border-radius: 25px !important;
+    color: #FFFFFF !important;
 }
 
 .btnGenerateReport .sapMBtnHover,
@@ -784,6 +788,7 @@
     background: none;
     border-radius: 25px !important;
     align-items: center;
+    color: #FFFFFF !important;
 }
 
 .btnGenerateReport:focus span.sapMBtnInner.sapMBtnEmphasized {
@@ -792,6 +797,7 @@
     background: none;
     border-radius: 25px !important;
     align-items: center;
+
 }
 
 
