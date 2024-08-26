@@ -158,7 +158,6 @@
 
 .vboxcontent{
     width: 70%;
-    height: 100%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -205,4 +204,10 @@
 } 
 .sapMInputBaseDisabledWrapper:hover{
     border-color: white;
+}
+
+#LineItemsSmartTable{
+    overflow-x: auto;
+    display: block;
+
 }

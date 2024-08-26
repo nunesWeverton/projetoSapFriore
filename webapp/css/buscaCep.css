@@ -943,3 +943,34 @@
     z-index: 1000;
     /* assegura que esteja acima de outros elementos */
 }
+
+
+.customLabel {
+    margin-left: 7px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #031795;
+}
+ 
+.checkBox{
+    margin-top: 20px;
+}
+ 
+.customInput {
+    width: 120px; /* Adjust this value as needed */
+    padding: 5px;
+    font-size: 12px;
+    box-sizing: border-box;
+    border-radius: 0px; /* Remove o border-radius */
+    margin-bottom: 10px;
+    color: #031795;
+}
+ 
+.buttonRoundBlue span{
+    color: #031795;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    
+
+}

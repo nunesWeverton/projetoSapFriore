@@ -6,10 +6,10 @@
           <PropertyRef Name="ID"/>
         </Key>
         <Property Name="ID" Type="Edm.String" Nullable="false"/>
-        <Property Name="name" Type="Edm.String"/>
-        <Property Name="age" Type="Edm.Int32"/>
-        <Property Name="email" Type="Edm.String"/>
-        <Property Name="isActive" Type="Edm.Boolean"/>
+        <Property Name="Nome" Type="Edm.String"/>
+        <Property Name="Idade" Type="Edm.Int32"/>
+        <Property Name="Email" Type="Edm.String"/>
+        <Property Name="Ativo" Type="Edm.Boolean"/>
         <Property Name="address" Type="Edm.String"/>
       </EntityType>
       <EntityContainer Name="DefaultContainer">

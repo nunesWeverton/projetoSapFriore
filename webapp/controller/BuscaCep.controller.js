@@ -264,20 +264,50 @@ sap.ui.define([
                 title: "Adicionar Item",
                 contentWidth: "400px",
                 content: [
-                    new sap.m.Label({ text: "ID" }),
-                    new sap.m.Input({ id: "inputID" }),
-                    
-                    new sap.m.Label({ text: "Nome" }),
-                    new sap.m.Input({ id: "inputName" }),
-                    
-                    new sap.m.Label({ text: "Idade" }),
-                    new sap.m.Input({ id: "inputAge", type: "Number" }),
-                    
-                    new sap.m.Label({ text: "Email" }),
-                    new sap.m.Input({ id: "inputEmail", type: "Email" }),
-                    
-                    new sap.m.Label({ text: "Ativo" }),
-                    new sap.m.CheckBox({ id: "inputIsActive" })
+                    new sap.m.Label({
+                        text: "ID"
+                    }).addStyleClass("customLabel"),
+                   
+                    new sap.m.Input({
+                        id: "inputID",
+                        placeholder: "ID"
+                    }).addStyleClass("customInput"),
+                   
+                    new sap.m.Label({
+                        text: "Nome"
+                    }).addStyleClass("customLabel"),
+                   
+                    new sap.m.Input({
+                        id: "inputName",
+                        placeholder: "Nome"
+                    }).addStyleClass("customInput"),
+                   
+                    new sap.m.Label({
+                        text: "Idade"
+                    }).addStyleClass("customLabel"),
+                   
+                    new sap.m.Input({
+                        id: "inputAge",
+                        type: "Number",
+                        placeholder: "Idade"
+                    }).addStyleClass("customInput"),
+                   
+                    new sap.m.Label({
+                        text: "Email"
+                    }).addStyleClass("customLabel"),
+                    new sap.m.Input({
+                        id: "inputEmail",
+                        type: "Email",
+                        placeholder: "Email"
+                    }).addStyleClass("customInput"),
+                   
+                    new sap.m.Label({
+                        text: "Ativo"
+                    }).addStyleClass("customLabel"),
+                   
+                    new sap.m.CheckBox({
+                        id: "inputIsActive"
+                    }).addStyleClass("customInput checkBox")
                 ],
                 beginButton: new sap.m.Button({
                     text: "Adicionar",
@@ -285,14 +315,15 @@ sap.ui.define([
                         this.onAddItem(); // Chama a função para adicionar o item
                         oDialog.close(); // Fecha o diálogo
                     }.bind(this)
-                }),
+                }).addStyleClass("buttonRoundBlue"),
                 endButton: new sap.m.Button({
                     text: "Cancelar",
                     press: function() {
                         oDialog.close(); // Fecha o diálogo
                     }
-                })
+                }).addStyleClass("buttonRoundBlue"),
             });
+            
         
             // Anexa o diálogo ao controlador para reutilização
             this.getView().addDependent(oDialog);

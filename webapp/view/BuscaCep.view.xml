@@ -78,7 +78,7 @@
                 <VBox id="VboxContent" class="vboxcontent">
                     <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Persons" persistencyKey="SmartFilter_Explored" >
                          <smartFilterBar:controlConfiguration>
-                              <smartFilterBar:ControlConfiguration id="1" key="name" visibleInAdvancedArea="true"/> 
+                              <smartFilterBar:ControlConfiguration id="1" key="Nome" visibleInAdvancedArea="true"/> 
                              <!-- <smartFilterBar:ControlConfiguration id="2" key="Description" visibleInAdvancedArea="true"/>
                              <smartFilterBar:ControlConfiguration id="3" key="DiscontinuedDate" visibleInAdvancedArea="true"/>
                              <smartFilterBar:ControlConfiguration id="4" key="Name" visibleInAdvancedArea="true"/>
@@ -92,13 +92,13 @@
                         </smartFilterBar:controlConfiguration> 
                 
                 </smartFilterBar:SmartFilterBar> 
-                       
+
                     <smartTable:SmartTable
                         id="LineItemsSmartTable"
-                        initiallyVisibleFields="ID,name,age,email,isActive"
+                        initiallyVisibleFields="Nome,Idade,Email,Ativo"
                         entitySet="Persons"
                         smartFilterId="smartFilterBar"
-                        tableType="Table"
+                        tableType="ResponsiveTable"
                         useExportToExcel="true"
                         beforeExport="onBeforeExport"
                         useVariantManagement="true"
@@ -114,18 +114,19 @@
                         app:useSmartToggle="true"
                     >
 
-                    <Table id="idTable" mode="MultiSelect" growing="true" >
+                    <Table id="idTable" mode="MultiSelect" growing="true" growingThreshold="15" >
                     <headerToolbar>
                          <OverflowToolbar id="barflow" >
                             <ToolbarSpacer id="toolbarTable" />
                             <Button id="buttondelete"  icon="sap-icon://delete" text="Delete" press="onDelete"/>
-                            <Button id="buttonadicionar" icon="sap-icon://edit" text="Adicionar" press="onAdd"/>
+                            <Button id="buttonadicionar" icon="sap-icon://add" text="Adicionar" press="onAdd"/>
 
                         </OverflowToolbar> 
                     
                                 </headerToolbar>
                         </Table>
                 </smartTable:SmartTable>
+
 
                 </VBox>
 
