@@ -58,7 +58,8 @@
         "sap.ui.generic.app": {},
         "sap.ui.table": {},
         "sap.ushell": {},
-        "sap.ui.layout": {}
+        "sap.ui.layout": {},
+        "sap.tnt": {}
       }
     },
     "contentDensities": {
@@ -124,6 +125,11 @@
           "pattern": "Register",
           "name": "Register",
           "target": "TargetRegister"
+        },
+        {
+          "pattern": "NewTable",
+          "name": "NewTable",
+          "target": "TargetNewTable"
         }
       ],
       "targets": {
@@ -147,6 +153,13 @@
           "clearControlAggregation": false,
           "viewId": "Register",
           "viewName": "Register"
+        },
+        "TargetNewTable": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "NewTable",
+          "viewName": "NewTable"
         }
       }
     },

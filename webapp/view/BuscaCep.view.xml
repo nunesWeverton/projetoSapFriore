@@ -1,6 +1,7 @@
 <mvc:View
     controllerName="sap.btp.logincep.controller.BuscaCep"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tnt="sap.tnt"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:html="http://www.w3.org/1999/xhtml"
@@ -32,6 +33,15 @@
                         </contentMiddle>
                     </Bar>
                 </customHeader>
+                  <tnt:NavigationList
+                    id="navigationList"
+                    width="10.5rem"
+                    itemSelect="onItemSelect">
+                    <tnt:NavigationListItem id="_IDGenNavigationListItem1" text="Páginas"  key="rootItem2" icon="sap-icon://activity-items">
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem2" text="Home" key="home"/>
+                        <tnt:NavigationListItem id="_IDGenNavigationListItem3" text="New Table" key="newTable" />
+                    </tnt:NavigationListItem>                   
+                </tnt:NavigationList>
             </Page>
         </masterPages>
 
@@ -73,7 +83,8 @@
                         </contentRight>
                     </Bar>
                 </customHeader>
-                  <content>
+                <VBox >
+                
                     <VBox class="vboxHistorico" id="vboxHistorico" visible="true">
                         <Table id="historicoTable" mode="SingleSelectMaster" class="myCustomTable">
                             <headerToolbar>
@@ -135,7 +146,7 @@
                         </Table>
                         <Text id = "itemCountText" class = "itemCountText"/>
                     </VBox>
-                </content>
+                </VBox>
             </Page>
         </detailPages>
     </SplitApp>

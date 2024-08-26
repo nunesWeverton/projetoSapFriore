@@ -1002,3 +1002,8 @@ button#container-sap\.btp\.logincep---BuscaCep--btnExportarExcel span#container-
     border: none !important;
     border-radius: 25px !important;
 }
+
+.sapMSplitContainerMaster {
+    border: none;
+    width: 12% !important;
+}

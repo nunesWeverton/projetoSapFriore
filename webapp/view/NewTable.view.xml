@@ -1,0 +1,90 @@
+<mvc:View
+    controllerName="sap.btp.logincep.controller.NewTable"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:tnt="sap.tnt"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m"
+>
+    <SplitApp id="SplitApp">
+        <masterPages>
+            <Page
+                id="menuPage"
+                title="Menu"
+                class="customMasterPage"
+            >
+                <customHeader>
+                    <Bar id="bar">
+                        <contentMiddle>
+                            <HBox
+                                id="hbox"
+                                class="HboxImageAnglo"
+                            >
+                                <Image
+                                    id="imageTitulo"
+                                    class="imageAnglo"
+                                    src="images/Anglo_American_Logo_RGB_4C 1.png"
+                                    height="50px"
+                                    width="10px"
+                                />
+                            </HBox>
+                        </contentMiddle>
+                    </Bar>
+                </customHeader>
+                  <tnt:NavigationList
+                    id="navigationList"
+                    width="10.5rem"
+                    itemSelect="onItemSelect">
+                    <tnt:NavigationListItem text="Páginas" key="rootItem1" icon="sap-icon://activity-items">
+                        <tnt:NavigationListItem text="Home" key="home"/>
+                        <tnt:NavigationListItem text="New Table" key="newTable" />
+                    </tnt:NavigationListItem>                   
+                </tnt:NavigationList>
+            </Page>
+        </masterPages>
+
+        <detailPages>
+            <Page
+                id="pageBuscaCep"
+                title="Busca CEP"
+                class="titleBuscaCep"
+            >
+                <customHeader>
+                    <Bar id="detailPageHeader">
+                        <contentMiddle>
+                            <Title
+                                class="pageTitle"
+                                id="pageTitle"
+                            />
+                        </contentMiddle>
+                        <contentRight>
+                            <HBox id="headerBox">
+                                <Button
+                                    id="userButton"
+                                    type="Transparent"
+                                    icon="sap-icon://person-placeholder"
+                                    press="onUserPress"
+                                />
+                                <Button
+                                    id="logoutButton"
+                                    text="Logout"
+                                    icon="sap-icon://log"
+                                    press="onLogout"
+                                    type="Emphasized"
+                                    class="btnOnLogout"
+                                />
+                                <Text
+                                    id="userNameText"
+                                    text=""
+                                />
+                            </HBox>
+                        </contentRight>
+                    </Bar>
+                </customHeader>
+              
+            </Page>
+        </detailPages>
+    </SplitApp>
+</mvc:View>

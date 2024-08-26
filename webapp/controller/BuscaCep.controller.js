@@ -1241,6 +1241,20 @@ sap.ui.define([
             fileInput.click();
             fileInput.parentNode.removeChild(fileInput);
          
+        },
+
+        onItemSelect: function(oEvent) {
+            var sKey = oEvent.getParameter("item").getKey();
+            this.byId("navigationList").setSelectedKey(sKey);
+            switch (sKey) {
+                case "home":
+                    this.getOwnerComponent().getRouter().navTo("BuscaCep");
+                    break;
+                case "newTable":
+                    this.getOwnerComponent().getRouter().navTo("NewTable");
+                    break;
+               
+            }
         }
     });
 });
