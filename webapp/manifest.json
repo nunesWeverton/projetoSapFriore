@@ -59,7 +59,8 @@
         "sap.ui.table": {},
         "sap.ushell": {},
         "sap.ui.layout": {},
-        "sap.tnt": {}
+        "sap.tnt": {},
+        "sap.ui.unified": {}
       }
     },
     "contentDensities": {

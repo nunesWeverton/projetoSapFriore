@@ -17,14 +17,13 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator",
     'sap/ui/model/odata/v2/ODataModel',
     'sap/ui/core/util/MockServer',
+    "sap/suite/ui/commons/imageeditor/ImageEditor",
+	"sap/suite/ui/commons/imageeditor/ImageEditorContainer",
     "sap/ui/export/library",
     "sap/ui/export/Spreadsheet",
     "sap/ui/unified/FileUploader",
-    "sap/suite/ui/commons/imageeditor/ImageEditor",
-	"sap/suite/ui/commons/imageeditor/ImageEditorContainer"
     
- 
-], function(Controller,  MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType , TitleAlignment, HTML,BusyIndicator, ODataModel, MockServer, ImageEditor, ImageEditorContainer ) {
+], function(Controller, MessageToast, JSONModel, Popover, Label, Button, Dialog, TextArea, PlacementType, HBox, VBox, ButtonType, TitleAlignment, HTML, BusyIndicator, ODataModel, MockServer, ImageEditor, ImageEditorContainer) {
     "use strict";
 
     // const { Edm, EntityType, Property, Schema, EntityContainer } = require('odata-v4-metadata');
