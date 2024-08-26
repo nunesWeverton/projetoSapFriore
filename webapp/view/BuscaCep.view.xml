@@ -118,7 +118,7 @@
                     <headerToolbar>
                          <OverflowToolbar id="barflow" >
                             <ToolbarSpacer id="toolbarTable" />
-                            <Button id="buttondelete" class="sapUiSmallMarginBeginEnd" type="Reject" icon="sap-icon://delete" text="Delete" press="onDelete"/>
+                            <Button id="buttondelete"  icon="sap-icon://delete" text="Delete" press="onDelete"/>
                             <Button id="buttonadicionar" icon="sap-icon://edit" text="Adicionar" press="onAdd"/>
 
                         </OverflowToolbar> 

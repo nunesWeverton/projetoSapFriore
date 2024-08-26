@@ -839,6 +839,12 @@ sap.ui.define([
             }      
             
         },
+        onBeforeExport: function(oEvent) {
+            var oExportSettings = oEvent.getParameter("exportSettings");
+            // Adicione lógica para personalizar o arquivo de exportação, se necessário
+            // Por exemplo, altere o nome do arquivo:
+            oExportSettings.fileName = "ExportedData.xlsx";
+        },
 
 
         // onOrdenarCrescenteCep: function() {

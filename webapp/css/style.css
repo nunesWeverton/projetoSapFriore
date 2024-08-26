@@ -200,3 +200,9 @@
 .sapUiIcon {
     color: #031795 !important;
 }
+.sapMBtnDefault{
+    color: #031795 !important;
+} 
+.sapMInputBaseDisabledWrapper:hover{
+    border-color: white;
+}
