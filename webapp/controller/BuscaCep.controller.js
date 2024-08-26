@@ -121,7 +121,6 @@ sap.ui.define([
                 },
                 success: (data) => {
                     this.createHistoricTable(data);
-                    console.log(data);
                     // this.createHistoricTableSmart(data);
                     BusyIndicator.hide()
                 },
@@ -525,7 +524,6 @@ sap.ui.define([
 
         onViewImage: function (data) {
             var oController = this;
-            console.log(data.dataUrl);
 
 			if (!this.oDialog) {
 				this.oDialog = new Dialog({
@@ -882,7 +880,6 @@ sap.ui.define([
                     aHistorico.sort(function(a, b) {
                         var dataA = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
                         var dataB = new Date(b.data.replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2}):(\d{2})/, '$2/$1/$3 $4:$5:$6')).getTime();
-                        console.log("ttdtsa");
 
                         return type === "crescente" ? dataA - dataB : dataB - dataA;
                     });
@@ -892,7 +889,6 @@ sap.ui.define([
                     aHistorico.sort(function(a, b) {
                         var cepA = parseInt(a.cep.replace('-', ''), 10);
                         var cepB = parseInt(b.cep.replace('-', ''), 10);
-                        console.log("ttdtsaaaaa");
                         return type === "crescente" ? cepA - cepB : cepB - cepA;
                     });
                  break;
@@ -1026,7 +1022,6 @@ sap.ui.define([
             var oButton = oEvent.getSource();
             var sIcon = this._bSortAscending ? "sap-icon://sort-ascending" : "sap-icon://sort-descending";
 
-             console.log("qual é o botão", oButton);
 
             oButton.setIcon(sIcon);
 
@@ -1212,7 +1207,6 @@ sap.ui.define([
                        
                         var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         
-                        console.log("Dados da planilha:", jsonData);
                         
                         if (jsonData.length > 0) {
                             var columnNames = jsonData[0]; // Cabeçalhos das colunas
