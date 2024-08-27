@@ -185,8 +185,8 @@ sap.ui.define([
                                                             oDialog.getBeginButton().setEnabled(true);
                                                         }
                                                     }
-                                                });
-                                        
+                                                }).addStyleClass("uploadButton");
+                                                
                                                 var oSendButton = new sap.m.Button({
                                                     text: "Enviar",
                                                     enabled: false,
@@ -199,7 +199,7 @@ sap.ui.define([
                                                             sap.m.MessageToast.show("Nenhum arquivo selecionado.");
                                                         }
                                                     }.bind(this)
-                                                });
+                                                }).addStyleClass("sendButton");
                                         
                                                 var oDialog = new sap.m.Dialog({
                                                     title: "Carregar Imagem",
