@@ -39,7 +39,6 @@
     ]
   },
   "dependencies": {
-    "logincep": "file:",
     "odata-v4-metadata": "^0.1.5"
   }
 }

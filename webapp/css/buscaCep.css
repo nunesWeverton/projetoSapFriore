@@ -884,7 +884,7 @@
     height: 40px;
     border-radius: 100px;
     gap: 8px;
-    color: white;
+    color: white!important;
     align-items: center;
 
 
