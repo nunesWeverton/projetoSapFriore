@@ -1013,3 +1013,18 @@ button#container-sap\.btp\.logincep---BuscaCep--btnExportarExcel span#container-
     border: none;
     width: 12% !important;
 }
+
+.uploadButton {
+    background-color: white;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.sendButton {
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
