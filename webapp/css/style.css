@@ -223,3 +223,8 @@
 
 
 }
+
+/* CSS para ocultar a mensagem de erro */
+.sapUiTableErrorMessage {
+    display: none !important;
+}

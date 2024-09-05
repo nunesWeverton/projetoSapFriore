@@ -214,7 +214,7 @@ sap.ui.define([
                                                     afterClose: function () {
                                                         oDialog.destroy();
                                                     }
-                                                });
+                                                }).addStyleClass("sendButtonImage");
                                         
                                                 // Adiciona o Dialog à view
                                                 oView.addDependent(oDialog);
@@ -523,6 +523,7 @@ sap.ui.define([
 
         onViewImage: function (data) {
             var oController = this;
+            var teste;
 
 			if (!this.oDialog) {
 				this.oDialog = new Dialog({
@@ -532,7 +533,7 @@ sap.ui.define([
 					content: [
 						new ImageEditorContainer({
 						    imageEditor: new ImageEditor({
-                                id: oController.createId("imageEditor")
+                                id: oController.createId("imageEditor"),
                         })
 						})
 					],
@@ -541,14 +542,43 @@ sap.ui.define([
 						press: function () {
 							oController.oDialog.close();
 						}
-					})
+					}),
+                     
+            
 				});
 			}
-
+            
             var oImageEditor = this.byId("imageEditor");
-            oImageEditor.setSrc(data.dataUrl);
 
+            oImageEditor.setSrc(data.dataUrl);
+            console.log("teste do editor", oImageEditor.mProperties)
 			this.oDialog.open();
+
+            this.oDialog.attachAfterOpen(function () {
+                var sButtonId = oController.oDialog.$().find("button[id$='__button4']").attr("id");
+                console.log("ID do botão:", sButtonId);
+        
+                var oButton = sap.ui.getCore().byId(sButtonId);
+                if (oButton) {
+                    // Adiciona um evento ao botão encontrado
+                    oButton.attachPress(function() {
+                        var oUpdatedImage = oImageEditor.mProperties;
+                        var sUpdatedImageUrl = oUpdatedImage.src;
+                        
+                        // Aqui você pode usar sUpdatedImageUrl para atualizar o local onde a imagem é exibida
+                        // oController.updateImageUrl(sUpdatedImageUrl);
+                        // oImageEditor.setSrc(sUpdatedImageUrl)
+
+                        // oImageEditor.exportImage("image/png").then(function(sDataURL) {
+                        //     console.log("Imagem editada:", sDataURL);
+                        //     oController.updateImageUrl(sDataURL);
+                        // });
+        
+                        console.log("Imagem atualizada:", oImageEditor);
+                    });
+                }
+            });
+          
         },
 
 

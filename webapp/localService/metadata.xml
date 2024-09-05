@@ -14,6 +14,8 @@
       </EntityType>
       <EntityContainer Name="DefaultContainer">
         <EntitySet Name="Persons" EntityType="MyNamespace.Person"/>
+        <!-- Definição para o serviço de $batch -->
+        <!-- <FunctionImport Name="Batch" ReturnType="Collection(Edm.String)" m:HttpMethod="POST"/> -->
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

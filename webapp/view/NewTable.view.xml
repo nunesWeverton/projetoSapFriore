@@ -135,8 +135,10 @@
                         class="sapUiResponsiveContentPadding"
                         enableAutoColumnWidth="false"
                         showFullScreenButton="true"
+                        useExportToExcel="true"
                         editTogglable="true"
                         app:useSmartToggle="true"
+                        
                     >
                         <Table
                             id="idTable"

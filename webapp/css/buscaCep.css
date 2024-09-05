@@ -1028,3 +1028,9 @@ button#container-sap\.btp\.logincep---BuscaCep--btnExportarExcel span#container-
     border-radius: 5px;
     padding: 10px 20px;
 }
+
+
+.sendButtonImage{
+    background-color: red;
+    margin-right: 5px;
+}

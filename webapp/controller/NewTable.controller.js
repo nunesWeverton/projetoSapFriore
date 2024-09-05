@@ -2,8 +2,9 @@ sap.ui.define([
   "sap/ui/core/mvc/Controller",
   'sap/ui/model/odata/v2/ODataModel',
   'sap/ui/core/util/MockServer',
+  'sap/ui/export/Spreadsheet',
 
-], function(Controller, ODataModel, MockServer ) {
+], function(Controller, ODataModel, MockServer, Spreadsheet ) {
   "use strict";
 
   return Controller.extend("sap.btp.logincep.controller.NewTable", {
@@ -13,31 +14,161 @@ sap.ui.define([
       // this._bSortAscending  = true;
       // this._loadHistorico();
 
-      var oMockServer = new MockServer({
-          rootUri: "/odata/service/"
-      });
+        sap.m.MessageBox.error = function() {
+            // Não faz nada - a função foi sobrescrita para não exibir o pop-up
+            console.log("Pop-up de erro desabilitado.");
+        };
 
-      // Caminho para o arquivo metadata.xml e mockdata
-      var sPath = sap.ui.require.toUrl("sap/btp/logincep/localService");
-      oMockServer.simulate(sPath + "/metadata.xml", {
-          sMockdataBaseUrl: sPath + "/mockdata",
-          // bGenerateMissingMockData: true
-      });
+        var oMockServer = new MockServer({
+            rootUri: "/localService/"
+        });
 
-      oMockServer.start();
+        // Caminho para o arquivo metadata.xml e mockdata
 
-      // Cria o modelo OData com a URL do mock server
-      var oModel = new ODataModel("/odata/service/", {
-          defaultCountMode: "Inline"
-      });
+        
 
-      // Associa o modelo à view
-      this.getView().setModel(oModel);
+        var sPath = sap.ui.require.toUrl("sap/btp/logincep/localService");
 
-
+       
+        oMockServer.simulate(sPath + "/metadata.xml", {
+            sMockdataBaseUrl: sPath +  "/mockdata",
+            bGenerateMissingMockData: true
+        });
 
 
-  },
+        oMockServer.start();
+
+        // Cria o modelo OData com a URL do mock server
+        var oModel = new ODataModel("/localService/", {
+            defaultCountMode: "Inline"
+        });
+        // Associa o modelo à view
+        this.getView().setModel(oModel);
+
+
+        console.log("ODataModel configurado:", oModel);
+
+    },
+
+
+    // onBeforeExport: function(oEvent) {
+    //     var oSmartTable = this.getView().byId("LineItemsSmartTable");
+    //     var oTable = oSmartTable.getTable();
+    //     var aSelectedItems = oTable.getSelectedItems(); // Obtém os itens selecionados da tabela
+    //     var aSelectedData = []; // Array para armazenar os dados selecionados
+    
+    //     // Itera sobre os itens selecionados e armazena os dados no array
+    //     aSelectedItems.forEach(function(oItem) {
+    //         var oContext = oItem.getBindingContext(); // Obtém o contexto de binding do item selecionado
+    //         var oData = oContext.getObject(); // Obtém o objeto de dados completo
+    //         aSelectedData.push(oData); // Armazena os dados no array
+    //     });
+    
+    //     if (aSelectedData.length === 0) {
+    //         sap.m.MessageToast.show("Nenhuma linha selecionada para exportação.");
+    //         oEvent.preventDefault(); // Cancela a exportação se nada estiver selecionado
+    //         return;
+    //     }
+    
+    //     // Cria um JSONModel temporário com os dados selecionados
+    //     var oSelectedModel = new sap.ui.model.json.JSONModel();
+    //     oSelectedModel.setData(aSelectedData); // Define diretamente os dados no modelo
+    
+    //     var oExportSettings = oEvent.getParameter("exportSettings");
+    
+    //     // Configura as configurações de exportação
+    //     oExportSettings.dataSource = {
+    //         type: 'json',
+    //         data: oSelectedModel.getData() // Passa os dados diretamente para o JSON
+    //     };
+    //     oExportSettings.fileName = 'Line Items.xlsx';
+    //     oExportSettings.fileType = 'XLSX';
+    //     oExportSettings.showProgress = true;
+    // },
+    onBeforeExport: function (oEvent) {
+        var oSmartTable = this.getView().byId("LineItemsSmartTable");
+        var oTable = oSmartTable.getTable();
+    
+        // Verifica se a tabela existe
+        if (!oTable) {
+            sap.m.MessageToast.show("Tabela não encontrada.");
+            oEvent.preventDefault();
+            return;
+        }
+    
+        // Verifica se há itens selecionados
+        var aSelectedItems = oTable.getSelectedItems();
+        var aData;
+    
+        if (aSelectedItems && aSelectedItems.length > 0) {
+            
+            aData = aSelectedItems.map(function (oItem) {
+                return oItem.getBindingContext().getObject();
+            });
+        } else {
+            
+            var oBinding = oTable.getBinding("items");
+            if (oBinding) {
+                aData = oBinding.getContexts().map(function (oContext) {
+                    return oContext.getObject();
+                });
+            }
+        }
+    
+        console.log("Dados para exportação:", aData);  
+    
+        if (!aData || aData.length === 0) {
+            sap.m.MessageToast.show("Nenhuma linha disponível para exportação.");
+            oEvent.preventDefault();
+            return;
+        }
+    
+        
+        var aColumns = [
+            { label: 'Nome', property: 'Nome', type: 'string' },
+            { label: 'Idade', property: 'Idade', type: 'number' },
+            { label: 'Email', property: 'Email', type: 'string' },
+            { label: 'Ativo', property: 'Ativo', type: 'boolean' }
+        ];
+    
+        
+        var oSettings = {
+            workbook: { columns: aColumns },
+            dataSource: aData,  
+            fileName: 'SelectedItems.xlsx', 
+            showProgress: true 
+        };
+    
+       
+        var oSheet = new sap.ui.export.Spreadsheet(oSettings);
+        
+        
+        oSheet.build().then(function () {
+            sap.m.MessageToast.show("Exportação concluída com sucesso.");
+        }).catch(function (oError) {
+             sap.m.MessageToast.show("Erro durante a exportação: ");
+        }).finally(function () {
+            oSheet.destroy();  
+        });
+    } ,
+
+
+    
+    
+
+    // onBeforeExport: function(oEvent) {
+    //     var oExportSettings = oEvent.getParameter("exportSettings");
+    
+    //     // Configuração de exportação
+    //     oExportSettings.dataSource = {
+    //         type: 'odata',
+    //         dataUrl: 'http://localhost:8080/localService/mockdata/Persons.json?$format=json&$select=Nome,Idade,Email,Ativo',
+    //         serviceUrl: '/localService'
+    //     };
+    //     oExportSettings.fileName = 'Line Items.xlsx';
+    //     oExportSettings.fileType = 'XLSX';
+    //     oExportSettings.showProgress = true;
+    // },
 
   onDelete: function() {
     var oTable = this.byId("idTable");
